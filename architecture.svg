@@ -1,0 +1,249 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" font-family="Inter Tight, system-ui, sans-serif">
+  <defs>
+    <style>
+      .ink{fill:#1A2332} .soft{fill:#4A5568} .mute{fill:#94A3B8}
+      .primary{fill:#C8553D} .primary-stroke{stroke:#C8553D}
+      .teal{fill:#2E7D7A} .gold{fill:#D4A24C} .slate{fill:#5C7A89}
+      .cream{fill:#F4ECDF} .bg{fill:#FBF7F0}
+      .h{font-family:'Fraunces','Georgia',serif;font-weight:600}
+      .label{font-size:11px;fill:#1A2332;font-weight:600}
+      .small{font-size:10px;fill:#94A3B8;font-weight:500;letter-spacing:0.04em;text-transform:uppercase}
+      .desc{font-size:10.5px;fill:#4A5568}
+      .arrow{stroke:#C8553D;stroke-width:1.5;fill:none;marker-end:url(#a)}
+      .arrow-soft{stroke:#94A3B8;stroke-width:1;fill:none;stroke-dasharray:3 3;marker-end:url(#asoft)}
+    </style>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#C8553D"/>
+    </marker>
+    <marker id="asoft" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#94A3B8"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="760" class="bg"/>
+
+  <!-- Title -->
+  <text x="40" y="44" class="h" font-size="22" fill="#1A2332">Social Listening Service · Data Flow</text>
+  <text x="40" y="64" class="small" fill="#C8553D">PTCHP · BACKEND ARCHITECTURE</text>
+
+  <!-- ============================================== -->
+  <!-- ROW 1: Public platforms                         -->
+  <!-- ============================================== -->
+  <g transform="translate(40, 100)">
+    <rect width="1120" height="80" rx="10" fill="#1A2332"/>
+    <text x="20" y="22" class="small" fill="#D4A24C">PUBLIC SOCIAL PLATFORMS</text>
+
+    <g transform="translate(40, 36)">
+      <circle cx="14" cy="14" r="14" fill="#C8553D"/>
+      <text x="14" y="19" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">𝕏</text>
+      <text x="40" y="13" font-size="12" font-weight="600" fill="#fff">X / Twitter</text>
+      <text x="40" y="27" font-size="10" fill="rgba(255,255,255,.6)">v2 search · OAuth 2 Bearer</text>
+    </g>
+
+    <g transform="translate(280, 36)">
+      <circle cx="14" cy="14" r="14" fill="#2E7D7A"/>
+      <text x="14" y="19" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">f</text>
+      <text x="40" y="13" font-size="12" font-weight="600" fill="#fff">Meta Graph</text>
+      <text x="40" y="27" font-size="10" fill="rgba(255,255,255,.6)">Page tagged + IG /tags</text>
+    </g>
+
+    <g transform="translate(520, 36)">
+      <circle cx="14" cy="14" r="14" fill="#D4A24C"/>
+      <text x="14" y="19" text-anchor="middle" font-size="13" font-weight="700" fill="#1A2332">r</text>
+      <text x="40" y="13" font-size="12" font-weight="600" fill="#fff">Reddit</text>
+      <text x="40" y="27" font-size="10" fill="rgba(255,255,255,.6)">Public JSON · no auth</text>
+    </g>
+
+    <g transform="translate(760, 36)">
+      <circle cx="14" cy="14" r="14" fill="#5C7A89"/>
+      <text x="14" y="19" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">RSS</text>
+      <text x="40" y="13" font-size="12" font-weight="600" fill="#fff">News &amp; Alerts</text>
+      <text x="40" y="27" font-size="10" fill="rgba(255,255,255,.6)">Google Alerts · KT · TN</text>
+    </g>
+
+    <g transform="translate(1000, 36)">
+      <circle cx="14" cy="14" r="14" fill="#94A3B8" opacity="0.7"/>
+      <text x="14" y="19" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">YT</text>
+      <text x="40" y="13" font-size="12" font-weight="600" fill="rgba(255,255,255,.7)">YouTube</text>
+      <text x="40" y="27" font-size="10" fill="rgba(255,255,255,.45)">Roadmap</text>
+    </g>
+  </g>
+
+  <!-- Arrows down to adapters -->
+  <line x1="100" y1="180" x2="100" y2="220" class="arrow"/>
+  <line x1="340" y1="180" x2="340" y2="220" class="arrow"/>
+  <line x1="580" y1="180" x2="580" y2="220" class="arrow"/>
+  <line x1="820" y1="180" x2="820" y2="220" class="arrow"/>
+
+  <!-- ============================================== -->
+  <!-- ROW 2: Adapters                                 -->
+  <!-- ============================================== -->
+  <g transform="translate(40, 220)">
+    <text x="0" y="0" class="small">ADAPTERS · ONE PER PLATFORM · LAMBDA-DEPLOYABLE</text>
+    <g transform="translate(0, 14)">
+      <rect width="200" height="76" rx="8" fill="#fff" stroke="#E8DFD2"/>
+      <rect width="3" height="76" class="primary"/>
+      <text x="14" y="22" font-size="13" font-weight="600" class="ink">x_adapter.py</text>
+      <text x="14" y="40" class="desc">• Bearer token auth</text>
+      <text x="14" y="54" class="desc">• Recent search query</text>
+      <text x="14" y="68" class="desc">• 60 req/15min cap</text>
+    </g>
+    <g transform="translate(240, 14)">
+      <rect width="200" height="76" rx="8" fill="#fff" stroke="#E8DFD2"/>
+      <rect width="3" height="76" class="teal" stroke="none"/>
+      <text x="14" y="22" font-size="13" font-weight="600" class="ink">meta_adapter.py</text>
+      <text x="14" y="40" class="desc">• Page Access Token</text>
+      <text x="14" y="54" class="desc">• Tagged + comments</text>
+      <text x="14" y="68" class="desc">• FB + IG combined</text>
+    </g>
+    <g transform="translate(480, 14)">
+      <rect width="200" height="76" rx="8" fill="#fff" stroke="#E8DFD2"/>
+      <rect width="3" height="76" class="gold" stroke="none"/>
+      <text x="14" y="22" font-size="13" font-weight="600" class="ink">reddit_adapter.py</text>
+      <text x="14" y="40" class="desc">• Public, no auth</text>
+      <text x="14" y="54" class="desc">• r/dubai · r/uae</text>
+      <text x="14" y="68" class="desc">• User-Agent required</text>
+    </g>
+    <g transform="translate(720, 14)">
+      <rect width="200" height="76" rx="8" fill="#fff" stroke="#E8DFD2"/>
+      <rect width="3" height="76" class="slate" stroke="none"/>
+      <text x="14" y="22" font-size="13" font-weight="600" class="ink">rss_adapter.py</text>
+      <text x="14" y="40" class="desc">• Atom + RSS 2.0</text>
+      <text x="14" y="54" class="desc">• Configurable feeds</text>
+      <text x="14" y="68" class="desc">• Date-filtered</text>
+    </g>
+
+    <!-- secrets-manager note -->
+    <g transform="translate(960, 14)">
+      <rect width="160" height="76" rx="8" fill="#F4ECDF" stroke="#E8DFD2"/>
+      <text x="14" y="20" font-size="11" font-weight="700" class="primary">SECRETS MGR</text>
+      <text x="14" y="38" class="desc">OAuth tokens</text>
+      <text x="14" y="52" class="desc">Rotated quarterly</text>
+      <text x="14" y="66" class="desc">Per-adapter scope</text>
+    </g>
+    <line x1="940" y1="52" x2="960" y2="52" class="arrow-soft"/>
+    <line x1="940" y1="52" x2="200" y2="52" class="arrow-soft" stroke-dasharray="2 4"/>
+  </g>
+
+  <!-- Arrows down to normalizer -->
+  <line x1="100" y1="310" x2="380" y2="370" class="arrow"/>
+  <line x1="340" y1="310" x2="450" y2="370" class="arrow"/>
+  <line x1="580" y1="310" x2="540" y2="370" class="arrow"/>
+  <line x1="820" y1="310" x2="620" y2="370" class="arrow"/>
+
+  <!-- ============================================== -->
+  <!-- ROW 3: Normalizer + Sentiment + Dedup           -->
+  <!-- ============================================== -->
+  <g transform="translate(40, 370)">
+    <text x="0" y="0" class="small">PROCESSING PIPELINE</text>
+
+    <g transform="translate(330, 14)">
+      <rect width="200" height="60" rx="8" fill="#1A2332"/>
+      <text x="14" y="24" font-size="13" font-weight="700" fill="#fff">Normalizer</text>
+      <text x="14" y="42" font-size="10" fill="rgba(255,255,255,.65)">→ unified Mention schema</text>
+      <text x="14" y="55" font-size="10" fill="rgba(255,255,255,.45)">models.py</text>
+    </g>
+
+    <line x1="530" y1="44" x2="565" y2="44" class="arrow"/>
+
+    <g transform="translate(565, 14)">
+      <rect width="200" height="60" rx="8" fill="#1A2332"/>
+      <rect x="194" width="6" height="60" class="primary"/>
+      <text x="14" y="24" font-size="13" font-weight="700" fill="#fff">Sentiment + Emotion</text>
+      <text x="14" y="42" font-size="10" fill="rgba(255,255,255,.65)">AR / EN · Claude or lexicon</text>
+      <text x="14" y="55" font-size="10" fill="rgba(255,255,255,.45)">sentiment.py</text>
+    </g>
+
+    <line x1="765" y1="44" x2="800" y2="44" class="arrow"/>
+
+    <g transform="translate(800, 14)">
+      <rect width="200" height="60" rx="8" fill="#1A2332"/>
+      <text x="14" y="24" font-size="13" font-weight="700" fill="#fff">Dedup + Priority</text>
+      <text x="14" y="42" font-size="10" fill="rgba(255,255,255,.65)">cross-platform repost merge</text>
+      <text x="14" y="55" font-size="10" fill="rgba(255,255,255,.45)">priority 0–100</text>
+    </g>
+  </g>
+
+  <!-- Arrow down to cache -->
+  <path d="M 900 444 Q 900 480 600 480 Q 300 480 300 510" class="arrow"/>
+
+  <!-- ============================================== -->
+  <!-- ROW 4: Cache                                    -->
+  <!-- ============================================== -->
+  <g transform="translate(40, 510)">
+    <text x="0" y="0" class="small">CACHE LAYER · 24H ROLLING WINDOW</text>
+    <g transform="translate(180, 14)">
+      <rect width="240" height="70" rx="10" class="cream"/>
+      <rect width="240" height="70" rx="10" fill="none" stroke="#C8553D" stroke-width="1.5"/>
+      <text x="20" y="26" font-size="14" font-weight="700" class="ink">Redis (ElastiCache)</text>
+      <text x="20" y="44" class="desc">key: mention:{platform}:{native_id}</text>
+      <text x="20" y="58" class="desc">TTL 24h · in-memory fallback for dev</text>
+    </g>
+
+    <!-- Poll cycle annotation -->
+    <g transform="translate(440, 14)">
+      <rect width="180" height="70" rx="8" fill="#fff" stroke="#E8DFD2" stroke-dasharray="3 3"/>
+      <text x="14" y="22" font-size="11" font-weight="700" class="teal">SCHEDULED POLLER</text>
+      <text x="14" y="40" class="desc">Every 60s · per adapter</text>
+      <text x="14" y="54" class="desc">EventBridge in production</text>
+    </g>
+    <line x1="380" y1="48" x2="442" y2="48" class="arrow"/>
+
+    <!-- Right side: API + dashboard -->
+    <g transform="translate(680, 14)">
+      <rect width="200" height="70" rx="10" fill="#1A2332"/>
+      <text x="20" y="26" font-size="14" font-weight="700" fill="#fff">FastAPI service</text>
+      <text x="20" y="44" font-size="10" fill="rgba(255,255,255,.7)">/api/mentions</text>
+      <text x="20" y="58" font-size="10" fill="rgba(255,255,255,.7)">/api/mentions/stats · /stream</text>
+    </g>
+    <line x1="420" y1="48" x2="680" y2="48" class="arrow"/>
+
+    <g transform="translate(900, 14)">
+      <rect width="220" height="70" rx="10" class="primary" fill="#C8553D"/>
+      <text x="20" y="26" font-size="14" font-weight="700" fill="#fff">PTCHP Dashboard</text>
+      <text x="20" y="44" font-size="10" fill="rgba(255,255,255,.85)">Polls every 30s</text>
+      <text x="20" y="58" font-size="10" fill="rgba(255,255,255,.85)">Live SSE for spike alerts</text>
+    </g>
+    <line x1="880" y1="48" x2="900" y2="48" class="arrow"/>
+  </g>
+
+  <!-- ============================================== -->
+  <!-- Bottom strip: privacy + ops                     -->
+  <!-- ============================================== -->
+  <g transform="translate(40, 640)">
+    <rect width="1120" height="90" rx="10" class="cream"/>
+
+    <g transform="translate(20, 18)">
+      <text font-size="11" font-weight="700" class="primary" letter-spacing="2">PRIVACY · GOVERNANCE · COST</text>
+    </g>
+
+    <g transform="translate(20, 40)">
+      <text font-size="11.5" font-weight="600" class="ink">Privacy</text>
+      <text x="0" y="16" class="desc">Author handles masked before</text>
+      <text x="0" y="30" class="desc">leaving the service. PII never</text>
+      <text x="0" y="44" class="desc">stored. GDPR &amp; UAE PDPL.</text>
+    </g>
+
+    <g transform="translate(290, 40)">
+      <text font-size="11.5" font-weight="600" class="ink">Sentiment backend</text>
+      <text x="0" y="16" class="desc">SENTIMENT_BACKEND=lexicon</text>
+      <text x="0" y="30" class="desc">for dev; switch to 'llm' to call</text>
+      <text x="0" y="44" class="desc">Claude Haiku 4.5 in production.</text>
+    </g>
+
+    <g transform="translate(560, 40)">
+      <text font-size="11.5" font-weight="600" class="ink">Observability</text>
+      <text x="0" y="16" class="desc">CloudWatch metrics per adapter:</text>
+      <text x="0" y="30" class="desc">poll latency, error rate,</text>
+      <text x="0" y="44" class="desc">sentiment-spike alerts.</text>
+    </g>
+
+    <g transform="translate(830, 40)">
+      <text font-size="11.5" font-weight="600" class="ink">Estimated monthly cost</text>
+      <text x="0" y="16" class="desc">X Basic ($200) + Lambda + Redis +</text>
+      <text x="0" y="30" class="desc">Claude inference at RTA volume:</text>
+      <text x="0" y="44" font-weight="700" class="primary">≈ $400–800 / month total</text>
+    </g>
+  </g>
+</svg>

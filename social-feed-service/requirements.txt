@@ -1,0 +1,6 @@
+fastapi>=0.115
+uvicorn[standard]>=0.30
+httpx>=0.27
+pydantic>=2.7
+redis>=5.0          # only used if REDIS_URL is set
+# anthropic>=0.40    # uncomment when SENTIMENT_BACKEND=llm
