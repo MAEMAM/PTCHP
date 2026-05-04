@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+
+# Environment
+.env
+.env.local
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Source data — uploaded separately, not for public repos
+*.xlsx
+*.xls
+all_cases.pkl
+dashboard_data.json
+social_demo_data.json
+
+# Build artifacts
+*.pdf
+slide-*.jpg
+slide-*.png
+dash_*.png
+*.zip
