@@ -10,7 +10,10 @@ PTCHP_Bundle/
 ├── PTCHP_Pitch_Deck.pptx           ← 14-slide executive pitch deck
 ├── PTCHP_Dashboard.html            ← live operations dashboard (open in any browser)
 ├── INTEGRATION.md                  ← how to wire dashboard ↔ backend
-├── architecture.svg                ← social listening architecture diagram
+├── system_architecture.svg         ← full PTCHP system architecture (6 layers)
+├── database_schema.svg             ← entity-relationship diagram (15 tables)
+├── architecture.svg                ← social listening data-flow detail
+├── CRM_DAX_Measures.txt            ← Power BI DAX measure definitions
 └── social-feed-service/            ← FastAPI backend for live social feeds
     ├── README.md
     ├── main.py
@@ -25,7 +28,8 @@ PTCHP_Bundle/
         ├── x_adapter.py            ← X (Twitter) v2 API
         ├── meta_adapter.py         ← Facebook + Instagram Graph API
         ├── reddit_adapter.py       ← Reddit (no auth)
-        └── rss_adapter.py          ← Google Alerts + UAE news RSS
+        ├── rss_adapter.py          ← Google Alerts + UAE news RSS
+        └── gtfs_adapter.py         ← Swiftly GTFS-rt for bus tracking
 ```
 
 ## Quick start

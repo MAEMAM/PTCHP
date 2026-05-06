@@ -1,0 +1,280 @@
+CRM Power BI DAX Measures
+Table name: 'RAW DATA-2026 -2025-2024-2023'
+
+==================================================
+1. BASIC MEASURES
+==================================================
+
+Total Cases =
+COUNTROWS ( 'RAW DATA-2026 -2025-2024-2023' )
+
+Total Complaints =
+CALCULATE (
+    [Total Cases],
+    'RAW DATA-2026 -2025-2024-2023'[Transaction Type] = "Complaint"
+)
+
+Total Requests =
+CALCULATE (
+    [Total Cases],
+    'RAW DATA-2026 -2025-2024-2023'[Transaction Type] = "Request"
+)
+
+Total Notifications =
+CALCULATE (
+    [Total Cases],
+    'RAW DATA-2026 -2025-2024-2023'[Transaction Type] = "Notification"
+)
+
+==================================================
+2. VALID / INVALID COMPLAINTS
+==================================================
+
+Valid Complaints =
+CALCULATE (
+    [Total Cases],
+    'RAW DATA-2026 -2025-2024-2023'[Status Reason2] = "Valid Complaint"
+)
+
+Invalid Complaints =
+CALCULATE (
+    [Total Cases],
+    'RAW DATA-2026 -2025-2024-2023'[Status Reason2] = "Invalid Complaint"
+)
+
+Valid Complaint Rate % =
+DIVIDE (
+    [Valid Complaints],
+    [Total Complaints],
+    0
+)
+
+Invalid Complaint Rate % =
+DIVIDE (
+    [Invalid Complaints],
+    [Total Complaints],
+    0
+)
+
+==================================================
+3. SLA MEASURES
+==================================================
+
+Within SLA Cases =
+CALCULATE (
+    [Total Cases],
+    'RAW DATA-2026 -2025-2024-2023'[SLA Status] = "Within SLA"
+)
+
+Breached SLA Cases =
+CALCULATE (
+    [Total Cases],
+    'RAW DATA-2026 -2025-2024-2023'[SLA Status] = "Breached SLA"
+)
+
+SLA Compliance % =
+DIVIDE (
+    [Within SLA Cases],
+    [Within SLA Cases] + [Breached SLA Cases],
+    0
+)
+
+Average Resolution Days =
+AVERAGE ( 'RAW DATA-2026 -2025-2024-2023'[Resolution Days] )
+
+==================================================
+4. YEAR-OVER-YEAR MEASURES
+==================================================
+
+Cases Previous Year =
+CALCULATE (
+    [Total Cases],
+    SAMEPERIODLASTYEAR ( 'Date Table'[Date] )
+)
+
+YoY Change =
+[Total Cases] - [Cases Previous Year]
+
+YoY Change % =
+DIVIDE (
+    [YoY Change],
+    [Cases Previous Year],
+    0
+)
+
+Complaints Previous Year =
+CALCULATE (
+    [Total Complaints],
+    SAMEPERIODLASTYEAR ( 'Date Table'[Date] )
+)
+
+Complaints YoY Change =
+[Total Complaints] - [Complaints Previous Year]
+
+Complaints YoY Change % =
+DIVIDE (
+    [Complaints YoY Change],
+    [Complaints Previous Year],
+    0
+)
+
+==================================================
+5. SERVICE GROUP MEASURES
+==================================================
+
+Bus Cases =
+CALCULATE (
+    [Total Cases],
+    'RAW DATA-2026 -2025-2024-2023'[Service Group] = "Bus Transport"
+)
+
+Bus Complaints =
+CALCULATE (
+    [Total Complaints],
+    'RAW DATA-2026 -2025-2024-2023'[Service Group] = "Bus Transport"
+)
+
+Taxi Luxury Cases =
+CALCULATE (
+    [Total Cases],
+    'RAW DATA-2026 -2025-2024-2023'[Service Group] = "Taxis and Luxury Vehicles Transport"
+)
+
+Taxi Luxury Complaints =
+CALCULATE (
+    [Total Complaints],
+    'RAW DATA-2026 -2025-2024-2023'[Service Group] = "Taxis and Luxury Vehicles Transport"
+)
+
+Marine Cases =
+CALCULATE (
+    [Total Cases],
+    'RAW DATA-2026 -2025-2024-2023'[Service Group] = "Marine Transport"
+)
+
+Marine Complaints =
+CALCULATE (
+    [Total Complaints],
+    'RAW DATA-2026 -2025-2024-2023'[Service Group] = "Marine Transport"
+)
+
+==================================================
+6. SENTIMENT MEASURES
+==================================================
+
+Positive Cases =
+CALCULATE (
+    [Total Cases],
+    'RAW DATA-2026 -2025-2024-2023'[Sentiment Basic] = "Positive"
+)
+
+Negative Cases =
+CALCULATE (
+    [Total Cases],
+    'RAW DATA-2026 -2025-2024-2023'[Sentiment Basic] = "Negative"
+)
+
+Neutral Cases =
+CALCULATE (
+    [Total Cases],
+    'RAW DATA-2026 -2025-2024-2023'[Sentiment Basic] = "Neutral"
+)
+
+Positive Sentiment % =
+DIVIDE (
+    [Positive Cases],
+    [Total Cases],
+    0
+)
+
+Negative Sentiment % =
+DIVIDE (
+    [Negative Cases],
+    [Total Cases],
+    0
+)
+
+Neutral Sentiment % =
+DIVIDE (
+    [Neutral Cases],
+    [Total Cases],
+    0
+)
+
+==================================================
+7. BUS ROUTE MEASURES
+==================================================
+
+Bus Route Total Cases =
+CALCULATE (
+    [Total Cases],
+    'RAW DATA-2026 -2025-2024-2023'[Service Group] = "Bus Transport"
+)
+
+Bus Route Complaints =
+CALCULATE (
+    [Total Complaints],
+    'RAW DATA-2026 -2025-2024-2023'[Service Group] = "Bus Transport"
+)
+
+Valid Bus Complaints =
+CALCULATE (
+    [Valid Complaints],
+    'RAW DATA-2026 -2025-2024-2023'[Service Group] = "Bus Transport"
+)
+
+Invalid Bus Complaints =
+CALCULATE (
+    [Invalid Complaints],
+    'RAW DATA-2026 -2025-2024-2023'[Service Group] = "Bus Transport"
+)
+
+==================================================
+8. PERCENTAGE OF TOTAL MEASURES
+==================================================
+
+Cases % of Total =
+DIVIDE (
+    [Total Cases],
+    CALCULATE (
+        [Total Cases],
+        ALL ( 'RAW DATA-2026 -2025-2024-2023' )
+    ),
+    0
+)
+
+Complaints % of Total =
+DIVIDE (
+    [Total Complaints],
+    CALCULATE (
+        [Total Complaints],
+        ALL ( 'RAW DATA-2026 -2025-2024-2023' )
+    ),
+    0
+)
+
+Monthly Cases % of Year =
+DIVIDE (
+    [Total Cases],
+    CALCULATE (
+        [Total Cases],
+        ALLEXCEPT (
+            'RAW DATA-2026 -2025-2024-2023',
+            'RAW DATA-2026 -2025-2024-2023'[Year]
+        )
+    ),
+    0
+)
+
+==================================================
+9. DATE TABLE
+==================================================
+
+Date Table =
+ADDCOLUMNS (
+    CALENDAR ( DATE ( 2023, 1, 1 ), DATE ( 2026, 12, 31 ) ),
+    "Year", YEAR ( [Date] ),
+    "Month No", MONTH ( [Date] ),
+    "Month Name", FORMAT ( [Date], "mmmm" ),
+    "Year Month", FORMAT ( [Date], "YYYY-MM" )
+)

@@ -317,6 +317,226 @@ body{min-height:100vh;background:
 .refresh-btn:hover{border-color:var(--primary-l);color:var(--primary)}
 .refresh-btn.spinning svg{animation:spin 1s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
+
+/* === DAX / Power BI section === */
+.dax-head{margin-bottom:8px}
+.dax-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);font-weight:700;margin-bottom:6px}
+.dax-eyebrow::before{content:"";width:14px;height:1px;background:var(--teal)}
+.dax-source{font-size:11px;color:var(--mute);margin-top:6px;font-family:'JetBrains Mono',monospace}
+
+.dax-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
+@media (max-width:1100px){.dax-grid{grid-template-columns:repeat(2,1fr)}}
+
+.dax-card{background:var(--panel);border:1px solid var(--rule);border-radius:12px;padding:18px 18px 16px;position:relative;transition:transform .2s, box-shadow .2s}
+.dax-card:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+.dax-card.teal::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--teal);border-radius:3px 0 0 3px}
+.dax-card.primary::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--primary);border-radius:3px 0 0 3px}
+.dax-card.gold::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold);border-radius:3px 0 0 3px}
+.dax-card.slate::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--slate);border-radius:3px 0 0 3px}
+
+.dax-name{font-size:11px;font-weight:600;color:var(--mute);letter-spacing:.06em;text-transform:uppercase;font-family:'Inter Tight',sans-serif}
+.dax-formula{font-size:10px;color:var(--mute);font-family:'JetBrains Mono',monospace;margin-top:3px;opacity:0.65}
+.dax-num{font-family:'Fraunces',serif;font-weight:500;font-size:34px;letter-spacing:-0.02em;line-height:1;margin-top:14px;color:var(--ink)}
+.dax-num small{font-size:14px;color:var(--soft);font-weight:400;margin-left:3px}
+.dax-sub{font-size:11px;color:var(--soft);margin-top:6px}
+
+.dax-table{width:100%;border-collapse:collapse;font-size:12.5px}
+.dax-table th{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);padding:10px 10px 10px 0;text-align:left;font-weight:600;border-bottom:1px solid var(--rule)}
+.dax-table th.r{text-align:right}
+.dax-table td{padding:14px 10px 14px 0;border-bottom:1px solid var(--rule);font-family:'JetBrains Mono',monospace;font-size:12px}
+.dax-table td.r{text-align:right}
+.dax-table td.label{font-family:'Inter Tight',sans-serif;font-size:13px;font-weight:500}
+.dax-table tr:last-child td{border-bottom:none}
+.dax-table .delta-up{color:var(--good);font-weight:600}
+.dax-table .delta-dn{color:var(--bad);font-weight:600}
+.dax-table .delta-na{color:var(--mute)}
+
+.dax-sentiment-bar{display:flex;height:36px;border-radius:8px;overflow:hidden;background:var(--cream)}
+.dax-sentiment-bar > div{display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:700;color:#fff;transition:all .3s}
+.dax-sentiment-bar .neg{background:var(--primary)}
+.dax-sentiment-bar .neu{background:var(--mute)}
+.dax-sentiment-bar .pos{background:var(--good)}
+
+.tx-mix{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}
+.tx-tile{padding:14px;border-radius:9px;text-align:center;border:1px solid var(--rule)}
+.tx-tile .n{font-family:'Fraunces',serif;font-weight:600;font-size:28px;line-height:1;letter-spacing:-0.02em}
+.tx-tile .l{font-size:11px;color:var(--mute);text-transform:uppercase;letter-spacing:.1em;margin-top:6px;font-weight:600}
+.tx-tile .p{font-size:11px;color:var(--soft);margin-top:4px;font-family:'JetBrains Mono',monospace}
+.tx-tile.complaint{background:rgba(200,85,61,.06)}
+.tx-tile.complaint .n{color:var(--primary)}
+.tx-tile.request{background:rgba(46,125,122,.06)}
+.tx-tile.request .n{color:var(--teal)}
+.tx-tile.notif{background:rgba(212,162,76,.10)}
+.tx-tile.notif .n{color:#7a5a1f}
+
+/* === Tab navigation === */
+.tab-nav-wrap{position:sticky;top:62px;z-index:40;background:rgba(251,247,240,.92);backdrop-filter:saturate(160%) blur(14px);border-bottom:1px solid var(--rule);margin-bottom:0;transition:top .35s cubic-bezier(.2,.7,.2,1)}
+.tab-nav-inner{max-width:1440px;margin:0 auto;padding:0 28px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.tab-nav-inner::-webkit-scrollbar{display:none}
+
+/* When user is in any non-overview tab, collapse the hero into a compact strip */
+body.tab-compact .hero{padding:18px 28px 14px;transition:padding .35s cubic-bezier(.2,.7,.2,1)}
+body.tab-compact .hero h1{font-size:24px;line-height:1.15;margin-top:0;max-width:none;transition:font-size .35s,margin .35s}
+body.tab-compact .hero-eyebrow{display:none}
+body.tab-compact .hero-sub{display:none}
+body.tab-compact .hero-meta{margin-top:8px;font-size:12px;gap:18px}
+body.tab-compact .tab-nav-wrap{top:0}
+
+.tab-btn{appearance:none;background:transparent;border:0;font-family:'Inter Tight',sans-serif;font-size:13.5px;font-weight:600;color:var(--soft);padding:16px 18px 14px;cursor:pointer;letter-spacing:-0.005em;border-bottom:2px solid transparent;transition:all .18s;display:inline-flex;align-items:center;gap:8px;white-space:nowrap;position:relative}
+.tab-btn:hover{color:var(--ink)}
+.tab-btn.active{color:var(--primary);border-bottom-color:var(--primary)}
+.tab-btn .count{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:500;color:var(--mute);padding:2px 7px;border-radius:999px;background:var(--cream);transition:all .18s}
+.tab-btn.active .count{color:var(--primary);background:rgba(200,85,61,.08)}
+.tab-btn .ico{display:inline-flex;width:14px;height:14px;align-items:center;justify-content:center;opacity:.7}
+.tab-btn.active .ico{opacity:1}
+.tab-pane{display:none;animation:tabFade .35s cubic-bezier(.2,.7,.2,1)}
+.tab-pane.active{display:block}
+@keyframes tabFade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@media (max-width:640px){.tab-nav-inner{padding:0 18px}.tab-btn{font-size:12.5px;padding:14px 12px 12px}.tab-btn .count{display:none}}
+
+/* === Comparison tab === */
+.cmp-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--primary);font-weight:700;margin-bottom:6px}
+.cmp-eyebrow::before{content:"";width:14px;height:1px;background:var(--primary)}
+
+/* Headline gap card — the paradox */
+.gap-hero{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
+.gap-hero-3{grid-template-columns:1fr 1fr 1fr}
+@media (max-width:1100px){.gap-hero,.gap-hero-3{grid-template-columns:1fr}}
+.gap-side{background:var(--panel);border:1px solid var(--rule);border-radius:16px;padding:24px;position:relative;overflow:hidden}
+.gap-side.crm{border-left:3px solid var(--teal)}
+.gap-side.social{border-left:3px solid var(--primary)}
+.gap-side.google{border-left:3px solid #4285F4;background:linear-gradient(180deg,#FAFCFE 0%,var(--panel) 30%)}
+.gap-tag{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.gap-side.crm .gap-tag{color:var(--teal)}
+.gap-side.social .gap-tag{color:var(--primary)}
+.gap-side.google .gap-tag{color:#1A56C5}
+.gap-source{font-size:11px;color:var(--mute);font-family:'JetBrains Mono',monospace;margin-bottom:12px}
+.gap-headline{font-family:'Fraunces',serif;font-weight:500;font-size:64px;line-height:1;letter-spacing:-0.03em;margin:8px 0 4px}
+.gap-headline small{font-size:24px;color:var(--soft);margin-left:4px}
+.gap-side.crm .gap-headline{color:var(--good)}
+.gap-side.social .gap-headline{color:var(--primary)}
+.gap-side.google .gap-headline{color:#1A56C5}
+.gap-label{font-size:13px;font-weight:500;color:var(--ink);margin-top:6px}
+.gap-detail{font-size:12px;color:var(--soft);margin-top:8px;line-height:1.6}
+.gap-mini{display:flex;gap:14px;margin-top:14px;font-size:11px;color:var(--soft);font-family:'JetBrains Mono',monospace}
+.gap-mini strong{color:var(--ink);font-family:'Inter Tight',sans-serif;font-weight:600;font-size:13px;display:block;margin-bottom:1px}
+
+/* Google places list */
+.places-list{display:flex;flex-direction:column;gap:8px}
+.place-row{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:14px;padding:12px 0;border-bottom:1px dashed var(--rule)}
+.place-row:last-child{border-bottom:none}
+.place-name{font-size:13px;font-weight:500;line-height:1.35}
+.place-svc-tag{display:inline-block;font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;color:var(--mute);margin-left:6px;padding:2px 6px;background:var(--cream);border-radius:4px}
+.place-stars{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:var(--gold);min-width:80px;text-align:right;letter-spacing:.5px}
+.place-stars small{color:var(--mute);font-size:10px;margin-left:4px}
+
+/* Root card google variant */
+.root-card.google{border-top:3px solid #4285F4}
+.root-card.google .src{color:#1A56C5}
+.root-card.google .root-bar-fill{background:linear-gradient(90deg,#4285F4,#1A56C5)}
+
+/* 3-column root grid */
+.root-grid-3{grid-template-columns:1fr 1fr 1fr}
+@media (max-width:1100px){.root-grid-3{grid-template-columns:1fr}}
+
+.paradox-banner{background:linear-gradient(135deg,rgba(212,162,76,.10),rgba(46,125,122,.06));border:1px solid rgba(212,162,76,.3);border-radius:13px;padding:18px 22px;margin-bottom:22px;display:flex;align-items:flex-start;gap:16px}
+.paradox-icon{width:36px;height:36px;flex-shrink:0;border-radius:10px;background:var(--gold);color:var(--ink);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:700;font-size:20px}
+.paradox-title{font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;font-weight:700;color:var(--ink);margin-bottom:6px}
+.paradox-body{font-size:13.5px;color:var(--soft);line-height:1.55}
+.paradox-body strong{color:var(--ink);font-weight:600}
+
+/* Taxonomy comparison table */
+.tax-table{width:100%;border-collapse:collapse;font-size:13px}
+.tax-table th{text-align:left;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--mute);padding:12px 12px 12px 0;font-weight:600;border-bottom:1px solid var(--rule)}
+.tax-table th.r{text-align:right}
+.tax-table td{padding:18px 12px 18px 0;border-bottom:1px solid var(--rule);vertical-align:middle}
+.tax-table tr:last-child td{border-bottom:none}
+.tax-cat{font-weight:600;font-size:13.5px}
+.tax-bars{display:flex;align-items:center;gap:10px;min-width:200px}
+.tax-bar{flex:1;height:18px;background:var(--cream);border-radius:4px;position:relative;overflow:hidden}
+.tax-bar-fill{height:100%;border-radius:4px;transition:width .3s}
+.tax-bar-fill.crm{background:var(--teal)}
+.tax-bar-fill.social{background:var(--primary)}
+.tax-num{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--soft);min-width:46px;text-align:right;font-weight:500}
+.tax-num.bold{color:var(--ink);font-weight:600}
+.gap-pill{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:6px;font-size:11.5px;font-weight:600;font-family:'JetBrains Mono',monospace}
+.gap-pill.over{background:rgba(200,85,61,.10);color:var(--primary-d)}
+.gap-pill.under{background:rgba(46,125,122,.10);color:var(--teal)}
+.gap-pill.neutral{background:var(--cream);color:var(--soft)}
+
+/* Root cause cards */
+.root-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px}
+.root-card{background:var(--panel);border:1px solid var(--rule);border-radius:13px;padding:18px}
+.root-card.crm{border-top:3px solid var(--teal)}
+.root-card.social{border-top:3px solid var(--primary)}
+.root-card .card-h-mini{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.root-card .card-h-mini .src{font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+.root-card.crm .src{color:var(--teal)}
+.root-card.social .src{color:var(--primary)}
+.root-card .card-title-sm{font-family:'Fraunces',serif;font-weight:600;font-size:15px;margin-bottom:2px}
+.root-card .src-meta{font-size:11px;color:var(--mute);font-family:'JetBrains Mono',monospace}
+.root-list{display:flex;flex-direction:column;gap:8px}
+.root-item{display:grid;grid-template-columns:24px 1fr auto;align-items:center;gap:12px;padding:10px 0;border-bottom:1px dashed var(--rule)}
+.root-item:last-child{border-bottom:none}
+.root-rank{font-family:'Fraunces',serif;font-weight:600;font-size:14px;color:var(--mute);text-align:right}
+.root-name{font-size:13px;font-weight:500;line-height:1.35}
+.root-bar-wrap{display:flex;align-items:center;gap:8px}
+.root-bar{width:80px;height:5px;background:var(--cream);border-radius:3px;overflow:hidden}
+.root-bar-fill{height:100%;border-radius:3px}
+.root-card.crm .root-bar-fill{background:var(--teal)}
+.root-card.social .root-bar-fill{background:var(--primary)}
+.root-count{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--soft);min-width:46px;text-align:right;font-weight:500}
+
+/* Service alignment matrix */
+.matrix{display:grid;grid-template-columns:1fr;gap:8px;margin-top:8px}
+.matrix-row{display:grid;grid-template-columns:140px 1fr 1fr;gap:14px;align-items:center;padding:14px 16px;background:var(--panel);border:1px solid var(--rule);border-radius:10px}
+.matrix-svc{font-weight:600;font-size:13.5px}
+.matrix-side{display:flex;align-items:center;gap:10px}
+.matrix-label{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);font-weight:600;min-width:36px}
+.matrix-bar{flex:1;height:14px;background:var(--cream);border-radius:3px;overflow:hidden;position:relative;display:flex}
+.matrix-bar .seg{height:100%;transition:width .3s}
+.matrix-bar .neg{background:var(--primary)}
+.matrix-bar .neu{background:var(--mute)}
+.matrix-bar .pos{background:var(--good)}
+.matrix-num{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--soft);min-width:38px;text-align:right;font-weight:500}
+
+/* Corrective Action Plan */
+.action-card{background:var(--panel);border:1px solid var(--rule);border-radius:14px;padding:22px;margin-bottom:14px}
+.action-head{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--rule);flex-wrap:wrap}
+.action-cause{font-family:'Fraunces',serif;font-weight:600;font-size:18px;letter-spacing:-0.01em}
+.action-share{font-size:11.5px;color:var(--soft);margin-top:4px;font-family:'JetBrains Mono',monospace}
+.priority-badge{padding:5px 12px;border-radius:7px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-family:'Inter Tight',sans-serif}
+.priority-badge.p1{background:rgba(200,85,61,.12);color:var(--primary-d)}
+.priority-badge.p2{background:rgba(212,162,76,.18);color:#7a5a1f}
+.priority-badge.p3{background:rgba(92,122,137,.13);color:var(--slate)}
+
+.action-list{display:flex;flex-direction:column;gap:8px}
+.action-item{display:grid;grid-template-columns:1fr auto;gap:18px;padding:14px 0;border-bottom:1px dashed var(--rule);align-items:center}
+.action-item:last-child{border-bottom:none}
+.action-name{font-size:13.5px;font-weight:500;line-height:1.45}
+.action-meta{display:flex;align-items:center;gap:10px;font-size:11px}
+.action-meta .meta-tag{font-family:'JetBrains Mono',monospace;color:var(--soft);padding:3px 8px;border-radius:5px;background:var(--cream)}
+.score-pair{display:flex;flex-direction:column;gap:4px;min-width:130px}
+.score-row{display:flex;align-items:center;gap:6px;font-size:10.5px;color:var(--soft);letter-spacing:.06em}
+.score-label{min-width:60px;text-transform:uppercase;font-weight:600}
+.score-dots{display:flex;gap:2px}
+.score-dot{width:7px;height:7px;border-radius:50%;background:var(--rule)}
+.score-dot.eff.on{background:var(--good)}
+.score-dot.eff_2.on{background:var(--teal)}
+.score-dot.eff_3.on{background:var(--gold)}
+.score-dot.eff_4.on{background:var(--primary-l)}
+.score-dot.eff_5.on{background:var(--primary)}
+.score-dot.fil{background:var(--ink)}
+.score-num{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);font-weight:600}
+
+/* Methodology footer */
+.method{background:var(--cream);border-radius:13px;padding:18px 22px;margin-top:22px;font-size:12.5px;color:var(--soft);line-height:1.6}
+.method strong{color:var(--ink);font-weight:600}
+.method .method-h{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--primary);font-weight:700;margin-bottom:8px}
+
+/* Google Reviews platform badge */
+.platform-badge.google_reviews{background:#FFFFFF;color:#1A2332;border:1px solid var(--rule);box-shadow:inset 0 0 0 1px rgba(66,133,244,.15)}
+.platform-badge.google_reviews::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:linear-gradient(135deg,#4285F4 0%,#EA4335 35%,#FBBC04 65%,#34A853 100%);margin-right:5px;vertical-align:middle}
 </style>
 </head>
 <body>
@@ -348,6 +568,41 @@ body{min-height:100vh;background:
     <span><strong id="hm-channels">—</strong> active channels</span>
   </div>
 </header>
+
+<nav class="tab-nav-wrap" role="tablist" aria-label="Dashboard sections">
+  <div class="tab-nav-inner">
+    <button class="tab-btn active" data-tab="overview" role="tab" aria-selected="true">
+      <span class="ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg></span>
+      Overview
+    </button>
+    <button class="tab-btn" data-tab="dax" role="tab" aria-selected="false">
+      <span class="ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 21H4.6c-.9 0-1.6-.7-1.6-1.6V3"/><path d="M7 14l3-3 3 3 5-5"/></svg></span>
+      DAX Measures
+    </button>
+    <button class="tab-btn" data-tab="operations" role="tab" aria-selected="false">
+      <span class="ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></span>
+      Operations
+    </button>
+    <button class="tab-btn" data-tab="social" role="tab" aria-selected="false">
+      <span class="ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8z"/></svg></span>
+      Social Listening
+      <span class="count" id="tab-count-social">12</span>
+    </button>
+    <button class="tab-btn" data-tab="routes" role="tab" aria-selected="false">
+      <span class="ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="6" y="3" width="12" height="14" rx="2"/><circle cx="9" cy="14" r="1"/><circle cx="15" cy="14" r="1"/><path d="M6 8h12"/><path d="M9 17v2M15 17v2"/></svg></span>
+      Bus Routes
+      <span class="count" id="tab-count-routes">10</span>
+    </button>
+    <button class="tab-btn" data-tab="comparison" role="tab" aria-selected="false">
+      <span class="ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 4v16M19 4v16M5 8l14 0M5 16l14 0"/><circle cx="9" cy="8" r="1.5" fill="currentColor"/><circle cx="15" cy="16" r="1.5" fill="currentColor"/></svg></span>
+      Comparison
+    </button>
+
+  </div>
+</nav>
+
+<!-- ===================== TAB: OVERVIEW ===================== -->
+<div class="tab-pane active" id="tab-overview" role="tabpanel">
 
 <!-- KPI strip -->
 <section class="section">
@@ -435,6 +690,11 @@ body{min-height:100vh;background:
   <div class="svc-tiles" id="svc-tiles"></div>
 </section>
 
+</div><!-- /tab-overview -->
+
+<!-- ===================== TAB: OPERATIONS ===================== -->
+<div class="tab-pane" id="tab-operations" role="tabpanel">
+
 <!-- Reasons + Departments -->
 <section class="section">
   <div class="grid grid-asym">
@@ -503,30 +763,17 @@ body{min-height:100vh;background:
   </div>
 </section>
 
-<!-- Origin distribution + Bus routes -->
+<!-- Channel mix (Operations tab) -->
 <section class="section">
-  <div class="grid grid-2">
-    <div class="card">
-      <div class="card-h">
-        <div>
-          <div class="card-title">Channel mix</div>
-          <div class="card-sub">How customers contact RTA</div>
-        </div>
-        <div class="section-tag">Origin</div>
+  <div class="card">
+    <div class="card-h">
+      <div>
+        <div class="card-title">Channel mix</div>
+        <div class="card-sub">How customers contact RTA</div>
       </div>
-      <div class="chart-wrap chart-h-260"><canvas id="originChart"></canvas></div>
+      <div class="section-tag">Origin</div>
     </div>
-    <div class="card">
-      <div class="card-h">
-        <div>
-          <div class="card-title">Top bus routes by complaint volume</div>
-          <div class="card-sub">Eligible for route-level review</div>
-        </div>
-        <div class="section-tag">Routes</div>
-      </div>
-      <div class="routes" id="routes"></div>
-      <div class="card-foot">Routes with persistent complaint clusters trigger AI service-improvement recommendations to Planning &amp; Scheduling.</div>
-    </div>
+    <div class="chart-wrap chart-h-300"><canvas id="originChart"></canvas></div>
   </div>
 </section>
 
@@ -556,6 +803,11 @@ body{min-height:100vh;background:
   </div>
 </section>
 
+
+</div><!-- /tab-operations -->
+
+<!-- ===================== TAB: SOCIAL LISTENING ===================== -->
+<div class="tab-pane" id="tab-social" role="tabpanel">
 
 <!-- ============== LIVE SOCIAL LISTENING ============== -->
 <section class="section">
@@ -616,7 +868,7 @@ body{min-height:100vh;background:
   </div>
 </section>
 
-<script id="social-demo-data" type="application/json">{"mentions": [{"id": "reddit:demo01", "platform": "reddit", "handle": "@u\u2022\u2022\u2022r", "verified": false, "reach": 350000, "text": "Bus 50 was 25 minutes late again this morning, third time this week. RTA needs to look at the schedule.", "language": "en", "createdAt": "2026-05-04T03:14:11.759429+00:00", "sentiment": "negative", "sentimentScore": -0.45, "emotions": ["frustration"], "service": "bus", "priority": 58.2, "engagement": {"likes": 47, "shares": 3, "replies": 12}, "url": "https://reddit.com/r/dubai/demo01"}, {"id": "reddit:demo02", "platform": "reddit", "handle": "@u\u2022\u2022\u2022t", "verified": false, "reach": 350000, "text": "Hala taxi driver was professional and the ride was smooth. Thanks RTA.", "language": "en", "createdAt": "2026-05-04T03:00:11.759429+00:00", "sentiment": "positive", "sentimentScore": 0.72, "emotions": ["appreciation"], "service": "taxi", "priority": 24.1, "engagement": {"likes": 89, "shares": 1, "replies": 4}, "url": "https://reddit.com/r/dubai/demo02"}, {"id": "x:demo03", "platform": "x", "handle": "@du\u2022\u2022\u2022r", "verified": false, "reach": 18400, "text": "Taxi driver refused to take me to Al Quoz from DIFC. Reported to RTA. This shouldn't be happening.", "language": "en", "createdAt": "2026-05-04T03:07:11.759429+00:00", "sentiment": "negative", "sentimentScore": -0.68, "emotions": ["frustration", "fairness_concern"], "service": "taxi", "priority": 71.4, "engagement": {"likes": 142, "shares": 38, "replies": 21}, "url": "https://x.com/i/status/demo03"}, {"id": "x:demo04", "platform": "x", "handle": "@ac\u2022\u2022\u2022e", "verified": true, "reach": 9200, "text": "Wheelchair ramp at Al Ghubaiba marine station broken for 4 days now. @rta_dubai please fix urgently.", "language": "en", "createdAt": "2026-05-04T02:47:11.759429+00:00", "sentiment": "negative", "sentimentScore": -0.55, "emotions": ["urgency", "accessibility_concern"], "service": "marine", "priority": 86.3, "engagement": {"likes": 312, "shares": 89, "replies": 47}, "url": "https://x.com/i/status/demo04"}, {"id": "news_rss:demo05", "platform": "news_rss", "handle": "Khaleej Times", "verified": false, "reach": 80000, "text": "RTA Dubai launches new feeder bus routes connecting metro stations to major residential areas \u2014 community welcomes the move.", "language": "en", "createdAt": "2026-05-04T01:22:11.759429+00:00", "sentiment": "positive", "sentimentScore": 0.42, "emotions": [], "service": "bus", "priority": 31.5, "engagement": {"likes": 0, "shares": 0, "replies": 0}, "url": "https://khaleejtimes.com/example"}, {"id": "x:demo06", "platform": "x", "handle": "@da\u2022\u2022\u2022r", "verified": false, "reach": 2100, "text": "\u062a\u0623\u062e\u064a\u0631 \u062d\u0627\u0641\u0644\u0629 \u0627\u0644\u062e\u0637 24 \u0645\u0646 \u0645\u064a\u0646\u0627\u0621 \u0631\u0627\u0634\u062f. \u0627\u0644\u062d\u0631\u0627\u0631\u0629 \u0664\u0662 \u062f\u0631\u062c\u0629 \u0648\u0627\u0644\u0627\u0646\u062a\u0638\u0627\u0631 \u0662\u0660 \u062f\u0642\u064a\u0642\u0629. \u0634\u0643\u0648\u0649 \u0631\u0633\u0645\u064a\u0629.", "language": "ar", "createdAt": "2026-05-04T03:11:11.759429+00:00", "sentiment": "negative", "sentimentScore": -0.78, "emotions": ["frustration"], "service": "bus", "priority": 62.7, "engagement": {"likes": 64, "shares": 12, "replies": 8}, "url": "https://x.com/i/status/demo06"}, {"id": "reddit:demo07", "platform": "reddit", "handle": "@u\u2022\u2022\u2022s", "verified": false, "reach": 120000, "text": "nol card top-up not reflecting on the app. Anyone else? Have a class in 30 min.", "language": "en", "createdAt": "2026-05-04T03:16:11.759429+00:00", "sentiment": "neutral", "sentimentScore": -0.1, "emotions": ["urgency", "confusion"], "service": "nol", "priority": 48.3, "engagement": {"likes": 23, "shares": 0, "replies": 17}, "url": "https://reddit.com/r/uae/demo07"}, {"id": "x:demo08", "platform": "x", "handle": "@ua\u2022\u2022\u2022r", "verified": false, "reach": 45200, "text": "Abra crossing the creek at sunset \u2014 best 1 dirham you'll ever spend in Dubai. Thanks RTA marine team.", "language": "en", "createdAt": "2026-05-04T00:22:11.759429+00:00", "sentiment": "positive", "sentimentScore": 0.88, "emotions": ["appreciation"], "service": "marine", "priority": 42.6, "engagement": {"likes": 1240, "shares": 188, "replies": 92}, "url": "https://x.com/i/status/demo08"}, {"id": "x:demo09", "platform": "x", "handle": "@ex\u2022\u2022\u2022b", "verified": false, "reach": 6700, "text": "Reckless driving by airport taxi from Terminal 3, swerving across lanes. Plate noted, complaint filed.", "language": "en", "createdAt": "2026-05-04T02:40:11.759429+00:00", "sentiment": "negative", "sentimentScore": -0.62, "emotions": ["safety_concern", "urgency"], "service": "taxi", "priority": 78.5, "engagement": {"likes": 198, "shares": 34, "replies": 15}, "url": "https://x.com/i/status/demo09"}, {"id": "facebook:demo10", "platform": "facebook", "handle": "Sara M.", "verified": false, "reach": 0, "text": "Customer service at Al Karama Customer Happiness Centre was excellent today. Issue resolved in under 15 minutes. Appreciate it.", "language": "en", "createdAt": "2026-05-04T01:47:11.759429+00:00", "sentiment": "positive", "sentimentScore": 0.65, "emotions": ["appreciation"], "service": "general", "priority": 26.7, "engagement": {"likes": 56, "shares": 0, "replies": 3}, "url": "https://facebook.com/rta.dubai/demo10"}, {"id": "reddit:demo11", "platform": "reddit", "handle": "@u\u2022\u2022\u2022l", "verified": false, "reach": 350000, "text": "Driver of bus X25 refused to stop at the requested stop, kept going. Filthy AC dripping on passengers. Filed RTA complaint.", "language": "en", "createdAt": "2026-05-04T03:04:11.759429+00:00", "sentiment": "negative", "sentimentScore": -0.71, "emotions": ["frustration"], "service": "bus", "priority": 68.9, "engagement": {"likes": 71, "shares": 4, "replies": 19}, "url": "https://reddit.com/r/dubai/demo11"}, {"id": "x:demo12", "platform": "x", "handle": "@dx\u2022\u2022\u2022t", "verified": false, "reach": 1100, "text": "Why is Hala taxi surge pricing 3x normal at 11pm on a Tuesday? Make this fair, RTA.", "language": "en", "createdAt": "2026-05-04T03:18:11.759429+00:00", "sentiment": "negative", "sentimentScore": -0.4, "emotions": ["fairness_concern"], "service": "taxi", "priority": 52.8, "engagement": {"likes": 87, "shares": 19, "replies": 32}, "url": "https://x.com/i/status/demo12"}], "stats": {"total": 12, "windowMinutes": 240, "byPlatform": {"reddit": 4, "x": 6, "news_rss": 1, "facebook": 1}, "bySentiment": {"negative": 7, "positive": 4, "neutral": 1}, "byService": {"bus": 4, "taxi": 4, "marine": 2, "nol": 1, "general": 1}, "avgSentiment": -0.135, "spikeAlert": true, "spikeReason": "3 negative bus mentions in last 30min \u2014 peak topic: Route 50, X25", "lastUpdated": "2026-05-04T03:22:11.759429+00:00"}}</script>
+<script id="social-demo-data" type="application/json">{"mentions": [{"id": "reddit:demo01", "platform": "reddit", "handle": "@u\u2022\u2022\u2022r", "verified": false, "reach": 350000, "text": "Bus 50 was 25 minutes late again this morning, third time this week. RTA needs to look at the schedule.", "language": "en", "createdAt": "2026-05-06T05:02:15.422610+00:00", "sentiment": "negative", "sentimentScore": -0.45, "emotions": ["frustration"], "service": "bus", "priority": 58.2, "engagement": {"likes": 47, "shares": 3, "replies": 12}, "url": "https://reddit.com/r/dubai/demo01"}, {"id": "reddit:demo02", "platform": "reddit", "handle": "@u\u2022\u2022\u2022t", "verified": false, "reach": 350000, "text": "Hala taxi driver was professional and the ride was smooth. Thanks RTA.", "language": "en", "createdAt": "2026-05-06T04:48:15.422610+00:00", "sentiment": "positive", "sentimentScore": 0.72, "emotions": ["appreciation"], "service": "taxi", "priority": 24.1, "engagement": {"likes": 89, "shares": 1, "replies": 4}, "url": "https://reddit.com/r/dubai/demo02"}, {"id": "x:demo03", "platform": "x", "handle": "@du\u2022\u2022\u2022r", "verified": false, "reach": 18400, "text": "Taxi driver refused to take me to Al Quoz from DIFC. Reported to RTA. This shouldn't be happening.", "language": "en", "createdAt": "2026-05-06T04:55:15.422610+00:00", "sentiment": "negative", "sentimentScore": -0.68, "emotions": ["frustration", "fairness_concern"], "service": "taxi", "priority": 71.4, "engagement": {"likes": 142, "shares": 38, "replies": 21}, "url": "https://x.com/i/status/demo03"}, {"id": "x:demo04", "platform": "x", "handle": "@ac\u2022\u2022\u2022e", "verified": true, "reach": 9200, "text": "Wheelchair ramp at Al Ghubaiba marine station broken for 4 days now. @rta_dubai please fix urgently.", "language": "en", "createdAt": "2026-05-06T04:35:15.422610+00:00", "sentiment": "negative", "sentimentScore": -0.55, "emotions": ["urgency", "accessibility_concern"], "service": "marine", "priority": 86.3, "engagement": {"likes": 312, "shares": 89, "replies": 47}, "url": "https://x.com/i/status/demo04"}, {"id": "news_rss:demo05", "platform": "news_rss", "handle": "Khaleej Times", "verified": false, "reach": 80000, "text": "RTA Dubai launches new feeder bus routes connecting metro stations to major residential areas \u2014 community welcomes the move.", "language": "en", "createdAt": "2026-05-06T03:10:15.422610+00:00", "sentiment": "positive", "sentimentScore": 0.42, "emotions": [], "service": "bus", "priority": 31.5, "engagement": {"likes": 0, "shares": 0, "replies": 0}, "url": "https://khaleejtimes.com/example"}, {"id": "x:demo06", "platform": "x", "handle": "@da\u2022\u2022\u2022r", "verified": false, "reach": 2100, "text": "\u062a\u0623\u062e\u064a\u0631 \u062d\u0627\u0641\u0644\u0629 \u0627\u0644\u062e\u0637 24 \u0645\u0646 \u0645\u064a\u0646\u0627\u0621 \u0631\u0627\u0634\u062f. \u0627\u0644\u062d\u0631\u0627\u0631\u0629 \u0664\u0662 \u062f\u0631\u062c\u0629 \u0648\u0627\u0644\u0627\u0646\u062a\u0638\u0627\u0631 \u0662\u0660 \u062f\u0642\u064a\u0642\u0629. \u0634\u0643\u0648\u0649 \u0631\u0633\u0645\u064a\u0629.", "language": "ar", "createdAt": "2026-05-06T04:59:15.422610+00:00", "sentiment": "negative", "sentimentScore": -0.78, "emotions": ["frustration"], "service": "bus", "priority": 62.7, "engagement": {"likes": 64, "shares": 12, "replies": 8}, "url": "https://x.com/i/status/demo06"}, {"id": "reddit:demo07", "platform": "reddit", "handle": "@u\u2022\u2022\u2022s", "verified": false, "reach": 120000, "text": "nol card top-up not reflecting on the app. Anyone else? Have a class in 30 min.", "language": "en", "createdAt": "2026-05-06T05:04:15.422610+00:00", "sentiment": "neutral", "sentimentScore": -0.1, "emotions": ["urgency", "confusion"], "service": "nol", "priority": 48.3, "engagement": {"likes": 23, "shares": 0, "replies": 17}, "url": "https://reddit.com/r/uae/demo07"}, {"id": "x:demo08", "platform": "x", "handle": "@ua\u2022\u2022\u2022r", "verified": false, "reach": 45200, "text": "Abra crossing the creek at sunset \u2014 best 1 dirham you'll ever spend in Dubai. Thanks RTA marine team.", "language": "en", "createdAt": "2026-05-06T02:10:15.422610+00:00", "sentiment": "positive", "sentimentScore": 0.88, "emotions": ["appreciation"], "service": "marine", "priority": 42.6, "engagement": {"likes": 1240, "shares": 188, "replies": 92}, "url": "https://x.com/i/status/demo08"}, {"id": "x:demo09", "platform": "x", "handle": "@ex\u2022\u2022\u2022b", "verified": false, "reach": 6700, "text": "Reckless driving by airport taxi from Terminal 3, swerving across lanes. Plate noted, complaint filed.", "language": "en", "createdAt": "2026-05-06T04:28:15.422610+00:00", "sentiment": "negative", "sentimentScore": -0.62, "emotions": ["safety_concern", "urgency"], "service": "taxi", "priority": 78.5, "engagement": {"likes": 198, "shares": 34, "replies": 15}, "url": "https://x.com/i/status/demo09"}, {"id": "facebook:demo10", "platform": "facebook", "handle": "Sara M.", "verified": false, "reach": 0, "text": "Customer service at Al Karama Customer Happiness Centre was excellent today. Issue resolved in under 15 minutes. Appreciate it.", "language": "en", "createdAt": "2026-05-06T03:35:15.422610+00:00", "sentiment": "positive", "sentimentScore": 0.65, "emotions": ["appreciation"], "service": "general", "priority": 26.7, "engagement": {"likes": 56, "shares": 0, "replies": 3}, "url": "https://facebook.com/rta.dubai/demo10"}, {"id": "reddit:demo11", "platform": "reddit", "handle": "@u\u2022\u2022\u2022l", "verified": false, "reach": 350000, "text": "Driver of bus X25 refused to stop at the requested stop, kept going. Filthy AC dripping on passengers. Filed RTA complaint.", "language": "en", "createdAt": "2026-05-06T04:52:15.422610+00:00", "sentiment": "negative", "sentimentScore": -0.71, "emotions": ["frustration"], "service": "bus", "priority": 68.9, "engagement": {"likes": 71, "shares": 4, "replies": 19}, "url": "https://reddit.com/r/dubai/demo11"}, {"id": "x:demo12", "platform": "x", "handle": "@dx\u2022\u2022\u2022t", "verified": false, "reach": 1100, "text": "Why is Hala taxi surge pricing 3x normal at 11pm on a Tuesday? Make this fair, RTA.", "language": "en", "createdAt": "2026-05-06T05:06:15.422610+00:00", "sentiment": "negative", "sentimentScore": -0.4, "emotions": ["fairness_concern"], "service": "taxi", "priority": 52.8, "engagement": {"likes": 87, "shares": 19, "replies": 32}, "url": "https://x.com/i/status/demo12"}, {"id": "google:demo13", "platform": "google_reviews", "handle": "Ahmed K.", "verified": false, "reach": 1820, "text": "[Al Karama Customer Happiness Centre \u00b7 5\u2605] Came in expecting a wait, was helped within 10 minutes. Staff explained the nol balance issue clearly and processed a refund the same day. Excellent service.", "language": "en", "createdAt": "2026-05-05T05:10:15.422610+00:00", "sentiment": "positive", "sentimentScore": 1.0, "emotions": ["appreciation"], "service": "nol", "priority": 38.0, "engagement": {"likes": 0, "shares": 0, "replies": 0}, "url": "https://maps.google.com/?cid=demo13"}, {"id": "google:demo14", "platform": "google_reviews", "handle": "Priya M.", "verified": false, "reach": 4400, "text": "[Al Ghubaiba Bus Station \u00b7 2\u2605] Toilets dirty, AC barely working in waiting hall, and the route 50 left 8 minutes before scheduled time. Front-desk staff helpful but the facility is run-down.", "language": "en", "createdAt": "2026-05-04T05:10:15.422610+00:00", "sentiment": "negative", "sentimentScore": -0.5, "emotions": ["frustration"], "service": "bus", "priority": 54.5, "engagement": {"likes": 0, "shares": 0, "replies": 0}, "url": "https://maps.google.com/?cid=demo14"}, {"id": "google:demo15", "platform": "google_reviews", "handle": "Mohammed A.", "verified": false, "reach": 980, "text": "[RTA Taxi Stand DIFC \u00b7 1\u2605] Driver refused to use meter, demanded fixed 70 AED to JLT. Reported via app. This is happening every time at this stand in evenings.", "language": "en", "createdAt": "2026-05-05T17:10:15.422610+00:00", "sentiment": "negative", "sentimentScore": -1.0, "emotions": ["fairness_concern"], "service": "taxi", "priority": 72.8, "engagement": {"likes": 0, "shares": 0, "replies": 0}, "url": "https://maps.google.com/?cid=demo15"}, {"id": "google:demo16", "platform": "google_reviews", "handle": "Fatima H.", "verified": false, "reach": 12400, "text": "[Abra Station Bur Dubai \u00b7 5\u2605] \u0645\u062d\u0637\u0629 \u062c\u0645\u064a\u0644\u0629 \u0648\u0645\u0646\u0638\u0645\u0629\u060c \u0627\u0644\u0645\u0648\u0638\u0641\u064a\u0646 \u0648\u062f\u0648\u062f\u064a\u0646 \u0648\u0627\u0644\u0631\u062d\u0644\u0629 \u0645\u0645\u062a\u0627\u0632\u0629 \u0628\u0640 \u0661 \u062f\u0631\u0647\u0645 \u0641\u0642\u0637. \u062a\u062c\u0631\u0628\u0629 \u0644\u0627 \u062a\u064f\u0646\u0633\u0649 \u0644\u0644\u0633\u064a\u0627\u062d \u0648\u0627\u0644\u0645\u0642\u064a\u0645\u064a\u0646.", "language": "ar", "createdAt": "2026-05-05T23:10:15.422610+00:00", "sentiment": "positive", "sentimentScore": 1.0, "emotions": ["appreciation"], "service": "marine", "priority": 42.0, "engagement": {"likes": 0, "shares": 0, "replies": 0}, "url": "https://maps.google.com/?cid=demo16"}, {"id": "google:demo17", "platform": "google_reviews", "handle": "James R.", "verified": false, "reach": 2100, "text": "[Dubai Taxi Corporation HQ \u00b7 3\u2605] Got my complaint filed but the follow-up email took 9 days. Resolution itself was fair but the wait was frustrating, especially since I called twice in between.", "language": "en", "createdAt": "2026-05-06T02:10:15.422610+00:00", "sentiment": "neutral", "sentimentScore": 0.0, "emotions": ["frustration"], "service": "taxi", "priority": 36.5, "engagement": {"likes": 0, "shares": 0, "replies": 0}, "url": "https://maps.google.com/?cid=demo17"}, {"id": "google:demo18", "platform": "google_reviews", "handle": "Sarah W.", "verified": false, "reach": 3300, "text": "[nol Card Recharge Centre Mall of the Emirates \u00b7 4\u2605] Quick top-up, machine accepted my card immediately, staff politely walked me through the new student discount. Could use more counters at peak times.", "language": "en", "createdAt": "2026-05-06T04:10:15.422610+00:00", "sentiment": "positive", "sentimentScore": 0.5, "emotions": ["appreciation"], "service": "nol", "priority": 28.0, "engagement": {"likes": 0, "shares": 0, "replies": 0}, "url": "https://maps.google.com/?cid=demo18"}], "stats": {"total": 18, "windowMinutes": 240, "byPlatform": {"reddit": 4, "x": 6, "news_rss": 1, "facebook": 1, "google_reviews": 6}, "bySentiment": {"negative": 9, "positive": 7, "neutral": 2}, "byService": {"bus": 5, "taxi": 6, "marine": 3, "nol": 3, "general": 1}, "avgSentiment": -0.034, "spikeAlert": true, "spikeReason": "3 negative bus mentions in last 30min \u2014 peak topic: Route 50, X25", "lastUpdated": "2026-05-06T05:10:15.422610+00:00"}}</script>
 <script>
 (function(){
   // === Configuration ===
@@ -649,7 +901,7 @@ body{min-height:100vh;background:
 
   function renderMention(m){
     const txtCls = m.language === "ar" ? "mention-text ar" : "mention-text";
-    const platLabel = m.platform === "news_rss" ? "NEWS" : m.platform.toUpperCase();
+    const platLabel = m.platform === "news_rss" ? "NEWS" : m.platform === "google_reviews" ? "GOOGLE" : m.platform.toUpperCase();
     const handleCls = m.verified ? "handle verified" : "handle";
     const emo = (m.emotions || []).slice(0, 2)
       .map(e => `<span class="m-tag emo">${e.replace(/_/g," ")}</span>`).join("");
@@ -705,7 +957,7 @@ body{min-height:100vh;background:
     const platList = $("plat-list");
     const plats = Object.entries(stats.byPlatform).sort((a,b) => b[1] - a[1]);
     platList.innerHTML = plats.map(([k,v]) => {
-      const label = k === "news_rss" ? "News" : k.charAt(0).toUpperCase() + k.slice(1);
+      const label = k === "news_rss" ? "News" : k === "google_reviews" ? "Google Reviews" : k.charAt(0).toUpperCase() + k.slice(1);
       return `<div class="plat-row"><span>${label}</span><strong>${v}</strong></div>`;
     }).join("");
 
@@ -783,6 +1035,689 @@ body{min-height:100vh;background:
   setTimeout(load, 200);
   // Poll periodically
   setInterval(load, POLL_MS);
+})();
+</script>
+
+
+
+</div><!-- /tab-social -->
+
+<!-- ===================== TAB: DAX MEASURES ===================== -->
+<div class="tab-pane" id="tab-dax" role="tabpanel">
+
+<!-- ============== DAX MEASURES — POWER BI ALIGNED ============== -->
+<section class="section">
+  <div class="dax-head">
+    <div class="dax-eyebrow">Power BI · DAX Measures</div>
+    <div class="section-title">Official RTA reporting metrics</div>
+    <div class="dax-source">Aligned with <span style="color:var(--ink);font-weight:600">'RAW DATA-2026 -2025-2024-2023'</span> measure definitions</div>
+  </div>
+
+  <!-- Headline measures -->
+  <div class="dax-grid">
+    <div class="dax-card teal">
+      <div class="dax-name">Total Cases</div>
+      <div class="dax-formula">COUNTROWS()</div>
+      <div class="dax-num" id="dax-total">—</div>
+      <div class="dax-sub" id="dax-total-sub">All transaction types</div>
+    </div>
+    
+    <div class="dax-card primary">
+      <div class="dax-name">SLA Compliance %</div>
+      <div class="dax-formula">DIVIDE(Within, Within + Breached)</div>
+      <div class="dax-num" id="dax-sla">—<small>%</small></div>
+      <div class="dax-sub" id="dax-sla-sub">—</div>
+    </div>
+    
+    <div class="dax-card gold">
+      <div class="dax-name">Valid Complaint Rate %</div>
+      <div class="dax-formula">DIVIDE(Valid, Total Complaints)</div>
+      <div class="dax-num" id="dax-valid">—<small>%</small></div>
+      <div class="dax-sub" id="dax-valid-sub">—</div>
+    </div>
+    
+    <div class="dax-card slate">
+      <div class="dax-name">Avg Resolution Days</div>
+      <div class="dax-formula">AVERAGE([Resolution Days])</div>
+      <div class="dax-num" id="dax-res">—<small>days</small></div>
+      <div class="dax-sub">From open to close</div>
+    </div>
+  </div>
+
+  <div class="grid grid-2">
+    <!-- Transaction Type breakdown + Sentiment -->
+    <div class="card">
+      <div class="card-h">
+        <div>
+          <div class="card-title">Transaction Type &amp; Sentiment</div>
+          <div class="card-sub">Power BI category split</div>
+        </div>
+        <div class="section-tag">Mix</div>
+      </div>
+      
+      <!-- Transaction tiles -->
+      <div class="tx-mix">
+        <div class="tx-tile complaint">
+          <div class="n" id="tx-complaint">—</div>
+          <div class="l">Complaints</div>
+          <div class="p" id="tx-complaint-pct">—</div>
+        </div>
+        <div class="tx-tile request">
+          <div class="n" id="tx-request">—</div>
+          <div class="l">Requests</div>
+          <div class="p" id="tx-request-pct">—</div>
+        </div>
+        <div class="tx-tile notif">
+          <div class="n" id="tx-notif">—</div>
+          <div class="l">Notifications</div>
+          <div class="p" id="tx-notif-pct">—</div>
+        </div>
+      </div>
+
+      <div style="margin-top:22px">
+        <div class="dax-name" style="margin-bottom:10px">Sentiment Basic distribution</div>
+        <div class="dax-sentiment-bar" id="dax-sent-bar"></div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--soft);margin-top:8px">
+          <span><span style="display:inline-block;width:8px;height:8px;background:var(--primary);border-radius:2px;margin-right:5px;vertical-align:middle"></span><span id="dax-neg-pct">—</span> Negative</span>
+          <span><span style="display:inline-block;width:8px;height:8px;background:var(--mute);border-radius:2px;margin-right:5px;vertical-align:middle"></span><span id="dax-neu-pct">—</span> Neutral</span>
+          <span><span style="display:inline-block;width:8px;height:8px;background:var(--good);border-radius:2px;margin-right:5px;vertical-align:middle"></span><span id="dax-pos-pct">—</span> Positive</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- YoY table -->
+    <div class="card">
+      <div class="card-h">
+        <div>
+          <div class="card-title">Year-over-Year</div>
+          <div class="card-sub">SAMEPERIODLASTYEAR comparisons</div>
+        </div>
+        <div class="section-tag">YoY</div>
+      </div>
+      <table class="dax-table">
+        <thead>
+          <tr>
+            <th>Year</th>
+            <th class="r">Cases</th>
+            <th class="r">YoY Δ</th>
+            <th class="r">Complaints Δ</th>
+            <th class="r">SLA %</th>
+          </tr>
+        </thead>
+        <tbody id="dax-yoy-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Service group DAX measures -->
+  <div class="card" style="margin-top:18px">
+    <div class="card-h">
+      <div>
+        <div class="card-title">Service Group measures</div>
+        <div class="card-sub">[Bus Cases], [Taxi Luxury Cases], [Marine Cases] — including Valid / Invalid splits</div>
+      </div>
+      <div class="section-tag">Section 5 + 7</div>
+    </div>
+    <table class="dax-table">
+      <thead>
+        <tr>
+          <th>Service Group</th>
+          <th class="r">Cases</th>
+          <th class="r">% of Total</th>
+          <th class="r">Complaints</th>
+          <th class="r">Valid</th>
+          <th class="r">Invalid</th>
+          <th class="r">SLA %</th>
+          <th class="r">Sentiment (P / N / Neg)</th>
+        </tr>
+      </thead>
+      <tbody id="dax-svc-body"></tbody>
+    </table>
+  </div>
+
+</section>
+
+</div><!-- /tab-dax -->
+
+<!-- ===================== TAB: BUS ROUTES ===================== -->
+<div class="tab-pane" id="tab-routes" role="tabpanel">
+
+  <!-- Bus routes overview header card -->
+  <section class="section">
+    <div class="card">
+      <div class="card-h">
+        <div>
+          <div class="section-tag">Bus Routes</div>
+          <div class="section-title">Route-level performance</div>
+          <div class="card-sub" style="margin-top:6px">Top 10 routes ranked by complaint volume — routes with persistent complaint clusters surface here for the AI service-improvement engine to flag for Planning &amp; Scheduling.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Original "Top bus routes" card -->
+  <section class="section">
+    <div class="card">
+      <div class="card-h">
+        <div>
+          <div class="card-title">Top bus routes by complaint volume</div>
+          <div class="card-sub">Quick view · case counts only</div>
+        </div>
+        <div class="section-tag">Quick view</div>
+      </div>
+      <div class="routes" id="routes"></div>
+    </div>
+  </section>
+
+  <!-- DAX bus route measures table moved here -->
+  <section class="section">
+    <div class="card">
+      <div class="card-h">
+        <div>
+          <div class="card-title">Bus Route measures · Power BI aligned</div>
+          <div class="card-sub">[Bus Route Total Cases], [Valid Bus Complaints], [Invalid Bus Complaints]</div>
+        </div>
+        <div class="section-tag">DAX · Section 7</div>
+      </div>
+      <table class="dax-table">
+        <thead>
+          <tr>
+            <th>Route</th>
+            <th class="r">Total Cases</th>
+            <th class="r">Complaints</th>
+            <th class="r">Valid</th>
+            <th class="r">Invalid</th>
+          </tr>
+        </thead>
+        <tbody id="dax-route-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+</div><!-- /tab-routes -->
+
+<script id="dax-data" type="application/json">{"totalCases": 100921, "totalComplaints": 82613, "totalRequests": 15671, "totalNotifications": 2637, "validComplaints": 60864, "invalidComplaints": 12659, "validComplaintRatePct": 73.7, "invalidComplaintRatePct": 15.3, "withinSlaCases": 100155, "breachedSlaCases": 766, "slaCompliancePct": 99.2, "avgResolutionDays": 4.5, "positiveCases": 244, "negativeCases": 69955, "neutralCases": 30722, "positiveSentimentPct": 0.2, "negativeSentimentPct": 69.3, "neutralSentimentPct": 30.4, "serviceGroups": [{"group": "Bus Transport", "cases": 37038, "complaints": 25516, "validComplaints": 9957, "invalidComplaints": 10460, "positive": 120, "negative": 15056, "neutral": 21862, "withinSla": 36688, "breachedSla": 350, "slaCompliancePct": 99.1, "pctOfTotal": 36.7}, {"group": "Taxis and Luxury Vehicles Transport", "cases": 60816, "complaints": 55323, "validComplaints": 50290, "invalidComplaints": 1672, "positive": 100, "negative": 53651, "neutral": 7065, "withinSla": 60445, "breachedSla": 371, "slaCompliancePct": 99.4, "pctOfTotal": 60.3}, {"group": "Marine Transport", "cases": 686, "complaints": 310, "validComplaints": 107, "invalidComplaints": 148, "positive": 14, "negative": 163, "neutral": 509, "withinSla": 676, "breachedSla": 10, "slaCompliancePct": 98.5, "pctOfTotal": 0.7}, {"group": "nol Cards", "cases": 1644, "complaints": 1323, "validComplaints": 474, "invalidComplaints": 355, "positive": 0, "negative": 968, "neutral": 676, "withinSla": 1631, "breachedSla": 13, "slaCompliancePct": 99.2, "pctOfTotal": 1.6}, {"group": "Other", "cases": 737, "complaints": 141, "validComplaints": 36, "invalidComplaints": 24, "positive": 10, "negative": 117, "neutral": 610, "withinSla": 715, "breachedSla": 22, "slaCompliancePct": 97.0, "pctOfTotal": 0.7}], "yoy": [{"year": 2023, "cases": 37523, "complaints": 33180, "casesYoyChange": null, "casesYoyPct": null, "complaintsYoyChange": null, "complaintsYoyPct": null, "slaCompliancePct": 99.17, "positivePct": 0.3, "negativePct": 75.7, "neutralPct": 24.0}, {"year": 2024, "cases": 30401, "complaints": 25178, "casesYoyChange": -7122, "casesYoyPct": -19.0, "complaintsYoyChange": -8002, "complaintsYoyPct": -24.1, "slaCompliancePct": 99.5, "positivePct": 0.3, "negativePct": 68.7, "neutralPct": 31.0}, {"year": 2025, "cases": 27056, "complaints": 20597, "casesYoyChange": -3345, "casesYoyPct": -11.0, "complaintsYoyChange": -4581, "complaintsYoyPct": -18.2, "slaCompliancePct": 99.05, "positivePct": 0.1, "negativePct": 65.0, "neutralPct": 34.9}, {"year": 2026, "cases": 5941, "complaints": 3658, "casesYoyChange": -21115, "casesYoyPct": -78.0, "complaintsYoyChange": -16939, "complaintsYoyPct": -82.2, "slaCompliancePct": 99.21, "positivePct": 0.1, "negativePct": 52.1, "neutralPct": 47.8}], "monthly": [{"month": "2023-01", "cases": 3246, "complaints": 2849, "requests": 342, "notifications": 55, "positive": 15, "negative": 2394, "neutral": 837, "breachedSla": 44}, {"month": "2023-02", "cases": 3157, "complaints": 2809, "requests": 308, "notifications": 40, "positive": 12, "negative": 2415, "neutral": 730, "breachedSla": 105}, {"month": "2023-03", "cases": 3273, "complaints": 2927, "requests": 303, "notifications": 43, "positive": 7, "negative": 2437, "neutral": 829, "breachedSla": 63}, {"month": "2023-04", "cases": 2771, "complaints": 2468, "requests": 248, "notifications": 55, "positive": 12, "negative": 2058, "neutral": 701, "breachedSla": 8}, {"month": "2023-05", "cases": 3297, "complaints": 2877, "requests": 368, "notifications": 52, "positive": 16, "negative": 2451, "neutral": 830, "breachedSla": 11}, {"month": "2023-06", "cases": 3078, "complaints": 2729, "requests": 290, "notifications": 59, "positive": 9, "negative": 2351, "neutral": 718, "breachedSla": 9}, {"month": "2023-07", "cases": 2902, "complaints": 2522, "requests": 290, "notifications": 90, "positive": 10, "negative": 2173, "neutral": 719, "breachedSla": 6}, {"month": "2023-08", "cases": 3111, "complaints": 2776, "requests": 269, "notifications": 66, "positive": 6, "negative": 2428, "neutral": 677, "breachedSla": 7}, {"month": "2023-09", "cases": 3512, "complaints": 3154, "requests": 293, "notifications": 65, "positive": 11, "negative": 2780, "neutral": 721, "breachedSla": 15}, {"month": "2023-10", "cases": 3585, "complaints": 3169, "requests": 359, "notifications": 57, "positive": 10, "negative": 2731, "neutral": 844, "breachedSla": 11}, {"month": "2023-11", "cases": 2994, "complaints": 2623, "requests": 312, "notifications": 59, "positive": 13, "negative": 2235, "neutral": 746, "breachedSla": 17}, {"month": "2023-12", "cases": 2597, "complaints": 2277, "requests": 262, "notifications": 58, "positive": 8, "negative": 1946, "neutral": 643, "breachedSla": 14}, {"month": "2024-01", "cases": 2526, "complaints": 2140, "requests": 324, "notifications": 62, "positive": 13, "negative": 1811, "neutral": 702, "breachedSla": 4}, {"month": "2024-02", "cases": 2503, "complaints": 2154, "requests": 307, "notifications": 42, "positive": 7, "negative": 1727, "neutral": 769, "breachedSla": 5}, {"month": "2024-03", "cases": 2259, "complaints": 1920, "requests": 275, "notifications": 64, "positive": 4, "negative": 1554, "neutral": 701, "breachedSla": 16}, {"month": "2024-04", "cases": 1926, "complaints": 1606, "requests": 259, "notifications": 61, "positive": 6, "negative": 1360, "neutral": 560, "breachedSla": 21}, {"month": "2024-05", "cases": 2736, "complaints": 2190, "requests": 495, "notifications": 51, "positive": 9, "negative": 1826, "neutral": 901, "breachedSla": 7}, {"month": "2024-06", "cases": 2208, "complaints": 1829, "requests": 332, "notifications": 47, "positive": 10, "negative": 1525, "neutral": 673, "breachedSla": 8}, {"month": "2024-07", "cases": 2229, "complaints": 1841, "requests": 303, "notifications": 85, "positive": 3, "negative": 1516, "neutral": 710, "breachedSla": 12}, {"month": "2024-08", "cases": 2378, "complaints": 2007, "requests": 304, "notifications": 67, "positive": 2, "negative": 1666, "neutral": 710, "breachedSla": 15}, {"month": "2024-09", "cases": 2802, "complaints": 2276, "requests": 469, "notifications": 57, "positive": 9, "negative": 1855, "neutral": 938, "breachedSla": 22}, {"month": "2024-10", "cases": 3183, "complaints": 2549, "requests": 543, "notifications": 91, "positive": 9, "negative": 2109, "neutral": 1065, "breachedSla": 20}, {"month": "2024-11", "cases": 3050, "complaints": 2480, "requests": 497, "notifications": 73, "positive": 5, "negative": 2064, "neutral": 981, "breachedSla": 11}, {"month": "2024-12", "cases": 2601, "complaints": 2186, "requests": 342, "notifications": 73, "positive": 1, "negative": 1872, "neutral": 728, "breachedSla": 10}, {"month": "2025-01", "cases": 2476, "complaints": 2018, "requests": 390, "notifications": 68, "positive": 3, "negative": 1731, "neutral": 742, "breachedSla": 30}, {"month": "2025-02", "cases": 2346, "complaints": 1903, "requests": 372, "notifications": 71, "positive": 4, "negative": 1629, "neutral": 713, "breachedSla": 36}, {"month": "2025-03", "cases": 2252, "complaints": 1706, "requests": 477, "notifications": 69, "positive": 9, "negative": 1479, "neutral": 764, "breachedSla": 38}, {"month": "2025-04", "cases": 2435, "complaints": 1851, "requests": 498, "notifications": 86, "positive": 3, "negative": 1644, "neutral": 788, "breachedSla": 75}, {"month": "2025-05", "cases": 2433, "complaints": 1771, "requests": 577, "notifications": 85, "positive": 3, "negative": 1561, "neutral": 869, "breachedSla": 18}, {"month": "2025-06", "cases": 2030, "complaints": 1563, "requests": 423, "notifications": 44, "positive": 0, "negative": 1315, "neutral": 715, "breachedSla": 18}, {"month": "2025-07", "cases": 1876, "complaints": 1447, "requests": 336, "notifications": 93, "positive": 1, "negative": 1227, "neutral": 648, "breachedSla": 6}, {"month": "2025-08", "cases": 1849, "complaints": 1408, "requests": 379, "notifications": 62, "positive": 2, "negative": 1198, "neutral": 649, "breachedSla": 1}, {"month": "2025-09", "cases": 2151, "complaints": 1582, "requests": 489, "notifications": 80, "positive": 1, "negative": 1300, "neutral": 850, "breachedSla": 9}, {"month": "2025-10", "cases": 2571, "complaints": 1932, "requests": 546, "notifications": 93, "positive": 1, "negative": 1633, "neutral": 937, "breachedSla": 11}, {"month": "2025-11", "cases": 2504, "complaints": 1848, "requests": 564, "notifications": 92, "positive": 3, "negative": 1542, "neutral": 959, "breachedSla": 5}, {"month": "2025-12", "cases": 2133, "complaints": 1568, "requests": 467, "notifications": 98, "positive": 3, "negative": 1315, "neutral": 815, "breachedSla": 11}, {"month": "2026-01", "cases": 2352, "complaints": 1717, "requests": 544, "notifications": 91, "positive": 2, "negative": 1432, "neutral": 918, "breachedSla": 19}, {"month": "2026-02", "cases": 2612, "complaints": 1654, "requests": 857, "notifications": 101, "positive": 2, "negative": 1388, "neutral": 1222, "breachedSla": 27}, {"month": "2026-03", "cases": 977, "complaints": 287, "requests": 658, "notifications": 32, "positive": 0, "negative": 277, "neutral": 700, "breachedSla": 1}], "topBusRoutes": [{"route": "50", "totalCases": 578, "complaints": 390, "validComplaints": 195, "invalidComplaints": 114}, {"route": "X25", "totalCases": 478, "complaints": 316, "validComplaints": 131, "invalidComplaints": 121}, {"route": "24", "totalCases": 473, "complaints": 361, "validComplaints": 151, "invalidComplaints": 153}, {"route": "E100", "totalCases": 459, "complaints": 322, "validComplaints": 133, "invalidComplaints": 114}, {"route": "E400", "totalCases": 445, "complaints": 328, "validComplaints": 112, "invalidComplaints": 153}, {"route": "E101", "totalCases": 427, "complaints": 231, "validComplaints": 89, "invalidComplaints": 71}, {"route": "53", "totalCases": 361, "complaints": 273, "validComplaints": 92, "invalidComplaints": 124}, {"route": "84", "totalCases": 338, "complaints": 269, "validComplaints": 130, "invalidComplaints": 95}, {"route": "J01", "totalCases": 337, "complaints": 191, "validComplaints": 74, "invalidComplaints": 81}, {"route": "320", "totalCases": 330, "complaints": 208, "validComplaints": 91, "invalidComplaints": 86}]}</script>
+<script>
+(function(){
+  const D = JSON.parse(document.getElementById('dax-data').textContent);
+  const fmt = n => n>=1000 ? (n/1000).toFixed(n>=10000?0:1)+'k' : String(n);
+  const fmtFull = n => n.toLocaleString('en-US');
+  const $ = id => document.getElementById(id);
+
+  // Headline tiles
+  $('dax-total').textContent = fmtFull(D.totalCases);
+  $('dax-total-sub').textContent = `${fmtFull(D.totalComplaints)} complaints · ${fmtFull(D.totalRequests)} requests · ${fmtFull(D.totalNotifications)} notifications`;
+
+  $('dax-sla').innerHTML = D.slaCompliancePct.toFixed(1) + '<small>%</small>';
+  $('dax-sla-sub').textContent = `${fmtFull(D.withinSlaCases)} within / ${fmtFull(D.breachedSlaCases)} breached`;
+
+  $('dax-valid').innerHTML = D.validComplaintRatePct.toFixed(1) + '<small>%</small>';
+  $('dax-valid-sub').textContent = `${fmtFull(D.validComplaints)} of ${fmtFull(D.totalComplaints)} complaints`;
+
+  $('dax-res').innerHTML = D.avgResolutionDays + '<small>days</small>';
+
+  // Transaction type tiles
+  $('tx-complaint').textContent = fmtFull(D.totalComplaints);
+  $('tx-complaint-pct').textContent = (D.totalComplaints/D.totalCases*100).toFixed(1) + '%';
+  $('tx-request').textContent = fmtFull(D.totalRequests);
+  $('tx-request-pct').textContent = (D.totalRequests/D.totalCases*100).toFixed(1) + '%';
+  $('tx-notif').textContent = fmtFull(D.totalNotifications);
+  $('tx-notif-pct').textContent = (D.totalNotifications/D.totalCases*100).toFixed(1) + '%';
+
+  // Sentiment bar
+  const sentBar = $('dax-sent-bar');
+  sentBar.innerHTML = '';
+  const segments = [
+    {cls:'neg', val:D.negativeCases, pct:D.negativeSentimentPct, label:'Neg'},
+    {cls:'neu', val:D.neutralCases,  pct:D.neutralSentimentPct,  label:'Neu'},
+    {cls:'pos', val:D.positiveCases, pct:D.positiveSentimentPct, label:'Pos'},
+  ];
+  segments.forEach(s => {
+    const div = document.createElement('div');
+    div.className = s.cls;
+    div.style.width = s.pct + '%';
+    div.textContent = s.pct >= 4 ? `${s.label} ${s.pct.toFixed(1)}%` : '';
+    sentBar.appendChild(div);
+  });
+  $('dax-neg-pct').textContent = D.negativeSentimentPct.toFixed(1) + '%';
+  $('dax-neu-pct').textContent = D.neutralSentimentPct.toFixed(1) + '%';
+  $('dax-pos-pct').textContent = D.positiveSentimentPct.toFixed(1) + '%';
+
+  // YoY table
+  const yoyBody = $('dax-yoy-body');
+  D.yoy.forEach(y => {
+    const tr = document.createElement('tr');
+    const isPartial = y.year === 2026; // partial year — Jan-Mar only
+    const yearLabel = isPartial ? `${y.year} <small style="color:var(--mute);font-weight:500;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.04em;text-transform:uppercase;display:block;margin-top:2px">Partial · Jan–Mar</small>` : y.year;
+    const casesDelta = y.casesYoyChange === null ? '<span class="delta-na">—</span>'
+      : isPartial ? `<span class="delta-na" title="2026 is partial; YoY not directly comparable">—</span>`
+      : (y.casesYoyChange >= 0 ? `<span class="delta-up">▲ ${fmtFull(y.casesYoyChange)} (${y.casesYoyPct.toFixed(1)}%)</span>`
+                                  : `<span class="delta-dn">▼ ${fmtFull(Math.abs(y.casesYoyChange))} (${y.casesYoyPct.toFixed(1)}%)</span>`);
+    const complDelta = y.complaintsYoyChange === null ? '<span class="delta-na">—</span>'
+      : isPartial ? `<span class="delta-na">—</span>`
+      : (y.complaintsYoyChange >= 0 ? `<span class="delta-up">▲ ${fmtFull(y.complaintsYoyChange)}</span>`
+                                       : `<span class="delta-dn">▼ ${fmtFull(Math.abs(y.complaintsYoyChange))}</span>`);
+    tr.innerHTML = `
+      <td class="label">${yearLabel}</td>
+      <td class="r">${fmtFull(y.cases)}</td>
+      <td class="r">${casesDelta}</td>
+      <td class="r">${complDelta}</td>
+      <td class="r">${y.slaCompliancePct.toFixed(1)}%</td>
+    `;
+    yoyBody.appendChild(tr);
+  });
+
+  // Service group table
+  const svcBody = $('dax-svc-body');
+  D.serviceGroups.forEach(s => {
+    const tr = document.createElement('tr');
+    const groupShort = s.group.replace('Taxis and Luxury Vehicles Transport','Taxis & Luxury')
+                              .replace('Bus Transport','Buses')
+                              .replace('Marine Transport','Marine');
+    const sentTotal = s.positive + s.neutral + s.negative;
+    const negPct = s.negative/sentTotal*100;
+    const neuPct = s.neutral/sentTotal*100;
+    const posPct = s.positive/sentTotal*100;
+    const sentBar = `
+      <div style="display:flex;height:16px;border-radius:4px;overflow:hidden;background:var(--cream);min-width:140px;margin-left:auto">
+        <div style="width:${negPct}%;background:var(--primary)" title="Negative ${s.negative.toLocaleString()}"></div>
+        <div style="width:${neuPct}%;background:var(--mute)" title="Neutral ${s.neutral.toLocaleString()}"></div>
+        <div style="width:${posPct}%;background:var(--good)" title="Positive ${s.positive.toLocaleString()}"></div>
+      </div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--mute);margin-top:3px;text-align:right">P ${s.positive} · N ${s.neutral} · Neg ${s.negative.toLocaleString()}</div>
+    `;
+    tr.innerHTML = `
+      <td class="label">${groupShort}<small style="display:block;color:var(--mute);font-weight:400;font-family:'JetBrains Mono',monospace;font-size:10px;margin-top:2px">${s.group}</small></td>
+      <td class="r">${fmtFull(s.cases)}</td>
+      <td class="r">${s.pctOfTotal.toFixed(1)}%</td>
+      <td class="r">${fmtFull(s.complaints)}</td>
+      <td class="r">${fmtFull(s.validComplaints)}</td>
+      <td class="r">${fmtFull(s.invalidComplaints)}</td>
+      <td class="r">${s.slaCompliancePct.toFixed(1)}%</td>
+      <td class="r" style="min-width:160px">${sentBar}</td>
+    `;
+    svcBody.appendChild(tr);
+  });
+
+  // Bus route table
+  const routeBody = $('dax-route-body');
+  D.topBusRoutes.forEach(r => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td class="label" style="font-family:'Fraunces',serif;font-size:14px;font-weight:600">${r.route}</td>
+      <td class="r">${fmtFull(r.totalCases)}</td>
+      <td class="r">${fmtFull(r.complaints)}</td>
+      <td class="r">${fmtFull(r.validComplaints)}</td>
+      <td class="r">${fmtFull(r.invalidComplaints)}</td>
+    `;
+    routeBody.appendChild(tr);
+  });
+})();
+</script>
+
+
+
+<!-- ===================== TAB: COMPARISON ===================== -->
+<div class="tab-pane" id="tab-comparison" role="tabpanel">
+
+  <!-- The paradox banner -->
+  <section class="section">
+    <div class="paradox-banner">
+      <div class="paradox-icon">!</div>
+      <div>
+        <div class="paradox-title">Three Lenses, One Customer</div>
+        <div class="paradox-body"><strong>CRM</strong> measures handling-quality after a case is opened — "did RTA resolve my issue well?" <strong>Social</strong> measures lived-experience as it happens — "how was the service in the wild?" <strong>Google reviews</strong> are place-anchored and star-rated — "was this specific facility worth my time?" All three numbers below are correct; they capture different moments and different customers. <strong>The gaps between them are the value of triangulating all three.</strong></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Side-by-side headline gap (3 sources) -->
+  <section class="section">
+    <div class="gap-hero gap-hero-3">
+      <div class="gap-side crm">
+        <div class="gap-tag"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--teal)"></span> CRM · Internal channel</div>
+        <div class="gap-source" id="cmp-crm-source">— rated cases · post-resolution</div>
+        <div class="gap-headline" id="cmp-crm-headline">—<small>%</small></div>
+        <div class="gap-label">Customer Satisfaction (CSAT)</div>
+        <div class="gap-detail">After a case is closed, customers rate how RTA handled it. High score reflects effective complaint handling — not necessarily the underlying experience.</div>
+        <div class="gap-mini">
+          <div><strong id="cmp-crm-sat">—</strong>satisfied</div>
+          <div><strong id="cmp-crm-neu">—</strong>neutral</div>
+          <div><strong id="cmp-crm-dis">—</strong>dissatisfied</div>
+        </div>
+      </div>
+      <div class="gap-side social">
+        <div class="gap-tag"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--primary)"></span> Social · External channel</div>
+        <div class="gap-source" id="cmp-social-source">— mentions · in-the-moment</div>
+        <div class="gap-headline" id="cmp-social-headline">—<small>%</small></div>
+        <div class="gap-label">Negative sentiment share</div>
+        <div class="gap-detail">Public posts on X, Reddit, news, and Meta — captured before customers escalate to a case (or instead of escalating). Reflects raw experience, not handling.</div>
+        <div class="gap-mini">
+          <div><strong id="cmp-soc-pos">—</strong>positive</div>
+          <div><strong id="cmp-soc-neu">—</strong>neutral</div>
+          <div><strong id="cmp-soc-neg">—</strong>negative</div>
+        </div>
+      </div>
+      <div class="gap-side google">
+        <div class="gap-tag"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:linear-gradient(135deg,#4285F4 0%,#EA4335 35%,#FBBC04 65%,#34A853 100%)"></span> Google · Place-anchored</div>
+        <div class="gap-source" id="cmp-google-source">— reviews · star-rated</div>
+        <div class="gap-headline" id="cmp-google-headline">—<small>★</small></div>
+        <div class="gap-label">Average star rating</div>
+        <div class="gap-detail">Reviews left on Google Maps for taxi stands, nol centres, marine stations, and Customer Happiness Centres. Star ratings give an explicit sentiment number that pairs cleanly with text analysis.</div>
+        <div class="gap-mini">
+          <div><strong id="cmp-google-pos">—</strong>positive</div>
+          <div><strong id="cmp-google-neu">—</strong>neutral</div>
+          <div><strong id="cmp-google-neg">—</strong>negative</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Service-level alignment -->
+  <section class="section">
+    <div class="card">
+      <div class="card-h">
+        <div>
+          <div class="cmp-eyebrow">Service-level alignment</div>
+          <div class="card-title">Where the two sources agree (and don't)</div>
+          <div class="card-sub">Per-service sentiment from each channel. Tight bars on both sides = consistent signal; divergence = a service the formal channel may be under-counting.</div>
+        </div>
+      </div>
+      <div class="matrix" id="cmp-matrix"></div>
+    </div>
+  </section>
+
+  <!-- Google places ranked -->
+  <section class="section">
+    <div class="card">
+      <div class="card-h">
+        <div>
+          <div class="cmp-eyebrow" style="color:#1A56C5">— Google · Place-anchored signal</div>
+          <div class="card-title">Reviewed places · ranked by star rating</div>
+          <div class="card-sub">Each public-facing RTA touchpoint that customers can review on Google Maps. Low-rated places are direct, addressable improvement targets — they tell you <em>where</em> as well as <em>what</em>.</div>
+        </div>
+      </div>
+      <div class="places-list" id="cmp-places-list"></div>
+      <div class="card-foot">Google Places API returns the 5 most recent reviews per place. To extend historical depth, supplement with the Outscraper API or a dedicated review-scraping service. Currently sampling 6 demo places — production deployment cycles through ~30 monitored locations.</div>
+    </div>
+  </section>
+
+  <!-- Root cause analysis -->
+  <section class="section">
+    <div class="cmp-eyebrow">Root cause analysis</div>
+    <div class="section-title" style="margin-bottom:14px">Top dissatisfaction drivers · by source</div>
+    <div class="root-grid">
+      <div class="root-card crm">
+        <div class="card-h-mini">
+          <div>
+            <div class="card-title-sm">CRM dissatisfaction drivers</div>
+            <div class="src-meta">From valid complaints · n = <span id="cmp-crm-valid">—</span></div>
+          </div>
+          <div class="src">CRM</div>
+        </div>
+        <div class="root-list" id="cmp-crm-roots"></div>
+      </div>
+      <div class="root-card social">
+        <div class="card-h-mini">
+          <div>
+            <div class="card-title-sm">Social dissatisfaction drivers</div>
+            <div class="src-meta">From negative mentions · n = <span id="cmp-soc-neg-n">—</span></div>
+          </div>
+          <div class="src">SOCIAL</div>
+        </div>
+        <div class="root-list" id="cmp-soc-roots"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Unified taxonomy -->
+  <section class="section">
+    <div class="card">
+      <div class="card-h">
+        <div>
+          <div class="cmp-eyebrow">Unified Taxonomy</div>
+          <div class="card-title">Cross-source category share</div>
+          <div class="card-sub">Both sources mapped to a shared category set. The <strong>gap column</strong> shows where social over- or under-indexes vs CRM — over-indexed categories are early-warning signals, under-indexed ones may be CRM-only blind spots.</div>
+        </div>
+      </div>
+      <table class="tax-table" id="cmp-tax-table">
+        <thead>
+          <tr>
+            <th>Root cause category</th>
+            <th class="r">CRM share</th>
+            <th class="r">Social share</th>
+            <th class="r">Distribution</th>
+            <th class="r">Gap</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Corrective Action Plan -->
+  <section class="section">
+    <div class="cmp-eyebrow">Corrective Action Plan</div>
+    <div class="section-title" style="margin-bottom:6px">Recommended interventions</div>
+    <div class="card-sub" style="margin-bottom:18px;font-size:13px;color:var(--soft);max-width:820px">Each recommendation is scored on <strong style="color:var(--ink)">effectiveness</strong> (will it resolve the root cause?) and <strong style="color:var(--ink)">efficiency</strong> (cost, time, and resources to ship). Higher dots = better. Priority is set by the share of negative customer signal each cause drives across both data sources.</div>
+    <div id="cmp-actions"></div>
+  </section>
+
+  <!-- Methodology -->
+  <section class="section">
+    <div class="method">
+      <div class="method-h">— Methodology</div>
+      <strong>CRM-side</strong> figures are computed directly from the four CRM exports (2023–2026, n = 100,921). CSAT is the satisfied-share of the 59,710 cases with a post-resolution rating. Dissatisfaction drivers are the most frequent <code style="font-family:JetBrains Mono,monospace;font-size:11.5px;background:var(--rule);padding:1px 6px;border-radius:3px">Reason/Purpose</code> values among cases tagged Dissatisfied or Very Dissatisfied (n = 1,584). Valid-complaint reasons are reported separately because they capture experience-driven volume, not just resolved-case ratings.<br><br>
+      <strong>Social-side</strong> figures use the live social listening backend in this build — adapters for X, Meta, Reddit, and RSS news. The current view samples 12 representative mentions in demo mode; once credentials are configured (see <code style="font-family:JetBrains Mono,monospace;font-size:11.5px;background:var(--rule);padding:1px 6px;border-radius:3px">INTEGRATION.md</code>), the same widgets refresh automatically with live volume.<br><br>
+      <strong>Google-side</strong> figures use the Google Places API adapter. The API returns up to 5 most recent reviews per place, so production pulls cycle through ~30 monitored Dubai locations (taxi stands, nol top-up centres, marine stations, bus stations, customer happiness centres). Star ratings are mapped to a normalized sentiment score (1★ → −1.0, 5★ → +1.0); free-text reviews additionally pass through the same lexicon/LLM classifier as the rest of the social sources. Currently sampling 6 demo places. Estimated production cost at RTA volume: ~$5/month.<br><br>
+      <strong>The unified taxonomy</strong> maps both sources to the same five root-cause categories using keyword + reason-code rules. The gap column (social% − CRM%) is the headline diagnostic: positive = under-counted by CRM, negative = over-represented in formal channels.<br><br>
+      <strong>Action-plan scoring</strong> follows the brief's "effectiveness AND efficiency" requirement. Effectiveness = expected reduction in the underlying root cause volume. Efficiency = cost-time-resource burden, scored inversely (5 = low burden, 1 = high). Priority is independent of either — it ranks the cause itself by aggregate volume, not the action.
+    </div>
+  </section>
+
+</div><!-- /tab-comparison -->
+
+<script id="cmp-data" type="application/json">{"crm": {"totalRatedCases": 59710, "satisfiedPct": 89.1, "neutralPct": 8.2, "dissatisfiedPct": 2.7, "totalDissatisfied": 1584, "byService": [{"service": "Taxis & Luxury", "rated": 38609, "satisfied_pct": 91.0, "neutral_pct": 6.9, "dissatisfied_pct": 2.1}, {"service": "Bus", "rated": 19535, "satisfied_pct": 85.8, "neutral_pct": 10.5, "dissatisfied_pct": 3.7}, {"service": "Marine", "rated": 394, "satisfied_pct": 86.8, "neutral_pct": 9.4, "dissatisfied_pct": 3.8}, {"service": "nol", "rated": 783, "satisfied_pct": 83.8, "neutral_pct": 12.1, "dissatisfied_pct": 4.1}], "complaintSignal": [{"service": "Taxis & Luxury", "cases": 60816, "valid_complaints": 50290, "valid_complaint_pct": 82.7}, {"service": "Bus", "cases": 37038, "valid_complaints": 9957, "valid_complaint_pct": 26.9}, {"service": "Marine", "cases": 686, "valid_complaints": 107, "valid_complaint_pct": 15.6}, {"service": "nol", "cases": 1644, "valid_complaints": 474, "valid_complaint_pct": 28.8}], "topDissatDrivers": [{"reason": "Staff Conduct", "count": 444}, {"reason": "Reckless driving", "count": 169}, {"reason": "Extending Route To Increase Fare", "count": 159}, {"reason": "Refusing to Deliver Passengers", "count": 118}, {"reason": "Amount not Credited", "count": 112}, {"reason": "Overcharge", "count": 94}, {"reason": "Service Enhancement Request", "count": 88}, {"reason": "Refusal of Pick-up", "count": 43}], "topValidComplaintReasons": [{"reason": "Staff Conduct", "count": 17060}, {"reason": "Reckless driving", "count": 13536}, {"reason": "Refusal of Pick-up", "count": 8283}, {"reason": "Extending Route To Increase Fare", "count": 5424}, {"reason": "Refusing to Deliver Passengers", "count": 1853}, {"reason": "Amount not Credited", "count": 1232}, {"reason": "Not Giving The Change", "count": 1064}, {"reason": "Delayed Service", "count": 953}]}, "social": {"totalMentions": 12, "positivePct": 33.3, "neutralPct": 8.3, "negativePct": 58.3, "byService": [{"service": "Taxis & Luxury", "mentions": 4, "positive_pct": 25.0, "neutral_pct": 0.0, "negative_pct": 75.0}, {"service": "Bus", "mentions": 4, "positive_pct": 25.0, "neutral_pct": 0.0, "negative_pct": 75.0}, {"service": "Marine", "mentions": 2, "positive_pct": 50.0, "neutral_pct": 0.0, "negative_pct": 50.0}, {"service": "nol", "mentions": 1, "positive_pct": 0.0, "neutral_pct": 100.0, "negative_pct": 0.0}, {"service": "General", "mentions": 1, "positive_pct": 100.0, "neutral_pct": 0.0, "negative_pct": 0.0}], "topNegativeDrivers": [{"reason": "Delayed Service", "count": 2}, {"reason": "Refusal of Pick-up", "count": 1}, {"reason": "Accessibility / Maintenance", "count": 1}, {"reason": "Reckless driving", "count": 1}, {"reason": "Staff Conduct", "count": 1}, {"reason": "Surge Pricing", "count": 1}]}, "taxonomy": [{"category": "Driver behaviour & conduct", "crm_reasons": ["Staff Conduct", "Reckless driving", "Refusing to Deliver Passengers"], "social_topics": ["Reckless driving", "Staff Conduct"], "crm_count": 32449, "social_count": 2, "crm_pct": 59.6, "social_pct": 25.0, "gap": -34.6}, {"category": "Service availability & access", "crm_reasons": ["Refusal of Pick-up", "Delayed Service"], "social_topics": ["Refusal of Pick-up", "Delayed Service"], "crm_count": 9236, "social_count": 3, "crm_pct": 17.0, "social_pct": 37.5, "gap": 20.5}, {"category": "Fare integrity & overcharging", "crm_reasons": ["Extending Route To Increase Fare", "Overcharge", "Not Giving The Change", "Surge Pricing"], "social_topics": ["Surge Pricing", "Overcharge"], "crm_count": 9273, "social_count": 1, "crm_pct": 17.0, "social_pct": 12.5, "gap": -4.5}, {"category": "Payment & nol issues", "crm_reasons": ["Amount not Credited", "Technical Payment Issues", "GPS Fare Issues"], "social_topics": ["Technical Payment Issues"], "crm_count": 2707, "social_count": 1, "crm_pct": 5.0, "social_pct": 12.5, "gap": 7.5}, {"category": "Vehicle condition & accessibility", "crm_reasons": ["Accessibility / Maintenance", "Vehicle Cleanliness", "AC Issues"], "social_topics": ["Accessibility / Maintenance"], "crm_count": 800, "social_count": 1, "crm_pct": 1.5, "social_pct": 12.5, "gap": 11.0}], "actions": [{"cause": "Driver behaviour & conduct", "crm_share": 59.6, "priority": "P1 \u2014 Highest", "actions": [{"name": "Real-time driver coaching from in-cab telematics", "effectiveness": 5, "efficiency": 3, "cost": "High", "time": "6 mo"}, {"name": "Mandatory de-escalation training for all dispatched drivers", "effectiveness": 4, "efficiency": 4, "cost": "Medium", "time": "3 mo"}, {"name": "Tiered penalty + recognition system tied to monthly conduct score", "effectiveness": 4, "efficiency": 5, "cost": "Low", "time": "1 mo"}]}, {"cause": "Service availability & access", "crm_share": 17.0, "priority": "P1 \u2014 Highest", "actions": [{"name": "Driver app feature: confirm pickup before route assignment", "effectiveness": 5, "efficiency": 4, "cost": "Medium", "time": "2 mo"}, {"name": "Predictive demand model + dynamic dispatch for peak windows", "effectiveness": 4, "efficiency": 3, "cost": "High", "time": "9 mo"}, {"name": "Public commitment SLA: pickup within 5 min or fare waived", "effectiveness": 3, "efficiency": 2, "cost": "Medium", "time": "1 mo"}]}, {"cause": "Fare integrity & overcharging", "crm_share": 17.0, "priority": "P2 \u2014 High", "actions": [{"name": "GPS-anchored fare auto-validation against ride path", "effectiveness": 5, "efficiency": 5, "cost": "Low", "time": "2 mo"}, {"name": "Mandatory in-app fare estimate shown before ride confirmation", "effectiveness": 4, "efficiency": 5, "cost": "Low", "time": "1 mo"}, {"name": "Auto-refund workflow when route deviation > 15% of ETA path", "effectiveness": 4, "efficiency": 4, "cost": "Medium", "time": "3 mo"}]}, {"cause": "Payment & nol issues", "crm_share": 5.0, "priority": "P3 \u2014 Medium", "actions": [{"name": "Real-time top-up reconciliation with payment provider webhooks", "effectiveness": 5, "efficiency": 4, "cost": "Medium", "time": "4 mo"}, {"name": "Self-service in-app refund for failed taps (auto-resolution)", "effectiveness": 4, "efficiency": 5, "cost": "Low", "time": "2 mo"}]}, {"cause": "Vehicle condition & accessibility", "crm_share": 1.5, "priority": "P3 \u2014 Medium", "actions": [{"name": "Predictive maintenance scheduling tied to telemetry + complaint heatmap", "effectiveness": 4, "efficiency": 4, "cost": "Medium", "time": "6 mo"}, {"name": "Daily pre-shift vehicle inspection app with photo evidence", "effectiveness": 3, "efficiency": 5, "cost": "Low", "time": "1 mo"}]}], "gap": {"crmCsatPct": 89.1, "crmDissatPct": 2.7, "socialPosPct": 33.3, "socialNegPct": 58.3, "paradoxNarrative": "CRM CSAT measures handling-quality after a case is opened. Social sentiment measures lived-experience as it happens. Google reviews are place-anchored \u2014 tied to specific facilities, taxi stands, and centres, with star ratings that give explicit sentiment numbers. Three lenses on the same customer; the gaps reveal where each channel under-counts."}, "google": {"totalReviews": 6, "positivePct": 50.0, "neutralPct": 16.7, "negativePct": 33.3, "avgRating": 3.5, "placesCovered": 6, "byService": [{"service": "Taxis & Luxury", "mentions": 2, "positive_pct": 0.0, "neutral_pct": 50.0, "negative_pct": 50.0}, {"service": "Bus", "mentions": 1, "positive_pct": 0.0, "neutral_pct": 0.0, "negative_pct": 100.0}, {"service": "Marine", "mentions": 1, "positive_pct": 100.0, "neutral_pct": 0.0, "negative_pct": 0.0}, {"service": "nol", "mentions": 2, "positive_pct": 100.0, "neutral_pct": 0.0, "negative_pct": 0.0}], "topNegativeDrivers": [{"reason": "Schedule reliability", "count": 1}, {"reason": "Fare integrity", "count": 1}]}, "google_topPlaces": [{"place": "Al Ghubaiba Bus Station", "avg": 2.0, "reviews": 1, "svc": "Bus"}, {"place": "RTA Taxi Stand DIFC", "avg": 1.0, "reviews": 1, "svc": "Taxis & Luxury"}, {"place": "Dubai Taxi Corporation HQ", "avg": 3.0, "reviews": 1, "svc": "Taxis & Luxury"}, {"place": "Al Karama Customer Happiness Centre", "avg": 5.0, "reviews": 1, "svc": "General"}, {"place": "nol Recharge \u2014 Mall of the Emirates", "avg": 4.0, "reviews": 1, "svc": "nol"}, {"place": "Abra Station Bur Dubai", "avg": 5.0, "reviews": 1, "svc": "Marine"}]}</script>
+<script>
+(function(){
+  const D = JSON.parse(document.getElementById('cmp-data').textContent);
+  const $ = id => document.getElementById(id);
+  const fmt = n => n.toLocaleString('en-US');
+
+  // Headline gap
+  $('cmp-crm-source').textContent = `${fmt(D.crm.totalRatedCases)} rated cases · post-resolution`;
+  $('cmp-crm-headline').innerHTML = D.gap.crmCsatPct.toFixed(1) + '<small>%</small>';
+  $('cmp-crm-sat').textContent = D.gap.crmCsatPct.toFixed(1) + '%';
+  $('cmp-crm-neu').textContent = D.crm.neutralPct.toFixed(1) + '%';
+  $('cmp-crm-dis').textContent = D.gap.crmDissatPct.toFixed(1) + '%';
+
+  $('cmp-social-source').textContent = `${D.social.totalMentions} mentions · in-the-moment`;
+  $('cmp-social-headline').innerHTML = D.gap.socialNegPct.toFixed(1) + '<small>%</small>';
+  $('cmp-soc-pos').textContent = D.social.positivePct.toFixed(1) + '%';
+  $('cmp-soc-neu').textContent = D.social.neutralPct.toFixed(1) + '%';
+  $('cmp-soc-neg').textContent = D.social.negativePct.toFixed(1) + '%';
+
+  // Google reviews card
+  if (D.google){
+    $('cmp-google-source').textContent = `${D.google.totalReviews} reviews · ${D.google.placesCovered} places`;
+    $('cmp-google-headline').innerHTML = D.google.avgRating.toFixed(1) + '<small>★</small>';
+    $('cmp-google-pos').textContent = D.google.positivePct.toFixed(1) + '%';
+    $('cmp-google-neu').textContent = D.google.neutralPct.toFixed(1) + '%';
+    $('cmp-google-neg').textContent = D.google.negativePct.toFixed(1) + '%';
+  }
+
+  // Google places ranked list
+  const placesList = $('cmp-places-list');
+  if (placesList && D.google_topPlaces){
+    const sorted = [...D.google_topPlaces].sort((a,b) => a.avg - b.avg);
+    sorted.forEach(p => {
+      const fullStars = Math.floor(p.avg);
+      const empty = 5 - fullStars;
+      const stars = '★'.repeat(fullStars) + '☆'.repeat(empty);
+      const div = document.createElement('div');
+      div.className = 'place-row';
+      div.innerHTML = `
+        <div>
+          <span class="place-name">${p.place}</span>
+          <span class="place-svc-tag">${p.svc}</span>
+        </div>
+        <div class="place-stars">${stars}<small>${p.avg.toFixed(1)}</small></div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--mute);min-width:60px;text-align:right">${p.reviews} review${p.reviews>1?'s':''}</div>
+      `;
+      placesList.appendChild(div);
+    });
+  }
+
+  // Service-level alignment matrix
+  const matrix = $('cmp-matrix');
+  const allSvcs = new Set([...D.crm.byService.map(s=>s.service), ...D.social.byService.map(s=>s.service)]);
+  const crmBy = Object.fromEntries(D.crm.byService.map(s=>[s.service, s]));
+  const socBy = Object.fromEntries(D.social.byService.map(s=>[s.service, s]));
+  ['Taxis & Luxury','Bus','Marine','nol'].forEach(svc => {
+    if (!allSvcs.has(svc)) return;
+    const c = crmBy[svc];
+    const s = socBy[svc];
+    const row = document.createElement('div');
+    row.className = 'matrix-row';
+    row.innerHTML = `
+      <div class="matrix-svc">${svc}</div>
+      <div class="matrix-side">
+        <div class="matrix-label">CRM</div>
+        <div class="matrix-bar">
+          ${c ? `
+            <div class="seg pos" style="width:${c.satisfied_pct}%" title="${c.satisfied_pct}% satisfied"></div>
+            <div class="seg neu" style="width:${c.neutral_pct}%" title="${c.neutral_pct}% neutral"></div>
+            <div class="seg neg" style="width:${c.dissatisfied_pct}%" title="${c.dissatisfied_pct}% dissatisfied"></div>
+          ` : ''}
+        </div>
+        <div class="matrix-num">${c ? c.satisfied_pct.toFixed(0)+'%' : '—'}</div>
+      </div>
+      <div class="matrix-side">
+        <div class="matrix-label">Social</div>
+        <div class="matrix-bar">
+          ${s ? `
+            <div class="seg pos" style="width:${s.positive_pct}%" title="${s.positive_pct}% positive"></div>
+            <div class="seg neu" style="width:${s.neutral_pct}%" title="${s.neutral_pct}% neutral"></div>
+            <div class="seg neg" style="width:${s.negative_pct}%" title="${s.negative_pct}% negative"></div>
+          ` : ''}
+        </div>
+        <div class="matrix-num">${s ? s.positive_pct.toFixed(0)+'%' : 'n/a'}</div>
+      </div>
+    `;
+    matrix.appendChild(row);
+  });
+
+  // Root cause lists (CRM side uses valid complaint reasons — better signal than just dissat ratings)
+  const crmRoots = $('cmp-crm-roots');
+  const totalCrmReasons = D.crm.topValidComplaintReasons.reduce((s,r)=>s+r.count, 0);
+  $('cmp-crm-valid').textContent = '60,864';
+  D.crm.topValidComplaintReasons.slice(0,7).forEach((r, i) => {
+    const pct = r.count / D.crm.topValidComplaintReasons[0].count * 100;
+    const div = document.createElement('div');
+    div.className = 'root-item';
+    div.innerHTML = `
+      <div class="root-rank">${String(i+1).padStart(2,'0')}</div>
+      <div class="root-name">${r.reason}</div>
+      <div class="root-bar-wrap">
+        <div class="root-bar"><div class="root-bar-fill" style="width:${pct}%"></div></div>
+        <div class="root-count">${fmt(r.count)}</div>
+      </div>
+    `;
+    crmRoots.appendChild(div);
+  });
+
+  const socRoots = $('cmp-soc-roots');
+  const totalSocNeg = D.social.topNegativeDrivers.reduce((s,r)=>s+r.count, 0);
+  $('cmp-soc-neg-n').textContent = totalSocNeg;
+  D.social.topNegativeDrivers.slice(0,7).forEach((r, i) => {
+    const pct = r.count / D.social.topNegativeDrivers[0].count * 100;
+    const div = document.createElement('div');
+    div.className = 'root-item';
+    div.innerHTML = `
+      <div class="root-rank">${String(i+1).padStart(2,'0')}</div>
+      <div class="root-name">${r.reason}</div>
+      <div class="root-bar-wrap">
+        <div class="root-bar"><div class="root-bar-fill" style="width:${pct}%"></div></div>
+        <div class="root-count">${r.count}</div>
+      </div>
+    `;
+    socRoots.appendChild(div);
+  });
+
+  // Unified taxonomy table
+  const taxBody = document.querySelector('#cmp-tax-table tbody');
+  D.taxonomy.forEach(t => {
+    const tr = document.createElement('tr');
+    let gapClass = 'neutral';
+    let gapSign = '';
+    if (t.gap >= 5) { gapClass = 'over'; gapSign = '▲ +'; }
+    else if (t.gap <= -5) { gapClass = 'under'; gapSign = '▼ '; }
+    else { gapSign = ''; }
+    tr.innerHTML = `
+      <td class="tax-cat">${t.category}</td>
+      <td class="r"><span class="tax-num bold">${t.crm_pct.toFixed(1)}%</span></td>
+      <td class="r"><span class="tax-num bold">${t.social_pct.toFixed(1)}%</span></td>
+      <td>
+        <div class="tax-bars">
+          <div class="tax-num">CRM</div>
+          <div class="tax-bar"><div class="tax-bar-fill crm" style="width:${t.crm_pct}%"></div></div>
+        </div>
+        <div class="tax-bars" style="margin-top:6px">
+          <div class="tax-num">Soc</div>
+          <div class="tax-bar"><div class="tax-bar-fill social" style="width:${t.social_pct}%"></div></div>
+        </div>
+      </td>
+      <td class="r"><span class="gap-pill ${gapClass}">${gapSign}${Math.abs(t.gap).toFixed(1)} pp</span></td>
+    `;
+    taxBody.appendChild(tr);
+  });
+
+  // Action plan
+  const actBox = $('cmp-actions');
+  D.actions.forEach(a => {
+    const card = document.createElement('div');
+    card.className = 'action-card';
+    const pclass = a.priority.startsWith('P1') ? 'p1' : a.priority.startsWith('P2') ? 'p2' : 'p3';
+    let actionsHtml = '';
+    a.actions.forEach(act => {
+      const effDots = Array.from({length:5}, (_,i) => `<span class="score-dot ${i<act.effectiveness?'fil':''}"></span>`).join('');
+      const effiDots = Array.from({length:5}, (_,i) => `<span class="score-dot ${i<act.efficiency?'fil':''}"></span>`).join('');
+      actionsHtml += `
+        <div class="action-item">
+          <div>
+            <div class="action-name">${act.name}</div>
+            <div class="action-meta" style="margin-top:7px">
+              <span class="meta-tag">Cost · ${act.cost}</span>
+              <span class="meta-tag">Time · ${act.time}</span>
+            </div>
+          </div>
+          <div class="score-pair">
+            <div class="score-row">
+              <div class="score-label">Effect.</div>
+              <div class="score-dots">${effDots}</div>
+              <div class="score-num">${act.effectiveness}</div>
+            </div>
+            <div class="score-row">
+              <div class="score-label">Effic.</div>
+              <div class="score-dots">${effiDots}</div>
+              <div class="score-num">${act.efficiency}</div>
+            </div>
+          </div>
+        </div>
+      `;
+    });
+    card.innerHTML = `
+      <div class="action-head">
+        <div>
+          <div class="action-cause">${a.cause}</div>
+          <div class="action-share">${a.crm_share}% of CRM complaint volume</div>
+        </div>
+        <div class="priority-badge ${pclass}">${a.priority}</div>
+      </div>
+      <div class="action-list">${actionsHtml}</div>
+    `;
+    actBox.appendChild(card);
+  });
 })();
 </script>
 
@@ -1057,5 +1992,73 @@ new Chart(yCtx, {
   }
 });
 </script>
+
+<script>
+// ===== Tab navigation =====
+(function(){
+  const buttons = document.querySelectorAll('.tab-btn');
+  const panes = document.querySelectorAll('.tab-pane');
+
+  function activate(tabId){
+    buttons.forEach(b => {
+      const isActive = b.dataset.tab === tabId;
+      b.classList.toggle('active', isActive);
+      b.setAttribute('aria-selected', isActive);
+    });
+    panes.forEach(p => {
+      p.classList.toggle('active', p.id === 'tab-' + tabId);
+    });
+    // Collapse the hero on any non-overview tab so content gets prime viewport
+    document.body.classList.toggle('tab-compact', tabId !== 'overview');
+    // Scroll tab nav into view if user clicked from far below
+    if (window.scrollY > 200){
+      const nav = document.querySelector('.tab-nav-wrap');
+      const headerH = document.querySelector('.nav').offsetHeight;
+      window.scrollTo({top: nav.offsetTop - headerH, behavior:'smooth'});
+    }
+    // Update URL hash without scrolling
+    if (history.replaceState){
+      history.replaceState(null, '', '#' + tabId);
+    }
+  }
+
+  buttons.forEach(b => {
+    b.addEventListener('click', () => activate(b.dataset.tab));
+  });
+
+  // Honour hash on load (e.g. #social for direct linking)
+  const validTabs = ['overview','dax','operations','social','routes','comparison'];
+  const hash = window.location.hash.replace('#','');
+  if (validTabs.includes(hash)){
+    activate(hash);
+  }
+
+  // Update tab badge counts to reflect real content (deferred — fires after
+  // the social + routes panes have populated)
+  function updateBadges(){
+    const social = document.querySelectorAll('#tab-social .mention').length;
+    const routes = document.querySelectorAll('#tab-routes .route-chip').length;
+    const sb = document.getElementById('tab-count-social');
+    const rb = document.getElementById('tab-count-routes');
+    if (sb && social) sb.textContent = social;
+    if (rb && routes) rb.textContent = routes;
+  }
+  setTimeout(updateBadges, 600);
+  setInterval(updateBadges, 5000); // social count updates as backend pushes
+
+  // Keyboard nav: Left/Right arrow when focus is on tab bar
+  document.querySelector('.tab-nav-inner').addEventListener('keydown', e => {
+    if (!['ArrowLeft','ArrowRight'].includes(e.key)) return;
+    const active = document.querySelector('.tab-btn.active');
+    const arr = Array.from(buttons);
+    const idx = arr.indexOf(active);
+    const next = e.key === 'ArrowRight' ? (idx+1)%arr.length : (idx-1+arr.length)%arr.length;
+    arr[next].focus();
+    activate(arr[next].dataset.tab);
+    e.preventDefault();
+  });
+})();
+</script>
+
 </body>
 </html>
