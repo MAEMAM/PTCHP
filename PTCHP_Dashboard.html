@@ -3328,23 +3328,11 @@ body.tab-compact .gfb-wrap{top:0}
     </div>
   </section>
 
-  <!-- E. Scatter plots -->
-  <section class="op-section">
-    <div class="op-section-h">
-      <div>
-        <div class="op-section-tag">Section E · Scatter & Regression</div>
-        <div class="op-section-title">Top 3 strongest KPI–complaint relationships</div>
-        <div class="op-section-sub">Each scatter plots 36 monthly observations · regression line shows the linear relationship · R² indicates how much of the complaint variance is explained by the KPI alone.</div>
-      </div>
-    </div>
-    <div class="op-scatters" id="op-scatters"></div>
-  </section>
-
   <!-- F. Pareto ranking -->
   <section class="op-section">
     <div class="op-section-h">
       <div>
-        <div class="op-section-tag">Section F · Pareto · Impact Ranking</div>
+        <div class="op-section-tag">Section E · Pareto · Impact Ranking</div>
         <div class="op-section-title">Which KPIs would reduce the most complaints if improved?</div>
         <div class="op-section-sub">Each KPI is scored by the sum of <em>|r| × complaint volume</em> across all categories it correlates with. Higher score = more leverage. Cumulative % shows how concentrated the leverage is among top KPIs (classic Pareto: typically the top 3 explain ~80% of the impact).</div>
       </div>
@@ -3358,7 +3346,7 @@ body.tab-compact .gfb-wrap{top:0}
   <section class="op-section">
     <div class="op-section-h">
       <div>
-        <div class="op-section-tag">Section G · Insights & Recommendations</div>
+        <div class="op-section-tag">Section F · Insights & Recommendations</div>
         <div class="op-section-title">From correlation to action</div>
         <div class="op-section-sub">Automatically-generated findings derived from the KPI scorecard, correlation matrix, and Pareto impact analysis. Recommendations are calibrated to the strongest empirical linkages.</div>
       </div>
@@ -5557,78 +5545,6 @@ new Chart(yCtx, {
     box.innerHTML = html;
   }
   
-  // ====== Section E: Scatter plots — top 3 strongest pairings ======
-  function renderScatters() {
-    var box = document.getElementById('op-scatters');
-    if (!box) return;
-    
-    // Find top 3 strongest |r| pairs
-    var pairs = [];
-    Object.keys(OP_DATA.kpis).forEach(function(code){
-      Object.keys(OP_DATA.correlations[code]).forEach(function(cat){
-        var r = OP_DATA.correlations[code][cat];
-        if (Math.abs(r) >= 0.5 && cat !== 'Other') {
-          pairs.push({ kpi: code, cat: cat, r: r });
-        }
-      });
-    });
-    pairs.sort(function(a,b){ return Math.abs(b.r) - Math.abs(a.r); });
-    var top3 = pairs.slice(0, 3);
-    
-    box.innerHTML = '';
-    top3.forEach(function(p, idx){
-      var kpi = OP_DATA.kpis[p.kpi];
-      var card = document.createElement('div');
-      card.className = 'op-scatter-card';
-      card.innerHTML = 
-        '<div class="op-scatter-h">' +
-          '<div class="op-scatter-title">' + kpi.name + '<br><small>vs ' + p.cat + ' complaints</small></div>' +
-          '<div class="op-scatter-r"><span class="op-scatter-r-val">r = ' + (p.r >= 0 ? '+' : '') + p.r.toFixed(3) + '</span><br><small>R² = ' + (p.r*p.r).toFixed(3) + '</small></div>' +
-        '</div>' +
-        '<canvas id="op-scatter-' + idx + '" height="220"></canvas>';
-      box.appendChild(card);
-      
-      var kpiVals = kpi.actual;
-      var catVals = OP_DATA.complaints_by_cat[p.cat];
-      var data = kpiVals.map(function(v, i){ return {x: v, y: catVals[i]}; });
-      
-      // Compute regression line endpoints
-      var n = data.length;
-      var meanX = data.reduce(function(s,d){return s+d.x;}, 0) / n;
-      var meanY = data.reduce(function(s,d){return s+d.y;}, 0) / n;
-      var num = 0, den = 0;
-      data.forEach(function(d){ num += (d.x - meanX) * (d.y - meanY); den += (d.x - meanX) * (d.x - meanX); });
-      var slope = num / den;
-      var intercept = meanY - slope * meanX;
-      var minX = Math.min.apply(null, kpiVals);
-      var maxX = Math.max.apply(null, kpiVals);
-      var regLine = [{x: minX, y: intercept + slope * minX}, {x: maxX, y: intercept + slope * maxX}];
-      
-      setTimeout(function(){
-        var canvas = document.getElementById('op-scatter-' + idx);
-        if (!canvas) return;
-        new Chart(canvas.getContext('2d'), {
-          type: 'scatter',
-          data: {
-            datasets: [
-              { label: 'Monthly points', data: data, backgroundColor: 'rgba(200,85,61,.45)', pointRadius: 4, pointHoverRadius: 6 },
-              { label: 'Regression', data: regLine, type: 'line', borderColor: '#2E7D7A', borderWidth: 1.5, borderDash: [3,3], pointRadius: 0, fill: false },
-            ],
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-              x: { title: { display: true, text: kpi.name + ' (' + (kpi.unit || '') + ')', font: { family: 'Inter Tight', size: 10 } }, ticks: { font: { family: 'JetBrains Mono', size: 9 } } },
-              y: { title: { display: true, text: p.cat + ' complaints', font: { family: 'Inter Tight', size: 10 } }, ticks: { font: { family: 'JetBrains Mono', size: 9 } } },
-            },
-            plugins: { legend: { display: false }, tooltip: { backgroundColor: '#0F1B2D', titleFont: { family: 'JetBrains Mono', size: 10 }, bodyFont: { family: 'Inter Tight', size: 11 } } },
-          },
-        });
-      }, 200);
-    });
-  }
-  
   // ====== Section F: Pareto — top complaint drivers ranked by KPI impact ======
   function renderPareto() {
     var box = document.getElementById('op-pareto');
@@ -5774,7 +5690,6 @@ new Chart(yCtx, {
     renderTimeKpiTabs();
     renderTimeChart();
     renderHeatmap();
-    renderScatters();
     renderPareto();
     renderInsights();
   };
