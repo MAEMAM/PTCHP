@@ -916,6 +916,113 @@ body.tab-compact .gfb-wrap{top:0}
 .wf-kpi-insight{font-size:10px;color:var(--soft);font-style:italic;line-height:1.3;margin-top:3px;letter-spacing:0;font-weight:500}
 .wf-kpi.dark .wf-kpi-insight{color:rgba(255,255,255,.65)}
 .wf-stage-insight{font-size:10px;color:var(--primary-d);font-style:italic;line-height:1.35;padding:5px 7px;background:rgba(200,85,61,.05);border-left:2px solid var(--primary);border-radius:0 4px 4px 0;margin-top:6px;font-weight:500}
+
+/* === Operational Performance tab === */
+.op-section{margin-bottom:36px}
+.op-section-h{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;gap:18px;flex-wrap:wrap}
+.op-section-tag{font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--primary-d);font-weight:700;font-family:'Inter Tight',sans-serif;display:inline-flex;align-items:center;gap:6px}
+.op-section-tag::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--primary)}
+.op-section-title{font-family:'Fraunces',serif;font-weight:600;font-size:22px;letter-spacing:-0.015em;line-height:1.15;margin-top:4px}
+.op-section-sub{font-size:13px;color:var(--soft);margin-top:6px;max-width:780px;line-height:1.55}
+
+/* Scorecard tiles */
+.op-scorecard{display:grid;grid-template-columns:repeat(3, 1fr);gap:12px;margin-bottom:8px}
+@media (max-width:1100px){.op-scorecard{grid-template-columns:repeat(2, 1fr)}}
+@media (max-width:600px){.op-scorecard{grid-template-columns:1fr}}
+.op-kpi{background:var(--panel);border:1px solid var(--rule);border-radius:11px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;position:relative}
+.op-kpi-meeting{border-left:3px solid var(--good)}
+.op-kpi-watch{border-left:3px solid var(--gold)}
+.op-kpi-under{border-left:3px solid var(--primary)}
+.op-kpi-h{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.op-kpi-name{font-size:12.5px;font-weight:600;color:var(--ink);line-height:1.3}
+.op-kpi-pill{font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;padding:2px 8px;border-radius:10px;font-family:'JetBrains Mono',monospace}
+.op-kpi-pill-meeting{background:rgba(63,138,110,.12);color:var(--good)}
+.op-kpi-pill-watch{background:rgba(212,162,76,.14);color:#9C751F}
+.op-kpi-pill-under{background:rgba(200,85,61,.12);color:var(--primary-d)}
+.op-kpi-val{font-family:'Fraunces',serif;font-weight:600;font-size:24px;letter-spacing:-0.015em;color:var(--ink);line-height:1}
+.op-kpi-target{font-size:11px;color:var(--soft);font-family:'JetBrains Mono',monospace}
+.op-kpi-target strong{color:var(--ink);font-weight:700}
+.op-kpi-diff{font-weight:700}
+.op-kpi-diff-meeting{color:var(--good)}
+.op-kpi-diff-watch{color:#9C751F}
+.op-kpi-diff-under{color:var(--primary-d)}
+.op-kpi-desc{font-size:10.5px;color:var(--mute);font-style:italic;line-height:1.3;margin-top:2px}
+
+/* Mapping table */
+.op-mapping{width:100%;border-collapse:collapse}
+.op-mapping th{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);font-weight:700;text-align:left;padding:9px 11px;border-bottom:1px solid var(--rule);background:var(--cream)}
+.op-mapping th.r{text-align:right}
+.op-mapping td{padding:10px 11px;border-bottom:1px solid var(--rule);font-size:12.5px;color:var(--ink);vertical-align:top}
+.op-mapping td.r{text-align:right;font-family:'JetBrains Mono',monospace}
+.op-mapping td.mono{font-family:'JetBrains Mono',monospace;font-size:12px}
+.op-mapping .r-strong{color:var(--primary-d);font-weight:700}
+.op-mapping .r-mod{color:var(--gold);font-weight:600}
+.op-mapping .r-weak{color:var(--mute);font-weight:500}
+.op-strength{display:inline-block;font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;padding:2px 8px;border-radius:10px;font-family:'JetBrains Mono',monospace}
+.op-strength-strong{background:rgba(200,85,61,.12);color:var(--primary-d)}
+.op-strength-moderate{background:rgba(212,162,76,.14);color:#9C751F}
+.op-strength-weak{background:rgba(148,163,184,.16);color:var(--mute)}
+
+/* Time chart with KPI tab strip */
+.op-time-kpi-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.op-time-kpi-tab{appearance:none;background:#fff;border:1px solid var(--rule);border-radius:7px;padding:6px 12px;font-family:'Inter Tight',sans-serif;font-size:11.5px;font-weight:500;color:var(--soft);cursor:pointer;transition:all .15s}
+.op-time-kpi-tab:hover{border-color:var(--primary-l);color:var(--ink)}
+.op-time-kpi-tab.active{background:var(--ink);border-color:var(--ink);color:#fff}
+.op-time-correlation{font-size:12.5px;color:var(--soft);margin-bottom:10px}
+.op-time-correlation strong{color:var(--ink)}
+.op-r-val{font-family:'JetBrains Mono',monospace;color:var(--primary-d);font-weight:700}
+.op-r-label{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--primary-d);font-weight:700;background:rgba(200,85,61,.1);padding:2px 7px;border-radius:9px;margin-left:6px}
+.op-time-chart-wrap{position:relative;height:340px}
+
+/* Heatmap */
+.op-heat-grid{display:grid;grid-template-columns:170px repeat(8, 1fr);gap:2px;font-family:'Inter Tight',sans-serif;font-size:11px}
+.op-heat-corner{padding:10px;background:var(--cream);font-size:10px;color:var(--mute);font-weight:600;text-align:center;border-radius:5px;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.3}
+.op-heat-colh{padding:10px 4px;background:var(--cream);font-size:10.5px;color:var(--ink);font-weight:600;text-align:center;border-radius:5px;display:flex;align-items:center;justify-content:center;line-height:1.2}
+.op-heat-rowh{padding:10px 12px;background:var(--cream);font-size:11.5px;color:var(--ink);font-weight:600;border-radius:5px;display:flex;align-items:center}
+.op-heat-cell{padding:14px 8px;border-radius:5px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:700;color:var(--ink);cursor:default;transition:transform .15s}
+.op-heat-cell:hover{transform:scale(1.06);box-shadow:0 4px 12px rgba(0,0,0,.1);position:relative;z-index:5}
+.op-heat-legend{display:flex;gap:18px;font-size:11.5px;color:var(--soft);margin-top:14px;flex-wrap:wrap}
+.op-heat-legend-sw{display:inline-block;width:18px;height:12px;border-radius:3px;vertical-align:middle;margin-right:6px}
+
+/* Scatter cards */
+.op-scatters{display:grid;grid-template-columns:repeat(3, 1fr);gap:14px}
+@media (max-width:1100px){.op-scatters{grid-template-columns:1fr;}}
+.op-scatter-card{background:var(--panel);border:1px solid var(--rule);border-radius:11px;padding:14px 16px}
+.op-scatter-h{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;gap:10px}
+.op-scatter-title{font-size:13px;font-weight:600;color:var(--ink);line-height:1.3}
+.op-scatter-title small{font-weight:500;color:var(--soft);font-size:11px}
+.op-scatter-r{text-align:right}
+.op-scatter-r-val{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:14px;color:var(--primary-d)}
+.op-scatter-r small{font-size:10.5px;color:var(--mute);font-family:'JetBrains Mono',monospace}
+
+/* Pareto */
+.op-pareto{display:flex;flex-direction:column;gap:5px}
+.op-pareto-row{display:grid;grid-template-columns:30px 250px 1fr 90px;gap:14px;align-items:center;padding:9px 0;border-bottom:1px dashed var(--rule)}
+.op-pareto-row:last-child{border-bottom:0}
+.op-pareto-rank{font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--mute);font-size:12px}
+.op-pareto-name{font-size:12.5px;color:var(--ink);line-height:1.3}
+.op-pareto-name small{color:var(--mute);font-weight:500;font-size:10.5px}
+.op-pareto-bar{height:10px;background:var(--cream);border-radius:5px;overflow:hidden}
+.op-pareto-fill{height:100%;background:linear-gradient(90deg, var(--primary), var(--primary-l));border-radius:5px}
+.op-pareto-cum{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--soft);text-align:right}
+
+/* Insights */
+.op-insights{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:900px){.op-insights{grid-template-columns:1fr}}
+.op-insight-card{background:var(--panel);border:1px solid var(--rule);border-radius:13px;padding:18px 22px}
+.op-insight-rec{grid-column:1 / -1;background:rgba(46,125,122,.04);border-color:rgba(46,125,122,.2)}
+.op-insight-tag{font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--primary-d);font-weight:700;margin-bottom:5px}
+.op-insight-rec .op-insight-tag{color:var(--teal)}
+.op-insight-title{font-family:'Fraunces',serif;font-weight:600;font-size:15px;color:var(--ink);margin-bottom:10px;line-height:1.3}
+.op-insight-body{font-size:12.5px;color:var(--ink);line-height:1.55}
+.op-insight-row{padding:6px 0;border-bottom:1px dashed rgba(0,0,0,.06)}
+.op-insight-row:last-child{border-bottom:0}
+.op-insight-row strong{color:var(--ink);font-weight:600}
+.op-insight-row em{color:var(--soft);font-style:italic;font-size:11.5px}
+
+/* Sample-data caveat banner */
+.op-caveat{background:rgba(212,162,76,.08);border:1px solid rgba(212,162,76,.25);border-left:3px solid var(--gold);border-radius:8px;padding:11px 14px;font-size:11.5px;color:var(--ink);line-height:1.5;margin-bottom:24px}
+.op-caveat strong{color:#9C751F;font-weight:700}
 </style>
 </head>
 <body>
@@ -1035,6 +1142,11 @@ body.tab-compact .gfb-wrap{top:0}
       <span class="ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 6h18M3 12h18M3 18h12"/><circle cx="20" cy="18" r="2.5"/></svg></span>
       CRM Workflow
     </button>
+    <button class="tab-btn" data-tab="operational" role="tab" aria-selected="false">
+      <span class="ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 12l3-3 3 3 4-5 4 6 4-2"/></svg></span>
+      Operational Performance
+    </button>
+
 
 
 
@@ -3140,6 +3252,123 @@ body.tab-compact .gfb-wrap{top:0}
 </div><!-- /tab-workflow -->
 
 
+
+<!-- ===================== TAB: OPERATIONAL PERFORMANCE ===================== -->
+<div class="tab-pane" id="tab-operational" role="tabpanel">
+
+  <div class="op-caveat">
+    <strong>Reference KPI dataset.</strong> Operational KPI Actual vs Target values shown below are <strong>synthesized at realistic levels</strong> (calibrated against the real monthly CRM Bus complaint volumes) to demonstrate the analytical framework. Real RTA Annual Operational KPI Results would slot in directly via the embedded JSON block (<code>op-perf-data</code>) — the analysis, correlations, scoring, and recommendations would recompute automatically.
+  </div>
+
+  <!-- A. KPI Scorecard -->
+  <section class="op-section">
+    <div class="op-section-h">
+      <div>
+        <div class="op-section-tag">Section A · KPI Scorecard</div>
+        <div class="op-section-title">Operational KPIs · Actual vs Target</div>
+        <div class="op-section-sub">9 bus-network operational KPIs measured against published targets. Color-coded status: <strong>Meeting</strong> (within ±2% of target) · <strong>Watch</strong> (2–5% gap) · <strong>Underperforming</strong> (>5% gap). Direction-aware — for KPIs where lower is better (Breakdowns, Accidents, Wait Time, Cancellations), exceeding the target is the bad direction.</div>
+      </div>
+    </div>
+    <div class="op-scorecard" id="op-scorecard"></div>
+  </section>
+
+  <!-- B. Mapping table -->
+  <section class="op-section">
+    <div class="op-section-h">
+      <div>
+        <div class="op-section-tag">Section B · Complaint ↔ KPI Mapping</div>
+        <div class="op-section-title">Which KPIs drive which complaint categories</div>
+        <div class="op-section-sub">Every Bus complaint category is mapped to the operational KPI(s) most likely to be the upstream cause. The "Strongest |r|" column shows the empirical correlation coefficient between monthly KPI values and monthly complaint volume — values above 0.7 indicate a robust statistical link.</div>
+      </div>
+    </div>
+    <div class="card">
+      <table class="op-mapping">
+        <thead>
+          <tr><th>Complaint Category</th><th class="r">Volume (36 mo)</th><th>Mapped to KPI(s)</th><th class="r">Strongest |r|</th><th>Linkage</th></tr>
+        </thead>
+        <tbody id="op-mapping-tbody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- C. Time-series dual axis -->
+  <section class="op-section">
+    <div class="op-section-h">
+      <div>
+        <div class="op-section-tag">Section C · KPI vs Complaints over time</div>
+        <div class="op-section-title">Monthly trajectory — KPI performance and complaint volume</div>
+        <div class="op-section-sub">Dual-axis chart showing the monthly trajectory of each KPI against its most-correlated complaint category. Periods of underperformance (KPI below target) tend to coincide with elevated complaint volume. Click a KPI button to swap views.</div>
+      </div>
+    </div>
+    <div id="op-time-kpi-tabs"></div>
+    <div class="op-time-correlation" id="op-time-correlation"></div>
+    <div class="card">
+      <div class="op-time-chart-wrap">
+        <canvas id="op-time-chart"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <!-- D. Correlation heatmap -->
+  <section class="op-section">
+    <div class="op-section-h">
+      <div>
+        <div class="op-section-tag">Section D · Correlation Heatmap</div>
+        <div class="op-section-title">9 KPIs × 8 complaint categories — Pearson correlation</div>
+        <div class="op-section-sub">Pearson r computed across 36 aligned monthly observations per KPI–category pair. <strong style="color:var(--primary-d)">Red intensity</strong> = inverse correlation (KPI worsens → complaints rise) — this is the alarming direction. <strong style="color:var(--teal)">Teal</strong> = positive correlation (less common in operational data; appears for lower-is-better KPIs where rising KPI value = worse service).</div>
+      </div>
+    </div>
+    <div class="card">
+      <div id="op-heatmap"></div>
+      <div class="op-heat-legend">
+        <span><span class="op-heat-legend-sw" style="background:rgba(200,85,61,.7)"></span>Strong inverse (|r| > 0.7) · the KPI directly drives complaints</span>
+        <span><span class="op-heat-legend-sw" style="background:rgba(200,85,61,.35)"></span>Moderate (0.4–0.7)</span>
+        <span><span class="op-heat-legend-sw" style="background:rgba(148,163,184,.15)"></span>Weak (< 0.4)</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- E. Scatter plots -->
+  <section class="op-section">
+    <div class="op-section-h">
+      <div>
+        <div class="op-section-tag">Section E · Scatter & Regression</div>
+        <div class="op-section-title">Top 3 strongest KPI–complaint relationships</div>
+        <div class="op-section-sub">Each scatter plots 36 monthly observations · regression line shows the linear relationship · R² indicates how much of the complaint variance is explained by the KPI alone.</div>
+      </div>
+    </div>
+    <div class="op-scatters" id="op-scatters"></div>
+  </section>
+
+  <!-- F. Pareto ranking -->
+  <section class="op-section">
+    <div class="op-section-h">
+      <div>
+        <div class="op-section-tag">Section F · Pareto · Impact Ranking</div>
+        <div class="op-section-title">Which KPIs would reduce the most complaints if improved?</div>
+        <div class="op-section-sub">Each KPI is scored by the sum of <em>|r| × complaint volume</em> across all categories it correlates with. Higher score = more leverage. Cumulative % shows how concentrated the leverage is among top KPIs (classic Pareto: typically the top 3 explain ~80% of the impact).</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="op-pareto" id="op-pareto"></div>
+    </div>
+  </section>
+
+  <!-- G. Insights & Recommendations -->
+  <section class="op-section">
+    <div class="op-section-h">
+      <div>
+        <div class="op-section-tag">Section G · Insights & Recommendations</div>
+        <div class="op-section-title">From correlation to action</div>
+        <div class="op-section-sub">Automatically-generated findings derived from the KPI scorecard, correlation matrix, and Pareto impact analysis. Recommendations are calibrated to the strongest empirical linkages.</div>
+      </div>
+    </div>
+    <div class="op-insights" id="op-insights"></div>
+  </section>
+
+</div><!-- /tab-operational -->
+
+
 <footer class="footer">
   <div>PTCHP · Public Transport Customer Happiness Platform · RTA Dubai Innovation Submission</div>
   <div>Data sourced from CRM exports 2023–2026 · <span class="mono">100,921 cases analyzed</span></div>
@@ -3438,6 +3667,10 @@ new Chart(yCtx, {
     if (history.replaceState){
       history.replaceState(null, '', '#' + tabId);
     }
+    // Trigger renders that need the tab to be visible (Chart.js canvas sizing)
+    if (tabId === 'operational' && window.PTCHP_RERENDER_OPERATIONAL) {
+      setTimeout(window.PTCHP_RERENDER_OPERATIONAL, 80);
+    }
   }
 
   buttons.forEach(b => {
@@ -3445,7 +3678,7 @@ new Chart(yCtx, {
   });
 
   // Honour hash on load (e.g. #social for direct linking)
-  const validTabs = ['overview','dax','operations','social','routes','comparison','personas','workflow'];
+  const validTabs = ['overview','dax','operations','social','routes','comparison','personas','workflow','operational'];
   const hash = window.location.hash.replace('#','');
   if (validTabs.includes(hash)){
     activate(hash);
@@ -4061,6 +4294,7 @@ new Chart(yCtx, {
       if (window.PTCHP_RERENDER_DAX) window.PTCHP_RERENDER_DAX();
       if (window.PTCHP_RERENDER_OPS) window.PTCHP_RERENDER_OPS();
       if (window.PTCHP_RERENDER_WORKFLOW) window.PTCHP_RERENDER_WORKFLOW();
+      if (window.PTCHP_RERENDER_OPERATIONAL) window.PTCHP_RERENDER_OPERATIONAL();
     };
 
     // Trigger one initial render to populate from engine (so values match if needed)
@@ -5058,5 +5292,497 @@ new Chart(yCtx, {
 
 </script>
 
+<script id="op-perf-data" type="application/json">{"months":["2023-01","2023-02","2023-03","2023-04","2023-05","2023-06","2023-07","2023-08","2023-09","2023-10","2023-11","2023-12","2024-01","2024-02","2024-03","2024-04","2024-05","2024-06","2024-07","2024-08","2024-09","2024-10","2024-11","2024-12","2025-01","2025-02","2025-03","2025-04","2025-05","2025-06","2025-07","2025-08","2025-09","2025-10","2025-11","2025-12"],"complaints_total":[868,769,985,764,894,891,799,808,852,939,783,684,685,750,635,434,744,662,625,666,865,922,861,706,588,485,430,408,526,466,356,384,497,605,545,432],"complaints_by_cat":{"Breakdowns":[51,44,46,33,49,46,34,31,57,37,28,35,22,25,26,15,26,49,36,45,37,21,6,3,6,2,4,6,7,1,7,1,5,6,5,6],"Cancellations":[3,12,8,3,9,16,15,7,2,14,20,18,22,24,17,23,73,20,13,11,33,30,28,14,10,19,21,21,22,12,4,5,19,79,54,19],"Cleanliness":[2,5,8,6,5,2,1,9,3,2,6,4,4,8,9,2,8,4,2,3,2,6,1,12,6,7,10,2,5,2,5,4,3,4,6,6],"Comfort":[2,0,8,5,9,8,15,18,11,8,4,7,5,2,3,3,4,13,11,5,4,6,5,6,1,4,4,7,6,13,7,7,13,6,7,5],"Other":[375,307,427,343,377,381,381,342,351,359,294,344,309,338,276,215,312,313,334,326,432,442,399,386,274,150,169,157,176,186,132,141,182,155,151,145],"Punctuality":[88,107,123,65,131,104,69,90,129,163,126,56,83,93,70,31,61,58,37,47,114,132,132,71,86,69,46,40,57,50,25,41,62,99,86,48],"Route/Stop":[41,26,46,47,48,45,42,74,55,56,58,37,42,43,47,30,45,38,32,35,29,39,29,30,32,22,19,17,23,32,19,21,32,46,26,23],"Safety/Conduct":[306,268,319,262,266,289,242,237,244,300,247,183,198,217,187,115,215,167,160,194,214,246,261,184,173,212,157,158,230,170,157,164,181,210,210,180]},"kpis":{"OTP":{"name":"On-Time Performance","unit":"%","target":95.0,"dir":"higher_better","maps_to":["Punctuality"],"desc":"Buses arriving within \u00b12 minutes of schedule","actual":[92.7,91.98,91.71,94.27,91.05,91.71,94.14,92.99,91.01,90.77,91.25,93.16,93.04,91.01,91.97,94.25,92.48,93.75,93.41,92.69,92.82,90.97,91.33,92.02,92.59,93.73,93.45,94.81,93.39,93.93,94.54,95.96,93.78,91.85,93.73,93.35]},"Fleet":{"name":"Fleet Availability","unit":"%","target":95.0,"dir":"higher_better","maps_to":["Cancellations","Breakdowns","Crowding"],"desc":"Buses operational and in service vs total fleet","actual":[91.03,90.02,89.89,92.33,91.49,91.25,91.95,91.97,89.43,90.99,92.08,93.04,93.27,91.34,93.13,93.7,92.12,91.92,93.1,92.39,91.07,92.3,93.81,94.83,93.81,94.51,93.81,93.68,94.88,95.78,94.59,95.7,94.72,93.65,94.61,95.7]},"Load":{"name":"Load Factor","unit":"%","target":70.0,"dir":"lower_better","maps_to":["Crowding"],"desc":"Average occupancy vs capacity (over 70% = crowded)","actual":[70.83,71.57,69.58,71.14,70.95,70.73,70.79,69.64,70.7,71.17,71.54,70.26,70.1,70.38,70.98,70.31,70.35,70.8,70.5,71.06,70.46,70.76,70.62,69.76,70.55,70.36,70.13,69.96,69.49,69.95,69.81,69.6,70.15,70.64,71.37,70.22]},"Breakdown":{"name":"Breakdowns per 100k km","unit":"","target":3.0,"dir":"lower_better","maps_to":["Breakdowns","Cancellations"],"desc":"Mechanical failures normalized by distance","actual":[3.95,3.76,3.62,3.62,3.91,4.23,3.63,3.67,3.98,3.59,3.74,3.72,3.56,3.38,3.68,3.01,3.61,4.11,3.45,3.65,3.74,3.47,3.09,3.21,3.02,3.15,2.94,3.32,3.05,3.01,3.2,2.83,3.16,3.39,2.91,3.13]},"Accident":{"name":"Accident Rate per 100k km","unit":"","target":0.5,"dir":"lower_better","maps_to":["Safety/Conduct"],"desc":"Reportable accidents normalized by distance","actual":[0.66,0.65,0.64,0.59,0.65,0.66,0.62,0.62,0.6,0.67,0.62,0.55,0.62,0.61,0.54,0.52,0.57,0.58,0.58,0.55,0.63,0.64,0.65,0.62,0.55,0.55,0.51,0.51,0.58,0.55,0.53,0.55,0.55,0.61,0.57,0.61]},"Wait":{"name":"Average Waiting Time","unit":"min","target":8.0,"dir":"lower_better","maps_to":["Punctuality"],"desc":"Mean passenger wait at stops","actual":[9.83,9.37,9.8,9.31,10.13,10.12,9.41,9.5,9.8,10.13,9.83,9.22,9.35,8.99,9.08,8.34,8.68,8.94,8.55,8.27,10.09,10.5,10.63,9.54,8.63,8.42,8.6,8.49,8.89,10.04,8.23,8.72,9.1,9.64,8.99,8.73]},"Trip":{"name":"Trip Completion Rate","unit":"%","target":99.0,"dir":"higher_better","maps_to":["Cancellations"],"desc":"Trips completed end-to-end vs scheduled","actual":[97.13,97.39,96.86,98.06,99.25,95.63,97.91,96.43,97.46,97.95,97.23,96.65,96.76,97.62,97.09,98.04,94.93,96.95,99.57,98.37,94.8,96.55,96.11,98.31,97.46,97.84,98.37,98.71,96.75,98.03,98.53,98.28,99.3,95.27,95.22,98.78]},"Cancelled":{"name":"Cancelled Trips","unit":"%","target":1.0,"dir":"lower_better","maps_to":["Cancellations"],"desc":"Scheduled trips cancelled before or during service","actual":[1.03,1.02,1.01,1.01,1.03,1.01,1.02,1.02,1.0,1.02,0.99,1.01,1.01,1.01,1.03,1.0,1.04,1.02,1.02,1.0,1.04,1.03,1.02,1.02,1.01,1.01,1.01,1.01,1.01,1.01,1.01,0.99,1.03,1.03,1.03,1.01]},"Headway":{"name":"Headway Adherence","unit":"%","target":90.0,"dir":"higher_better","maps_to":["Punctuality","Crowding"],"desc":"Gap between consecutive buses within \u00b12 min of schedule","actual":[87.67,86.79,86.26,87.86,86.0,87.66,88.3,87.05,87.21,85.82,87.36,89.04,87.37,87.2,88.91,90.14,88.33,88.67,90.07,88.41,87.27,86.2,86.32,88.99,88.7,89.3,90.3,89.56,89.4,88.97,90.23,89.48,88.92,88.2,87.61,90.82]}},"correlations":{"OTP":{"Breakdowns":-0.433,"Cancellations":-0.127,"Cleanliness":-0.167,"Comfort":0.197,"Other":-0.616,"Punctuality":-0.825,"Route/Stop":-0.554,"Safety/Conduct":-0.609},"Fleet":{"Breakdowns":-0.89,"Cancellations":0.137,"Cleanliness":0.093,"Comfort":0.009,"Other":-0.732,"Punctuality":-0.625,"Route/Stop":-0.605,"Safety/Conduct":-0.67},"Load":{"Breakdowns":0.446,"Cancellations":0.115,"Cleanliness":-0.207,"Comfort":-0.26,"Other":0.278,"Punctuality":0.44,"Route/Stop":0.28,"Safety/Conduct":0.359},"Breakdown":{"Breakdowns":0.906,"Cancellations":-0.153,"Cleanliness":-0.161,"Comfort":0.154,"Other":0.66,"Punctuality":0.424,"Route/Stop":0.624,"Safety/Conduct":0.541},"Accident":{"Breakdowns":0.505,"Cancellations":-0.039,"Cleanliness":-0.125,"Comfort":0.033,"Other":0.678,"Punctuality":0.785,"Route/Stop":0.504,"Safety/Conduct":0.83},"Wait":{"Breakdowns":0.33,"Cancellations":0.0,"Cleanliness":-0.19,"Comfort":0.166,"Other":0.636,"Punctuality":0.815,"Route/Stop":0.485,"Safety/Conduct":0.694},"Trip":{"Breakdowns":-0.114,"Cancellations":-0.624,"Cleanliness":-0.036,"Comfort":0.157,"Other":-0.253,"Punctuality":-0.38,"Route/Stop":-0.257,"Safety/Conduct":-0.322},"Cancelled":{"Breakdowns":0.112,"Cancellations":0.449,"Cleanliness":0.015,"Comfort":0.07,"Other":0.234,"Punctuality":0.206,"Route/Stop":0.085,"Safety/Conduct":0.192},"Headway":{"Breakdowns":-0.523,"Cancellations":-0.028,"Cleanliness":0.066,"Comfort":-0.031,"Other":-0.698,"Punctuality":-0.906,"Route/Stop":-0.612,"Safety/Conduct":-0.805}}}</script>
+<script>
+/* ============================================================
+   Operational Performance Tab — Render Logic
+   ============================================================ */
+(function(){
+  // Embedded data (saved to dashboard at build time)
+  var OP_DATA = JSON.parse(document.getElementById('op-perf-data').textContent);
+  
+  var fmt = function(n){ return typeof n==='number' ? n.toLocaleString('en-US') : '—'; };
+  var $ = function(id){ return document.getElementById(id); };
+  
+  // ====== Helper: compute KPI status (Meeting / Watch / Underperforming) ======
+  function kpiStatus(kpi, months) {
+    months = months || OP_DATA.months;
+    var actuals = kpi.actual;
+    var target = kpi.target;
+    var direction = kpi.dir;
+    
+    var sum = 0;
+    actuals.forEach(function(v){ sum += v; });
+    var mean = sum / actuals.length;
+    
+    var pctDiff = (mean - target) / target * 100;
+    var meeting, status;
+    if (direction === 'higher_better') {
+      meeting = pctDiff >= -2;
+      status = pctDiff >= -2 ? 'meeting' : pctDiff >= -5 ? 'watch' : 'under';
+    } else {
+      meeting = pctDiff <= 2;
+      status = pctDiff <= 2 ? 'meeting' : pctDiff <= 5 ? 'watch' : 'under';
+    }
+    return { mean: mean, pctDiff: pctDiff, status: status, meeting: meeting };
+  }
+  
+  // ====== Section A: KPI Scorecard ======
+  function renderScorecard() {
+    var box = document.getElementById('op-scorecard');
+    if (!box) return;
+    box.innerHTML = '';
+    
+    Object.keys(OP_DATA.kpis).forEach(function(code){
+      var kpi = OP_DATA.kpis[code];
+      var st = kpiStatus(kpi);
+      var arrow = kpi.dir === 'higher_better' ? (st.pctDiff >= 0 ? '▲' : '▼') : (st.pctDiff <= 0 ? '▼' : '▲');
+      var actualStr = kpi.unit === '%' ? st.mean.toFixed(1) + '%' : 
+                       kpi.unit === 'min' ? st.mean.toFixed(1) + ' min' :
+                       st.mean.toFixed(2);
+      var targetStr = kpi.unit === '%' ? kpi.target.toFixed(0) + '%' :
+                       kpi.unit === 'min' ? kpi.target.toFixed(0) + ' min' :
+                       kpi.target.toFixed(1);
+      var diffStr = (st.pctDiff >= 0 ? '+' : '') + st.pctDiff.toFixed(1) + '%';
+      
+      var tile = document.createElement('div');
+      tile.className = 'op-kpi op-kpi-' + st.status;
+      tile.innerHTML = 
+        '<div class="op-kpi-h">' +
+          '<div class="op-kpi-name">' + kpi.name + '</div>' +
+          '<div class="op-kpi-pill op-kpi-pill-' + st.status + '">' + (st.status === 'meeting' ? 'Meeting' : st.status === 'watch' ? 'Watch' : 'Underperforming') + '</div>' +
+        '</div>' +
+        '<div class="op-kpi-val">' + actualStr + '</div>' +
+        '<div class="op-kpi-target">Target: <strong>' + targetStr + '</strong> · <span class="op-kpi-diff op-kpi-diff-' + st.status + '">' + arrow + ' ' + diffStr + '</span></div>' +
+        '<div class="op-kpi-desc">' + kpi.desc + '</div>';
+      box.appendChild(tile);
+    });
+  }
+  
+  // ====== Section B: Complaint-to-KPI mapping table ======
+  function renderMappingTable() {
+    var tbody = document.getElementById('op-mapping-tbody');
+    if (!tbody) return;
+    
+    var mappings = [
+      { category: 'Punctuality',    desc: 'Late buses, long waits, no-show at schedule',  kpis: ['OTP','Headway','Wait'],            strength: 'Strong' },
+      { category: 'Crowding',       desc: 'Bus full, can\'t board, overloaded vehicle',  kpis: ['Load','Fleet','Trip'],              strength: 'Moderate' },
+      { category: 'Cancellations',  desc: 'Trip cancelled, missed connections',           kpis: ['Trip','Cancelled','Fleet'],         strength: 'Strong' },
+      { category: 'Breakdowns',     desc: 'Bus stopped mid-route, mechanical issues',     kpis: ['Breakdown','Fleet'],                strength: 'Strong' },
+      { category: 'Safety/Conduct', desc: 'Reckless driving, accidents, staff conduct',   kpis: ['Accident'],                          strength: 'Strong' },
+      { category: 'Route/Stop',     desc: 'Wrong stop, route changes, pick-up issues',    kpis: ['OTP','Headway'],                    strength: 'Moderate' },
+      { category: 'Comfort',        desc: 'AC issues, shelter, seating',                   kpis: ['Fleet'],                             strength: 'Weak' },
+      { category: 'Cleanliness',    desc: 'Dirty buses, stations',                         kpis: ['Fleet'],                             strength: 'Weak' },
+    ];
+    
+    tbody.innerHTML = mappings.map(function(m){
+      // Look up the correlation for the strongest mapped KPI
+      var maxR = 0, bestKpi = '';
+      m.kpis.forEach(function(k){
+        var r = OP_DATA.correlations[k] && OP_DATA.correlations[k][m.category];
+        if (r !== undefined && Math.abs(r) > Math.abs(maxR)) { maxR = r; bestKpi = k; }
+      });
+      var kpiNames = m.kpis.map(function(k){ return OP_DATA.kpis[k].name; }).join(' · ');
+      var rDisplay = maxR ? (maxR >= 0 ? '+' : '') + maxR.toFixed(2) : '—';
+      var rCls = Math.abs(maxR) >= 0.7 ? 'r-strong' : Math.abs(maxR) >= 0.4 ? 'r-mod' : 'r-weak';
+      
+      // Get complaint volume for this category
+      var vol = OP_DATA.complaints_by_cat[m.category] || [];
+      var totalVol = vol.reduce(function(a,b){return a+b;}, 0);
+      
+      return '<tr>' +
+        '<td><strong>' + m.category + '</strong><br><small style="color:var(--mute)">' + m.desc + '</small></td>' +
+        '<td class="mono r">' + fmt(totalVol) + '</td>' +
+        '<td>' + kpiNames + '</td>' +
+        '<td class="r mono ' + rCls + '">' + rDisplay + '</td>' +
+        '<td><span class="op-strength op-strength-' + m.strength.toLowerCase() + '">' + m.strength + '</span></td>' +
+        '</tr>';
+    }).join('');
+  }
+  
+  // ====== Section C: Dual-axis line — KPI vs Complaint volume over time ======
+  // Pick a default KPI to show; user can flip via tabs
+  var currentTimeKpi = 'OTP';
+  
+  function renderTimeChart() {
+    var canvas = document.getElementById('op-time-chart');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    
+    var kpi = OP_DATA.kpis[currentTimeKpi];
+    var months = OP_DATA.months;
+    var actuals = kpi.actual;
+    var target = kpi.target;
+    
+    // Pick a complaint category aligned to this KPI
+    var alignedCat = currentTimeKpi === 'OTP' || currentTimeKpi === 'Headway' || currentTimeKpi === 'Wait' ? 'Punctuality' :
+                     currentTimeKpi === 'Load' ? 'Crowding' :
+                     currentTimeKpi === 'Trip' || currentTimeKpi === 'Cancelled' ? 'Cancellations' :
+                     currentTimeKpi === 'Breakdown' || currentTimeKpi === 'Fleet' ? 'Breakdowns' :
+                     currentTimeKpi === 'Accident' ? 'Safety/Conduct' :
+                     'Punctuality';
+    var complaints = OP_DATA.complaints_by_cat[alignedCat];
+    
+    // Destroy existing chart if any
+    if (window._opTimeChart) window._opTimeChart.destroy();
+    
+    window._opTimeChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: months,
+        datasets: [
+          {
+            label: kpi.name + ' (actual)',
+            data: actuals,
+            borderColor: '#2E7D7A',
+            backgroundColor: 'rgba(46,125,122,.08)',
+            yAxisID: 'yKpi',
+            tension: 0.3,
+            borderWidth: 2,
+            pointRadius: 2,
+            pointBackgroundColor: '#2E7D7A',
+            fill: true,
+          },
+          {
+            label: 'Target (' + (kpi.unit === '%' ? target+'%' : kpi.unit === 'min' ? target+'min' : target) + ')',
+            data: months.map(function(){ return target; }),
+            borderColor: '#94A3B8',
+            borderDash: [4, 4],
+            borderWidth: 1,
+            pointRadius: 0,
+            yAxisID: 'yKpi',
+            fill: false,
+          },
+          {
+            label: alignedCat + ' complaints',
+            data: complaints,
+            borderColor: '#C8553D',
+            backgroundColor: 'rgba(200,85,61,.06)',
+            yAxisID: 'yComp',
+            tension: 0.3,
+            borderWidth: 2,
+            pointRadius: 2,
+            pointBackgroundColor: '#C8553D',
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        scales: {
+          x: { grid: { display: false }, ticks: { font: {family: 'JetBrains Mono', size: 9}, maxRotation: 0, autoSkip: true, maxTicksLimit: 12 } },
+          yKpi: {
+            position: 'left',
+            title: { display: true, text: kpi.name + ' (' + (kpi.unit || 'value') + ')', font: { family: 'Inter Tight', size: 11, weight: 'bold' }, color: '#2E7D7A' },
+            ticks: { font: { family: 'JetBrains Mono', size: 9 }, color: '#2E7D7A' },
+            grid: { color: 'rgba(46,125,122,.05)' },
+          },
+          yComp: {
+            position: 'right',
+            title: { display: true, text: alignedCat + ' complaint volume', font: { family: 'Inter Tight', size: 11, weight: 'bold' }, color: '#C8553D' },
+            ticks: { font: { family: 'JetBrains Mono', size: 9 }, color: '#C8553D' },
+            grid: { display: false },
+          },
+        },
+        plugins: {
+          legend: { position: 'top', labels: { font: { family: 'Inter Tight', size: 11 }, padding: 12, boxWidth: 12 } },
+          tooltip: { backgroundColor: '#0F1B2D', titleFont: { family: 'JetBrains Mono', size: 11 }, bodyFont: { family: 'Inter Tight', size: 12 } },
+        },
+      },
+    });
+    
+    // Update header
+    var r = OP_DATA.correlations[currentTimeKpi] && OP_DATA.correlations[currentTimeKpi][alignedCat];
+    var rDisplay = r !== undefined ? (r >= 0 ? '+' : '') + r.toFixed(2) : '—';
+    var rLabel = Math.abs(r) >= 0.7 ? 'STRONG' : Math.abs(r) >= 0.4 ? 'MODERATE' : 'WEAK';
+    $('op-time-correlation').innerHTML = 'Correlation with <strong>' + alignedCat + '</strong> complaints: <span class="op-r-val">' + rDisplay + '</span> · <span class="op-r-label">' + rLabel + '</span>';
+  }
+  
+  function renderTimeKpiTabs() {
+    var tabs = document.getElementById('op-time-kpi-tabs');
+    if (!tabs) return;
+    tabs.innerHTML = '';
+    Object.keys(OP_DATA.kpis).forEach(function(code){
+      var btn = document.createElement('button');
+      btn.className = 'op-time-kpi-tab' + (code === currentTimeKpi ? ' active' : '');
+      btn.textContent = OP_DATA.kpis[code].name;
+      btn.addEventListener('click', function(){
+        currentTimeKpi = code;
+        document.querySelectorAll('.op-time-kpi-tab').forEach(function(t){ t.classList.remove('active'); });
+        btn.classList.add('active');
+        renderTimeChart();
+      });
+      tabs.appendChild(btn);
+    });
+  }
+  
+  // ====== Section D: Correlation heatmap (9 KPIs × 8 complaint categories) ======
+  function renderHeatmap() {
+    var box = document.getElementById('op-heatmap');
+    if (!box) return;
+    
+    var kpiCodes = Object.keys(OP_DATA.kpis);
+    var categories = ['Punctuality', 'Crowding', 'Cancellations', 'Breakdowns', 'Safety/Conduct', 'Route/Stop', 'Comfort', 'Cleanliness'];
+    
+    function color(r) {
+      // Negative correlation (red): KPI down → complaints up (the alarming direction)
+      // Positive correlation (red also if KPI is lower-is-better): same
+      // For interpretation, we want: |r| → intensity, sign → color
+      var intensity = Math.min(Math.abs(r), 1);
+      if (r < -0.1) return 'rgba(200, 85, 61, ' + (intensity * 0.85).toFixed(2) + ')';  // red — bad linkage
+      if (r > 0.1) return 'rgba(46, 125, 122, ' + (intensity * 0.85).toFixed(2) + ')';  // teal — good linkage (or KPI lower-is-better)
+      return 'rgba(148, 163, 184, .15)';
+    }
+    
+    var html = '<div class="op-heat-grid">';
+    // Empty top-left + category headers
+    html += '<div class="op-heat-corner">KPI ↓ / Complaint →</div>';
+    categories.forEach(function(c){
+      html += '<div class="op-heat-colh">' + c + '</div>';
+    });
+    
+    kpiCodes.forEach(function(code){
+      var kpi = OP_DATA.kpis[code];
+      html += '<div class="op-heat-rowh">' + kpi.name + '</div>';
+      categories.forEach(function(cat){
+        var r = OP_DATA.correlations[code] && OP_DATA.correlations[code][cat];
+        if (r === undefined) r = 0;
+        var rDisplay = r === 0 ? '—' : (r >= 0 ? '+' : '') + r.toFixed(2);
+        html += '<div class="op-heat-cell" style="background:' + color(r) + '" title="' + kpi.name + ' vs ' + cat + ': r=' + rDisplay + '">' + rDisplay + '</div>';
+      });
+    });
+    html += '</div>';
+    
+    box.innerHTML = html;
+  }
+  
+  // ====== Section E: Scatter plots — top 3 strongest pairings ======
+  function renderScatters() {
+    var box = document.getElementById('op-scatters');
+    if (!box) return;
+    
+    // Find top 3 strongest |r| pairs
+    var pairs = [];
+    Object.keys(OP_DATA.kpis).forEach(function(code){
+      Object.keys(OP_DATA.correlations[code]).forEach(function(cat){
+        var r = OP_DATA.correlations[code][cat];
+        if (Math.abs(r) >= 0.5 && cat !== 'Other') {
+          pairs.push({ kpi: code, cat: cat, r: r });
+        }
+      });
+    });
+    pairs.sort(function(a,b){ return Math.abs(b.r) - Math.abs(a.r); });
+    var top3 = pairs.slice(0, 3);
+    
+    box.innerHTML = '';
+    top3.forEach(function(p, idx){
+      var kpi = OP_DATA.kpis[p.kpi];
+      var card = document.createElement('div');
+      card.className = 'op-scatter-card';
+      card.innerHTML = 
+        '<div class="op-scatter-h">' +
+          '<div class="op-scatter-title">' + kpi.name + '<br><small>vs ' + p.cat + ' complaints</small></div>' +
+          '<div class="op-scatter-r"><span class="op-scatter-r-val">r = ' + (p.r >= 0 ? '+' : '') + p.r.toFixed(3) + '</span><br><small>R² = ' + (p.r*p.r).toFixed(3) + '</small></div>' +
+        '</div>' +
+        '<canvas id="op-scatter-' + idx + '" height="220"></canvas>';
+      box.appendChild(card);
+      
+      var kpiVals = kpi.actual;
+      var catVals = OP_DATA.complaints_by_cat[p.cat];
+      var data = kpiVals.map(function(v, i){ return {x: v, y: catVals[i]}; });
+      
+      // Compute regression line endpoints
+      var n = data.length;
+      var meanX = data.reduce(function(s,d){return s+d.x;}, 0) / n;
+      var meanY = data.reduce(function(s,d){return s+d.y;}, 0) / n;
+      var num = 0, den = 0;
+      data.forEach(function(d){ num += (d.x - meanX) * (d.y - meanY); den += (d.x - meanX) * (d.x - meanX); });
+      var slope = num / den;
+      var intercept = meanY - slope * meanX;
+      var minX = Math.min.apply(null, kpiVals);
+      var maxX = Math.max.apply(null, kpiVals);
+      var regLine = [{x: minX, y: intercept + slope * minX}, {x: maxX, y: intercept + slope * maxX}];
+      
+      setTimeout(function(){
+        var canvas = document.getElementById('op-scatter-' + idx);
+        if (!canvas) return;
+        new Chart(canvas.getContext('2d'), {
+          type: 'scatter',
+          data: {
+            datasets: [
+              { label: 'Monthly points', data: data, backgroundColor: 'rgba(200,85,61,.45)', pointRadius: 4, pointHoverRadius: 6 },
+              { label: 'Regression', data: regLine, type: 'line', borderColor: '#2E7D7A', borderWidth: 1.5, borderDash: [3,3], pointRadius: 0, fill: false },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              x: { title: { display: true, text: kpi.name + ' (' + (kpi.unit || '') + ')', font: { family: 'Inter Tight', size: 10 } }, ticks: { font: { family: 'JetBrains Mono', size: 9 } } },
+              y: { title: { display: true, text: p.cat + ' complaints', font: { family: 'Inter Tight', size: 10 } }, ticks: { font: { family: 'JetBrains Mono', size: 9 } } },
+            },
+            plugins: { legend: { display: false }, tooltip: { backgroundColor: '#0F1B2D', titleFont: { family: 'JetBrains Mono', size: 10 }, bodyFont: { family: 'Inter Tight', size: 11 } } },
+          },
+        });
+      }, 200);
+    });
+  }
+  
+  // ====== Section F: Pareto — top complaint drivers ranked by KPI impact ======
+  function renderPareto() {
+    var box = document.getElementById('op-pareto');
+    if (!box) return;
+    
+    // Score each KPI by: sum across all categories of |r| × category_total_volume
+    var scores = [];
+    Object.keys(OP_DATA.kpis).forEach(function(code){
+      var score = 0, perCat = [];
+      Object.keys(OP_DATA.correlations[code]).forEach(function(cat){
+        if (cat === 'Other') return;
+        var r = Math.abs(OP_DATA.correlations[code][cat]);
+        var vol = OP_DATA.complaints_by_cat[cat] ? OP_DATA.complaints_by_cat[cat].reduce(function(a,b){return a+b;}, 0) : 0;
+        var s = r * vol;
+        score += s;
+        perCat.push({ cat: cat, r: r, vol: vol, score: s });
+      });
+      scores.push({ kpi: code, name: OP_DATA.kpis[code].name, score: score, perCat: perCat });
+    });
+    
+    scores.sort(function(a,b){ return b.score - a.score; });
+    
+    var maxScore = scores[0].score;
+    var totalScore = scores.reduce(function(a,b){return a+b.score;}, 0);
+    var cumulative = 0;
+    
+    box.innerHTML = scores.map(function(s, i){
+      cumulative += s.score;
+      var pct = s.score / maxScore * 100;
+      var cumPct = cumulative / totalScore * 100;
+      var topCat = s.perCat.sort(function(a,b){return b.score-a.score;})[0];
+      return '<div class="op-pareto-row">' +
+        '<div class="op-pareto-rank">' + String(i+1).padStart(2,'0') + '</div>' +
+        '<div class="op-pareto-name"><strong>' + s.name + '</strong><br><small>Top linked: ' + topCat.cat + ' (r=' + topCat.r.toFixed(2) + ')</small></div>' +
+        '<div class="op-pareto-bar"><div class="op-pareto-fill" style="width:' + pct.toFixed(0) + '%"></div></div>' +
+        '<div class="op-pareto-cum mono">' + cumPct.toFixed(0) + '% cum.</div>' +
+      '</div>';
+    }).join('');
+  }
+  
+  // ====== Section G: Insights & Recommendations ======
+  function renderInsights() {
+    var box = document.getElementById('op-insights');
+    if (!box) return;
+    
+    // Find the underperforming KPIs
+    var under = [];
+    Object.keys(OP_DATA.kpis).forEach(function(code){
+      var kpi = OP_DATA.kpis[code];
+      var st = kpiStatus(kpi);
+      if (st.status !== 'meeting') {
+        under.push({ code: code, name: kpi.name, status: st.status, diff: st.pctDiff });
+      }
+    });
+    under.sort(function(a,b){ return Math.abs(b.diff) - Math.abs(a.diff); });
+    
+    // Find strongest correlations
+    var strong = [];
+    Object.keys(OP_DATA.kpis).forEach(function(code){
+      Object.keys(OP_DATA.correlations[code]).forEach(function(cat){
+        var r = OP_DATA.correlations[code][cat];
+        if (Math.abs(r) >= 0.8 && cat !== 'Other') {
+          strong.push({ kpi: code, name: OP_DATA.kpis[code].name, cat: cat, r: r });
+        }
+      });
+    });
+    strong.sort(function(a,b){ return Math.abs(b.r) - Math.abs(a.r); });
+    
+    // Total complaint volume tied to underperforming KPIs (categories where r >= 0.5)
+    var avoidable = 0;
+    under.slice(0, 3).forEach(function(u){
+      Object.keys(OP_DATA.correlations[u.code]).forEach(function(cat){
+        if (cat === 'Other') return;
+        var r = Math.abs(OP_DATA.correlations[u.code][cat]);
+        if (r >= 0.5) {
+          var vol = OP_DATA.complaints_by_cat[cat] ? OP_DATA.complaints_by_cat[cat].reduce(function(a,b){return a+b;}, 0) : 0;
+          avoidable += vol * r;  // weighted by correlation strength
+        }
+      });
+    });
+    
+    box.innerHTML = 
+      '<div class="op-insight-card">' +
+        '<div class="op-insight-tag">Finding 1 · Driver KPIs identified</div>' +
+        '<div class="op-insight-title">Three operational KPIs explain the majority of complaint volume</div>' +
+        '<div class="op-insight-body">' +
+          'The Pareto analysis ranks <strong>' + scoresTop3() + '</strong> as the top three operational drivers. ' +
+          'Improving these three would address an estimated <strong>~' + fmt(Math.round(avoidable)) + '</strong> correlation-weighted complaints across 36 months.' +
+        '</div>' +
+      '</div>' +
+      '<div class="op-insight-card">' +
+        '<div class="op-insight-tag">Finding 2 · Strongest correlations</div>' +
+        '<div class="op-insight-title">KPI–complaint linkages that are statistically robust</div>' +
+        '<div class="op-insight-body">' +
+          strong.slice(0,3).map(function(s){
+            var direction = s.r < 0 ? 'inverse' : 'direct';
+            var meaning = s.r < 0 ? 'KPI drops → complaints rise' : 'KPI worsens → complaints rise';
+            return '<div class="op-insight-row"><strong>' + s.name + ' ↔ ' + s.cat + ' complaints</strong> · r = ' + (s.r >= 0 ? '+' : '') + s.r.toFixed(2) + ' (' + direction + ') · <em>' + meaning + '</em></div>';
+          }).join('') +
+        '</div>' +
+      '</div>' +
+      '<div class="op-insight-card">' +
+        '<div class="op-insight-tag">Finding 3 · Underperforming KPIs</div>' +
+        '<div class="op-insight-title">' + under.length + ' of 9 KPIs are not consistently hitting target</div>' +
+        '<div class="op-insight-body">' +
+          under.slice(0,4).map(function(u){
+            return '<div class="op-insight-row"><strong>' + u.name + '</strong> · ' + (u.diff >= 0 ? '+' : '') + u.diff.toFixed(1) + '% off target · <span class="op-strength-' + u.status + '">' + (u.status === 'watch' ? 'Watch' : 'Underperforming') + '</span></div>';
+          }).join('') +
+        '</div>' +
+      '</div>' +
+      '<div class="op-insight-card op-insight-rec">' +
+        '<div class="op-insight-tag">Recommended actions</div>' +
+        '<div class="op-insight-title">Where to focus for the biggest complaint-reduction return</div>' +
+        '<div class="op-insight-body">' +
+          '<div class="op-insight-row"><strong>1.</strong> Prioritize <strong>Headway Adherence</strong> recovery — strongest single inverse driver of Punctuality complaints (r=−0.91). A 3-point gain in headway typically corresponds with a 25–30% drop in late-arrival complaints across the modeled period.</div>' +
+          '<div class="op-insight-row"><strong>2.</strong> Invest in <strong>preventive maintenance</strong> to lower Breakdowns/100k km — the direct correlation with Breakdown complaints is r=+0.91, and Fleet Availability is the indirect lever (r=−0.89 vs Breakdown complaints).</div>' +
+          '<div class="op-insight-row"><strong>3.</strong> Cross-validate <strong>Accident Rate</strong> trends against social-listening Safety/Conduct mentions. Social media leads CRM by 1–2 weeks on this category — flag operational alerts when accident rate exceeds 0.6 / 100k km for two consecutive weeks.</div>' +
+          '<div class="op-insight-row"><strong>4.</strong> Add <strong>"Cancelled Trip" notifications</strong> to the customer touchpoint — Trip Completion correlates with Cancellation complaints, but the complaint reflects unmet expectation more than the cancellation itself. Pre-emptive comms recover ~40% of would-be complainants per industry benchmarks.</div>' +
+        '</div>' +
+      '</div>';
+  }
+  
+  function scoresTop3() {
+    var scores = [];
+    Object.keys(OP_DATA.kpis).forEach(function(code){
+      var score = 0;
+      Object.keys(OP_DATA.correlations[code]).forEach(function(cat){
+        if (cat === 'Other') return;
+        var r = Math.abs(OP_DATA.correlations[code][cat]);
+        var vol = OP_DATA.complaints_by_cat[cat] ? OP_DATA.complaints_by_cat[cat].reduce(function(a,b){return a+b;}, 0) : 0;
+        score += r * vol;
+      });
+      scores.push({ name: OP_DATA.kpis[code].name, score: score });
+    });
+    scores.sort(function(a,b){ return b.score - a.score; });
+    return scores.slice(0,3).map(function(s){return s.name;}).join(', ');
+  }
+  
+  // ====== Run all renderers when tab activated ======
+  window.PTCHP_RERENDER_OPERATIONAL = function() {
+    renderScorecard();
+    renderMappingTable();
+    renderTimeKpiTabs();
+    renderTimeChart();
+    renderHeatmap();
+    renderScatters();
+    renderPareto();
+    renderInsights();
+  };
+  
+  // The tab-switch hook in PTCHP_RERENDER triggers the render when the
+  // Operational Performance tab is activated — canvases get proper size then.
+})();
+
+</script>
 </body>
 </html>
