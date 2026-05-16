@@ -750,17 +750,19 @@ body.tab-compact .cmp-filter-bar{top:44px}
 .opt-desc{font-size:12px;color:var(--soft);line-height:1.55}
 
 /* === Global filter bar (Overview / DAX / Operations) === */
-.gfb-wrap{position:sticky;top:62px;z-index:25;background:rgba(251,247,240,.94);backdrop-filter:saturate(160%) blur(14px);border-bottom:1px solid var(--rule);padding:10px 28px;margin:0 -28px 0;display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-family:'Inter Tight',sans-serif}
+.gfb-wrap{position:sticky;top:62px;z-index:45;background:rgba(251,247,240,.94);backdrop-filter:saturate(160%) blur(14px);border-bottom:1px solid var(--rule);padding:10px 28px;margin:0 -28px 0;display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-family:'Inter Tight',sans-serif}
 body.tab-compact .gfb-wrap{top:0}
 .gfb-label{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);font-weight:700;margin-right:2px}
 .gfb-sel{appearance:none;background:#fff;border:1px solid var(--rule);border-radius:7px;padding:7px 26px 7px 11px;font-family:inherit;font-size:12.5px;font-weight:500;color:var(--ink);cursor:pointer;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M1 1l4 4 4-4' stroke='%2394A3B8' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>");background-repeat:no-repeat;background-position:right 9px center;min-width:90px;transition:all .15s}
 .gfb-sel:hover{border-color:var(--primary-l)}
 .gfb-sel:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 2px rgba(200,85,61,.12)}
 .gfb-multi{position:relative}
+.gfb-multi.open{z-index:60}
+.gfb-multi:has(.gfb-multi-pop.open){z-index:60}
 .gfb-multi-btn{appearance:none;background:#fff;border:1px solid var(--rule);border-radius:7px;padding:7px 26px 7px 11px;font-family:inherit;font-size:12.5px;font-weight:500;color:var(--ink);cursor:pointer;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M1 1l4 4 4-4' stroke='%2394A3B8' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>");background-repeat:no-repeat;background-position:right 9px center;display:flex;align-items:center;gap:7px;transition:all .15s}
 .gfb-multi-btn:hover{border-color:var(--primary-l)}
 .gfb-multi-btn .badge{background:var(--primary);color:#fff;font-size:10px;font-weight:700;padding:1px 6px;border-radius:4px;font-family:'JetBrains Mono',monospace;min-width:14px;text-align:center}
-.gfb-multi-pop{position:absolute;top:calc(100% + 6px);left:0;background:#fff;border:1px solid var(--rule);border-radius:9px;box-shadow:0 8px 24px rgba(0,0,0,.10);padding:8px;min-width:260px;max-width:340px;max-height:380px;display:none;flex-direction:column;z-index:50}
+.gfb-multi-pop{position:absolute;top:calc(100% + 6px);left:0;background:#fff;border:1px solid var(--rule);border-radius:9px;box-shadow:0 12px 28px rgba(0,0,0,.14);padding:8px;min-width:260px;max-width:340px;max-height:380px;display:none;flex-direction:column;z-index:100}
 .gfb-multi-pop.open{display:flex}
 .gfb-multi-search{appearance:none;border:1px solid var(--rule);border-radius:6px;padding:7px 10px;font-family:inherit;font-size:12.5px;margin-bottom:6px}
 .gfb-multi-search:focus{outline:none;border-color:var(--primary)}
@@ -3943,11 +3945,16 @@ new Chart(yCtx, {
 
     btn.addEventListener('click', function(e){
       e.stopPropagation();
-      // Close other popovers
+      // Close other popovers (and clear their parent's open state)
       document.querySelectorAll('.gfb-multi-pop.open').forEach(function(p){
-        if (p !== pop) p.classList.remove('open');
+        if (p !== pop) {
+          p.classList.remove('open');
+          if (p.parentElement) p.parentElement.classList.remove('open');
+        }
       });
       pop.classList.toggle('open');
+      // Mirror open state to parent wrapper so z-index can lift the whole stack
+      if (pop.parentElement) pop.parentElement.classList.toggle('open', pop.classList.contains('open'));
       if (pop.classList.contains('open')) {
         render(search ? search.value : '');
         if (search) search.focus();
@@ -4012,7 +4019,9 @@ new Chart(yCtx, {
         else if (t === 'touchpoints') { tpCtrl.clear(); window.PTCHP_FILTER.setMulti('touchpoints', []); }
         else if (t === 'reasons') { rCtrl.clear(); window.PTCHP_FILTER.setMulti('reasons', []); }
         if (act === 'close') {
-          b.closest('.gfb-multi-pop').classList.remove('open');
+          var popEl = b.closest('.gfb-multi-pop');
+          popEl.classList.remove('open');
+          if (popEl.parentElement) popEl.parentElement.classList.remove('open');
         }
       });
     });
@@ -4020,7 +4029,10 @@ new Chart(yCtx, {
     // Click outside closes all popovers
     document.addEventListener('click', function(e){
       document.querySelectorAll('.gfb-multi-pop.open').forEach(function(p){
-        if (!p.contains(e.target)) p.classList.remove('open');
+        if (!p.contains(e.target)) {
+          p.classList.remove('open');
+          if (p.parentElement) p.parentElement.classList.remove('open');
+        }
       });
     });
 
