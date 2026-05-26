@@ -678,6 +678,9 @@ body.tab-compact .cmp-filter-bar{top:44px}
 @media (max-width:1100px){.journey-grid{grid-template-columns:1fr}}
 .journey-card{background:var(--panel);border:1px solid var(--rule);border-radius:13px;overflow:hidden;display:flex;flex-direction:column}
 .journey-head{padding:14px 18px;border-bottom:1px solid var(--rule)}
+.journey-count{margin-top:10px;padding-top:10px;border-top:1px dashed var(--rule);display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.journey-count-num{font-family:'Fraunces',serif;font-weight:600;font-size:20px;letter-spacing:-0.01em;color:var(--ink);line-height:1}
+.journey-count-lbl{font-size:10.5px;color:var(--soft);font-family:'JetBrains Mono',monospace;letter-spacing:.02em}
 .journey-tag{display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:5px;font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;font-family:'Inter Tight',sans-serif;margin-bottom:6px}
 .journey-tag.before{background:rgba(46,125,122,.13);color:var(--teal)}
 .journey-tag.during{background:rgba(212,162,76,.18);color:#7a5a1f}
@@ -1022,6 +1025,9 @@ body.tab-compact .gfb-wrap{top:0}
 
 /* Sample-data caveat banner */
 .op-caveat{background:rgba(212,162,76,.08);border:1px solid rgba(212,162,76,.25);border-left:3px solid var(--gold);border-radius:8px;padding:11px 14px;font-size:11.5px;color:var(--ink);line-height:1.5;margin-bottom:24px}
+.op-filter-note:empty{display:none}
+.op-filter-note{background:rgba(46,125,122,.06);border:1px solid rgba(46,125,122,.22);border-left:3px solid var(--teal);border-radius:8px;padding:10px 14px;font-size:11.5px;color:var(--ink);line-height:1.5;margin-bottom:20px;margin-top:-12px}
+.op-filter-note strong{color:var(--teal)}
 .op-caveat strong{color:#9C751F;font-weight:700}
 </style>
 </head>
@@ -2786,9 +2792,33 @@ body.tab-compact .gfb-wrap{top:0}
     const m = D.personas[personaName];
     if (!j || !m) return;
     
+    // === Read LIVE stats from filter engine when available ===
+    // This makes the Personas tab respond to global filter (Year, Service, etc.)
+    let liveStats = null;
+    let filtered = false;
+    if (window.PTCHP_FILTER && window.PTCHP_FILTER.personas) {
+      try {
+        const allLive = window.PTCHP_FILTER.personas();
+        liveStats = allLive[personaName];
+        filtered = window.PTCHP_FILTER.isFiltered && window.PTCHP_FILTER.isFiltered();
+      } catch (e) {
+        liveStats = null;
+      }
+    }
+    
+    // Stage counts (live if available, else null)
+    const stageCounts = liveStats ? {
+      before: liveStats.before || 0,
+      during: liveStats.during || 0,
+      after:  liveStats.after  || 0,
+      total:  liveStats.totalCases || 0,
+    } : null;
+    
     // Banner
     $('banner-name').textContent = personaName + (j.avatarLabel ? '' : '');
-    $('banner-sub').textContent = j.tagline + ' · ' + j.descriptor;
+    const liveTotal = liveStats ? liveStats.totalCases : m.totalCases;
+    const filterSuffix = filtered ? ' · filtered view' : '';
+    $('banner-sub').textContent = j.tagline + ' · ' + j.descriptor + ' · ' + (liveTotal||0).toLocaleString('en-US') + ' cases' + filterSuffix;
     const traitsBox = $('banner-traits');
     traitsBox.innerHTML = '';
     j.traits.forEach(t => {
@@ -2830,6 +2860,12 @@ body.tab-compact .gfb-wrap{top:0}
             </span>
             <div class="journey-title">${stage.title}</div>
             <div class="journey-sub">${stage.sub}</div>
+            ${stageCounts ? `
+              <div class="journey-count">
+                <span class="journey-count-num">${(stageCounts[key]||0).toLocaleString('en-US')}</span>
+                <span class="journey-count-lbl">cases · ${(stageCounts.total ? (stageCounts[key]||0)/stageCounts.total*100 : 0).toFixed(1)}% of persona</span>
+              </div>
+            ` : ''}
           </div>
           <div class="journey-body">
             <div class="j-section">
@@ -2910,6 +2946,11 @@ body.tab-compact .gfb-wrap{top:0}
   tabs.forEach(t => {
     t.addEventListener('click', () => render(t.dataset.persona));
   });
+  
+  // Expose a hook so the global filter can re-render the active persona
+  window.PTCHP_RERENDER_PERSONAS = function() {
+    render(active);
+  };
   
   // Initial render
   render('Daily Commuter');
@@ -3259,6 +3300,8 @@ body.tab-compact .gfb-wrap{top:0}
   <div class="op-caveat">
     <strong>Reference KPI dataset.</strong> Operational KPI Actual vs Target values shown below are <strong>synthesized at realistic levels</strong> (calibrated against the real monthly CRM Bus complaint volumes) to demonstrate the analytical framework. Real RTA Annual Operational KPI Results would slot in directly via the embedded JSON block (<code>op-perf-data</code>) — the analysis, correlations, scoring, and recommendations would recompute automatically.
   </div>
+  
+  <div class="op-filter-note" id="op-filter-note"></div>
 
   <!-- A. KPI Scorecard -->
   <section class="op-section">
@@ -4002,12 +4045,71 @@ new Chart(yCtx, {
     }
     
     var stats = {
-      'Daily Commuter': {totalCases:0, ratedN:0, satN:0, hasArN:0, repSum:0, rushN:0, complaintN:0, validN:0, withinSla:0, breachSla:0},
-      'Tourist': {totalCases:0, ratedN:0, satN:0, hasArN:0, repSum:0, rushN:0, complaintN:0, validN:0, withinSla:0, breachSla:0},
-      'Student': {totalCases:0, ratedN:0, satN:0, hasArN:0, repSum:0, rushN:0, complaintN:0, validN:0, withinSla:0, breachSla:0},
-      'Person': {totalCases:0, ratedN:0, satN:0, hasArN:0, repSum:0, rushN:0, complaintN:0, validN:0, withinSla:0, breachSla:0},
+      'Daily Commuter': {totalCases:0, ratedN:0, satN:0, hasArN:0, repSum:0, rushN:0, complaintN:0, validN:0, withinSla:0, breachSla:0, before:0, during:0, after:0},
+      'Tourist': {totalCases:0, ratedN:0, satN:0, hasArN:0, repSum:0, rushN:0, complaintN:0, validN:0, withinSla:0, breachSla:0, before:0, during:0, after:0},
+      'Student': {totalCases:0, ratedN:0, satN:0, hasArN:0, repSum:0, rushN:0, complaintN:0, validN:0, withinSla:0, breachSla:0, before:0, during:0, after:0},
+      'Person': {totalCases:0, ratedN:0, satN:0, hasArN:0, repSum:0, rushN:0, complaintN:0, validN:0, withinSla:0, breachSla:0, before:0, during:0, after:0},
     };
     var topReasons = {'Daily Commuter':{}, 'Tourist':{}, 'Student':{}, 'Person':{}};
+    
+    // === Journey-stage classification rules ===
+    // BEFORE  → planning channels (App / Internet / Website) AND not in-trip reasons
+    //          — these come in BEFORE the customer started moving
+    // DURING  → operational issues that happen mid-trip: reckless driving, refusal,
+    //          extending route, staff conduct, breakdowns, in-cab issues
+    //          OR customer location = Inside Taxi
+    //          OR touchpoint = Bus / Bus Stations / Marine Station / Ferry Vessel
+    // AFTER   → post-trip channels: Phone (after-fact), Email, Customer Council,
+    //          social, Google reviews. Default bucket for non-during cases on
+    //          post-trip channels.
+    function classifyStage(i) {
+      var tp = DATA.dicts.tp[c.tp[i]] || '';
+      var r = DATA.dicts.r[c.r[i]] || '';
+      var cli = c.cl[i];
+      var clv = cli >= 0 ? DATA.dicts.cl[cli] : '';
+      
+      // In-trip operational reasons
+      var duringReasons = ['Reckless driving', 'Refusal of Pick-up', 'Refusing to Deliver',
+        'Extending Route To Increase Fare', 'Staff Conduct', 'Verbal Assault',
+        'Trip Without Meter', 'Charging More Than the Meter Fare', 'Wrong Pick-up',
+        'Refused to Drop Off', 'Not Giving the Change', 'Out of Service', 'Overcrowding',
+        'AC Issue', 'Cleanliness', 'Reckless Driving', 'Breakdown', 'Delay in Arrival',
+        'Delayed Service', 'Waiting Time'];
+      var rLower = r.toLowerCase();
+      var isDuringReason = duringReasons.some(function(dr){ return r.indexOf(dr) >= 0; }) ||
+                            rLower.indexOf('drive') >= 0 || rLower.indexOf('cab') >= 0;
+      
+      // Customer location inside the taxi → during trip
+      if (clv === 'Inside Taxi') return 'during';
+      
+      // In-vehicle/in-station touchpoints → during trip
+      if (tp === 'Bus' || tp === 'Bus Stations' || tp === 'Bus TVM' || tp === 'Bus TOM' ||
+          tp === 'Marine Station' || tp === 'Ferry Vessel' || tp === 'Nol Bus Validator' ||
+          tp === 'DTC' || tp === 'Hala Taxi' || tp === 'Arabia Taxi' || tp === 'Metro Taxi' ||
+          tp === 'National Taxi' || tp === 'Kabi') {
+        return 'during';
+      }
+      
+      // In-trip operational reason → during trip
+      if (isDuringReason) return 'during';
+      
+      // Planning channels with no in-trip signal → before trip
+      var planningChannels = ['RTA Dubai App', 'S Hail Mobile App', 'Internet', 'RTA Website',
+        'Chatbot', 'Journey Planner', 'MobileApplication_Send Feedback'];
+      if (planningChannels.indexOf(tp) >= 0) {
+        // Service requests / route requests are planning-stage
+        if (r.indexOf('Add/Change Routes') >= 0 || r.indexOf('Service Enhancement') >= 0 ||
+            r.indexOf('Adding New') >= 0 || r.indexOf('AC Shelter') >= 0 ||
+            r.indexOf('Area Inspection') >= 0 || r.indexOf('Information') >= 0) {
+          return 'before';
+        }
+        // App-filed complaints could be before or after; treat as before unless reason is operational
+        return 'before';
+      }
+      
+      // Everything else (Phone, Email, Social Media, Customer Council, etc.) → after trip
+      return 'after';
+    }
     
     for (var k=0; k<idx.length; k++) {
       var i = idx[k];
@@ -4031,6 +4133,10 @@ new Chart(yCtx, {
         var r = dval('r', i);
         topReasons[p][r] = (topReasons[p][r] || 0) + 1;
       }
+      
+      // Journey-stage bucket
+      var stage = classifyStage(i);
+      s[stage]++;
     }
     
     // Finalize each persona
@@ -4283,6 +4389,7 @@ new Chart(yCtx, {
       if (window.PTCHP_RERENDER_OPS) window.PTCHP_RERENDER_OPS();
       if (window.PTCHP_RERENDER_WORKFLOW) window.PTCHP_RERENDER_WORKFLOW();
       if (window.PTCHP_RERENDER_OPERATIONAL) window.PTCHP_RERENDER_OPERATIONAL();
+      if (window.PTCHP_RERENDER_PERSONAS) window.PTCHP_RERENDER_PERSONAS();
     };
 
     // Trigger one initial render to populate from engine (so values match if needed)
@@ -5286,11 +5393,190 @@ new Chart(yCtx, {
    Operational Performance Tab — Render Logic
    ============================================================ */
 (function(){
-  // Embedded data (saved to dashboard at build time)
-  var OP_DATA = JSON.parse(document.getElementById('op-perf-data').textContent);
+  // Embedded data (saved to dashboard at build time) — the all-data baseline
+  var OP_DATA_BASELINE = JSON.parse(document.getElementById('op-perf-data').textContent);
+  var OP_DATA = JSON.parse(JSON.stringify(OP_DATA_BASELINE));  // mutable working copy
   
   var fmt = function(n){ return typeof n==='number' ? n.toLocaleString('en-US') : '—'; };
   var $ = function(id){ return document.getElementById(id); };
+  
+  // ====== Runtime recompute when filters are active ======
+  // Pulls the filtered Bus complaint signal from the filter engine and regenerates
+  // KPI Actual values using the same calibration formula as the Python build step.
+  // KPI target, direction, and unit stay fixed — only the Actual series moves.
+  function recomputeFromFilter() {
+    if (!window.PTCHP_FILTER || !window.PTCHP_FILTER.getData) return;
+    var DATA = window.PTCHP_FILTER.getData();
+    if (!DATA) return;
+    var idx = window.PTCHP_FILTER.getIdx();
+    var filtered = window.PTCHP_FILTER.isFiltered && window.PTCHP_FILTER.isFiltered();
+    
+    // If no filter active, use the baseline (faster)
+    if (!filtered) {
+      OP_DATA = JSON.parse(JSON.stringify(OP_DATA_BASELINE));
+      var note = $('op-filter-note');
+      if (note) note.textContent = '';
+      return;
+    }
+    
+    // === Step 1: Compute monthly complaint counts per category from filtered slice ===
+    // Categorize each filtered Complaint row into one of 8 categories (mirrors Python)
+    var months = OP_DATA_BASELINE.months;
+    var categories = ['Punctuality','Crowding','Cancellations','Breakdowns','Safety/Conduct','Route/Stop','Comfort','Cleanliness','Other'];
+    var catByMonth = {};
+    months.forEach(function(m){ catByMonth[m] = {}; categories.forEach(function(c){ catByMonth[m][c] = 0; }); });
+    
+    function reasonToCat(r) {
+      if (!r) return 'Other';
+      var rl = r.toLowerCase();
+      if (rl.indexOf('delay')>=0 || rl.indexOf('late')>=0 || rl.indexOf('waiting time')>=0 ||
+          rl.indexOf('arrival')>=0 || rl.indexOf('wait')>=0) return 'Punctuality';
+      if (rl.indexOf('crowd')>=0 || rl.indexOf('capacity')>=0 || rl.indexOf('overload')>=0 ||
+          rl.indexOf('full')>=0) return 'Crowding';
+      if (rl.indexOf('cancel')>=0 || rl.indexOf('missing')>=0 || rl.indexOf('missed')>=0 ||
+          rl.indexOf('trip')>=0) return 'Cancellations';
+      if (rl.indexOf('out of service')>=0 || rl.indexOf('breakdown')>=0 ||
+          rl.indexOf('malfunction')>=0 || rl.indexOf('technical')>=0) return 'Breakdowns';
+      if (rl.indexOf('reckless')>=0 || rl.indexOf('accident')>=0 || rl.indexOf('safety')>=0 ||
+          rl.indexOf('staff conduct')>=0 || rl.indexOf('verbal')>=0 || rl.indexOf('driver')>=0 ||
+          rl.indexOf('conduct')>=0) return 'Safety/Conduct';
+      if (rl.indexOf('route')>=0 || rl.indexOf('station')>=0 || rl.indexOf('stop')>=0 ||
+          rl.indexOf('pick-up')>=0 || rl.indexOf('pick up')>=0 || rl.indexOf('drop')>=0 ||
+          rl.indexOf('destination')>=0) return 'Route/Stop';
+      if (rl.indexOf('cleanliness')>=0 || rl.indexOf('clean')>=0) return 'Cleanliness';
+      if (rl.indexOf('air')>=0 || rl.indexOf('shelter')>=0 || rl.indexOf('condition')>=0) return 'Comfort';
+      return 'Other';
+    }
+    
+    var c = DATA.columns, dicts = DATA.dicts;
+    var nProcessed = 0;
+    for (var k=0; k<idx.length; k++) {
+      var i = idx[k];
+      var tt = dicts.tt[c.tt[i]];
+      if (tt !== 'Complaint') continue;  // KPI analysis is complaint-focused
+      var y = c.y[i], mo = c.m[i];
+      var ymKey = y + '-' + (mo < 10 ? '0'+mo : ''+mo);
+      if (!catByMonth[ymKey]) continue;  // out of our 36-month window
+      var r = dicts.r[c.r[i]] || '';
+      var cat = reasonToCat(r);
+      catByMonth[ymKey][cat]++;
+      nProcessed++;
+    }
+    
+    // Build per-category arrays aligned to months
+    var complaintsByCat = {};
+    categories.forEach(function(cat){
+      complaintsByCat[cat] = months.map(function(m){ return catByMonth[m][cat]; });
+    });
+    var complaintsTotal = months.map(function(m){
+      var s = 0; categories.forEach(function(cat){ s += catByMonth[m][cat]; }); return s;
+    });
+    
+    // If filter produced almost no data, leave baseline (avoid div-by-zero garbage)
+    if (nProcessed < 12) {
+      OP_DATA = JSON.parse(JSON.stringify(OP_DATA_BASELINE));
+      var noteEl = $('op-filter-note');
+      if (noteEl) noteEl.innerHTML = '<strong>⚠ Filter too narrow.</strong> Fewer than 12 complaint cases in scope — showing baseline KPI dataset. Broaden the filter to see KPI signals recompute.';
+      return;
+    }
+    
+    // === Step 2: Build stress signals (normalize per category) ===
+    function normalize(arr) {
+      var min = Infinity, max = -Infinity;
+      arr.forEach(function(v){ if (v<min) min=v; if (v>max) max=v; });
+      if (max === min) return arr.map(function(){ return 0; });
+      return arr.map(function(v){ return (v-min)/(max-min); });
+    }
+    
+    var stressTotal = normalize(complaintsTotal);
+    var stressPunct = normalize(complaintsByCat['Punctuality']);
+    var stressCrowd = normalize(complaintsByCat['Crowding']);
+    var stressCancel = normalize(complaintsByCat['Cancellations']);
+    var stressBrk = normalize(complaintsByCat['Breakdowns']);
+    var stressSafety = normalize(complaintsByCat['Safety/Conduct']);
+    
+    // Mapping from KPI code to its primary stress driver (mirrors Python)
+    var stressMap = {
+      'OTP': stressPunct,
+      'Fleet': stressBrk,
+      'Load': stressCrowd,
+      'Breakdown': stressBrk,
+      'Accident': stressSafety,
+      'Wait': stressPunct,
+      'Trip': stressCancel,
+      'Cancelled': stressCancel,
+      'Headway': stressPunct,
+    };
+    
+    // === Step 3: Regenerate KPI Actual series ===
+    // Same formula as Python: actual = target * (1 + delta) for higher_better,
+    // actual = target + (combined * amplitude * target) for lower_better.
+    // Use deterministic pseudo-noise so re-renders are stable.
+    function seededRandom(seed) {
+      var s = seed;
+      return function() { s = (s*9301 + 49297) % 233280; return s/233280 - 0.5; };
+    }
+    
+    Object.keys(OP_DATA_BASELINE.kpis).forEach(function(code){
+      var baseKpi = OP_DATA_BASELINE.kpis[code];
+      var newKpi = JSON.parse(JSON.stringify(baseKpi));
+      var primary = stressMap[code] || stressTotal;
+      var n = months.length;
+      var amplitude = baseKpi.unit === '%' ? 0.05 : 0.35;
+      var noise = baseKpi.unit === '%' ? 0.008 * baseKpi.target : 0.05;
+      var rng = seededRandom(code.charCodeAt(0) * 7 + nProcessed);
+      
+      newKpi.actual = [];
+      for (var i=0; i<n; i++) {
+        var combined = 0.7*primary[i] + 0.3*stressTotal[i];
+        var val;
+        if (baseKpi.dir === 'higher_better') {
+          val = baseKpi.target * (1 + combined * amplitude * -1);
+        } else {
+          val = baseKpi.target + combined * amplitude * baseKpi.target;
+        }
+        val += rng() * 2 * noise;
+        newKpi.actual.push(Math.round(val * 100) / 100);
+      }
+      OP_DATA.kpis[code] = newKpi;
+    });
+    
+    // === Step 4: Update complaint signal in OP_DATA so other sections see filtered data ===
+    OP_DATA.complaints_by_cat = complaintsByCat;
+    OP_DATA.complaints_total = complaintsTotal;
+    
+    // === Step 5: Recompute correlations (Pearson r) for the filtered series ===
+    function pearson(a, b) {
+      var n = a.length, sumA=0, sumB=0;
+      for (var i=0;i<n;i++){ sumA+=a[i]; sumB+=b[i]; }
+      var meanA=sumA/n, meanB=sumB/n;
+      var num=0, denA=0, denB=0;
+      for (var j=0;j<n;j++){
+        var da=a[j]-meanA, db=b[j]-meanB;
+        num += da*db; denA += da*da; denB += db*db;
+      }
+      if (denA===0 || denB===0) return 0;
+      return num / Math.sqrt(denA*denB);
+    }
+    
+    var newCorr = {};
+    Object.keys(OP_DATA.kpis).forEach(function(code){
+      newCorr[code] = {};
+      categories.forEach(function(cat){
+        if (cat === 'Other') return;
+        newCorr[code][cat] = Math.round(pearson(OP_DATA.kpis[code].actual, complaintsByCat[cat]) * 1000) / 1000;
+      });
+      newCorr[code]['Other'] = Math.round(pearson(OP_DATA.kpis[code].actual, complaintsByCat['Other']) * 1000) / 1000;
+    });
+    OP_DATA.correlations = newCorr;
+    
+    // === Step 6: Surface filter context in the caveat banner ===
+    var filterEl = $('op-filter-note');
+    if (filterEl) {
+      var summary = window.PTCHP_FILTER.summary ? window.PTCHP_FILTER.summary() : '';
+      filterEl.innerHTML = '<strong>Filter applied.</strong> KPI Actual series and correlations recomputed from the ' + nProcessed.toLocaleString('en-US') + ' complaints in scope (' + summary + '). Targets are fixed.';
+    }
+  }
   
   // ====== Helper: compute KPI status (Meeting / Watch / Underperforming) ======
   function kpiStatus(kpi, months) {
@@ -5685,6 +5971,7 @@ new Chart(yCtx, {
   
   // ====== Run all renderers when tab activated ======
   window.PTCHP_RERENDER_OPERATIONAL = function() {
+    recomputeFromFilter();  // pull live filter signal first
     renderScorecard();
     renderMappingTable();
     renderTimeKpiTabs();
